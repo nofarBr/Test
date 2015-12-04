@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.WebApi.Tests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.DomainServicess", "SaveMyDay.DomainServicess\SaveMyDay.DomainServicess.csproj", "{006973DA-05AF-4996-B53F-5B1CD93317CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.Entitiess", "SaveMyDay.Entitiess\SaveMyDay.Entitiess.csproj", "{63E499C5-1739-4E28-A601-9BDD09FAA2FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDate.Entities", "SaveMyDate.Entities\SaveMyDate.Entities.csproj", "{6568170B-243D-4F17-85D2-8369F78686F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{006973DA-05AF-4996-B53F-5B1CD93317CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{006973DA-05AF-4996-B53F-5B1CD93317CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{006973DA-05AF-4996-B53F-5B1CD93317CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63E499C5-1739-4E28-A601-9BDD09FAA2FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63E499C5-1739-4E28-A601-9BDD09FAA2FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63E499C5-1739-4E28-A601-9BDD09FAA2FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63E499C5-1739-4E28-A601-9BDD09FAA2FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6568170B-243D-4F17-85D2-8369F78686F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6568170B-243D-4F17-85D2-8369F78686F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6568170B-243D-4F17-85D2-8369F78686F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6568170B-243D-4F17-85D2-8369F78686F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
