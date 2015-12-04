@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace SaveMyDate.Entities
 {
-    public class Address
+    public class City
     {
-        public string Street { get; set; }
-        public City City { get; set; }
-        public string HouseNumber { get; set; }
+        public int Code { get; set; }
+        public string Decription { get; set; }
     }
 }

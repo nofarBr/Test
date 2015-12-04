@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace SaveMyDate.Entities
 {
+    // which custumer saved
     public class Appointment
     {
         public int Code { get; set; }
