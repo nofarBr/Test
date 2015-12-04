@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.WebApi.Tests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.Entites", "SaveMayDay.Entites\SaveMyDay.Entites.csproj", "{7759A0DD-A203-4247-818A-B79C0B56E37B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.DomainServicess", "SaveMyDay.DomainServicess\SaveMyDay.DomainServicess.csproj", "{006973DA-05AF-4996-B53F-5B1CD93317CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7759A0DD-A203-4247-818A-B79C0B56E37B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7759A0DD-A203-4247-818A-B79C0B56E37B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7759A0DD-A203-4247-818A-B79C0B56E37B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{006973DA-05AF-4996-B53F-5B1CD93317CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{006973DA-05AF-4996-B53F-5B1CD93317CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{006973DA-05AF-4996-B53F-5B1CD93317CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{006973DA-05AF-4996-B53F-5B1CD93317CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
