@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
     <Compile Include="Appointment.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="CompanyType.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Errand.cs" />
     <Compile Include="Location.cs" />

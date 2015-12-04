@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SaveMyDay.Entities
+namespace SaveMyDate.Entities
 {
     public class Company
     {
@@ -16,13 +16,6 @@ namespace SaveMyDay.Entities
         public Company()
         {
             appoiments = new List<Appointment>();
-        }
-
-        public enum CompanyType
-        {
-            MedicalClinic,
-            Banks,
-            PostOffice
         }
     }
 }

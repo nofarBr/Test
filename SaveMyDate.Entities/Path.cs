@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace SaveMyDay.Entities
+namespace SaveMyDate.Entities
 {
     public class Path
     {

@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SaveMyDate.Entities
 {
-    public class User
+    public enum CompanyType
     {
-        public int Code { get; set; }
-        public string Name { get; set; }
-        public string Password { get; set; }
+        MedicalClinic,
+        Banks,
+        PostOffice
     }
 }
