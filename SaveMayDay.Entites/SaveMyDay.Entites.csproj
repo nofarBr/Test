@@ -7,8 +7,8 @@
     <ProjectGuid>{7759A0DD-A203-4247-818A-B79C0B56E37B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SaveMayDay.Entites</RootNamespace>
-    <AssemblyName>SaveMayDay.Entites</AssemblyName>
+    <RootNamespace>SaveMyDay.Entites</RootNamespace>
+    <AssemblyName>SaveMyDay.Entites</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
