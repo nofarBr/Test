@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SaveMyDay.Entites")]
+[assembly: AssemblyTitle("SaveMyDay.Entitiess")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SaveMyDay.Entites")]
+[assembly: AssemblyProduct("SaveMyDay.Entitiess")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7759a0dd-a203-4247-818a-b79c0b56e37b")]
+[assembly: Guid("63e499c5-1739-4e28-a601-9bdd09faa2ff")]
 
 // Version information for an assembly consists of the following four values:
 //

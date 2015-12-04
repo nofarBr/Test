@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7759A0DD-A203-4247-818A-B79C0B56E37B}</ProjectGuid>
+    <ProjectGuid>{63E499C5-1739-4E28-A601-9BDD09FAA2FF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SaveMyDay.Entites</RootNamespace>
-    <AssemblyName>SaveMyDay.Entites</AssemblyName>
+    <RootNamespace>SaveMyDay.Entitiess</RootNamespace>
+    <AssemblyName>SaveMyDay.Entitiess</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Appointment.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Errand.cs" />
