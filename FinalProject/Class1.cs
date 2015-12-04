@@ -8,6 +8,6 @@ namespace FinalProject
 {
     public class Class1
     {
-        int i;
+        int i = 2;
     }
 }
