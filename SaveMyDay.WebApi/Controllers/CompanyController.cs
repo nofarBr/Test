@@ -1,13 +1,30 @@
 ﻿using SaveMyDate.Entities;
 using System.Web.Http;
+using MongoDB.Driver;
+using SaveMayDay.Common;
+using System.Linq;
+using SaveMyDate.Entities;
+using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.OData;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace SaveMyDay.WebApi.Controllers
 {
     public class CompanyController : ApiController
     {
-        public Company GetCompanyByKindAndLocation(string Type, [FromUri]City city)
+        private readonly MongoDbHandler<Company> _MongoDbHandler;
+        public CompanyController()
         {
-            return new Company { Code = 1, Type = CompanyType.MedicalClinic, Location = new Location { X = 0.6494, Y = 65946.614 } };
+            _MongoDbHandler = new MongoDbHandler<Company>();
+        }
+
+        [EnableQueryAttribute]
+        public IQueryable<Company> GetCompanyByKindAndLocation(string Type, [FromUri]City city)
+        {
+            return _MongoDbHandler.Collection.FindAll().AsQueryable();
         }
     }
 }
