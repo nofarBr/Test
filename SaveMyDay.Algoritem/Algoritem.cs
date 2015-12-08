@@ -10,10 +10,10 @@ namespace SaveMyDay.Algoritem
 {
     public class Algoritem
     {
-        private IList<Constraint> _constraints;
-        private IList<Errand> _errands;
-        private IDictionary<CompanyType, IList<Appointment>> _appointmentDataBase;
-        private IList<Path> _results;
+        private IList<Constraint> _constraints { get; set; }
+        private IList<Errand> _errands { get; set; }
+        private IDictionary<CompanyType, IList<Appointment>> _appointmentDataBase { get; set; }
+        private IList<Path> _results { get; set; }
 
         public Algoritem()
         {
