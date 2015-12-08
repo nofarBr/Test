@@ -17,34 +17,33 @@ namespace SaveMyDay.ServerLogic
         }
 
         // Ctor with user details for login.
-        public ServerLogic(User _user)
+        public ServerLogic(User user)
         {
 
         }
 
         // Connect to the "system"
-        static bool connect(User _user)
+        public static bool Connect(User user)
         {
             return false;
         }
 
         // Active the algoritem
-        public void activate()
+        public void Activate()
         {
             // Run the active methods on algoritem
         }
 
         // Get Recommended path by priority
-        public Path getResult(int priority)
+        public Path GetResult(int priority)
         {
             return null;
         }
 
-        // Get accept from user of a path.
-        public void accept(List<Appointment> _appointments)
+        // Get Accept from user of a path.
+        public void Accept(List<Appointment> appointments)
         {
             // insert the appointments to the "company"
         }
-
     }
 }

@@ -40,8 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompanyHandler.cs" />
+    <Compile Include="ICompanyHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SaveMayDay.Common\SaveMayDay.Common.csproj">
+      <Project>{386bb575-b30f-4394-ab44-d3eafb1e5497}</Project>
+      <Name>SaveMayDay.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaveMyDate.Entities\SaveMyDate.Entities.csproj">
+      <Project>{6568170b-243d-4f17-85d2-8369f78686f8}</Project>
+      <Name>SaveMyDate.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
