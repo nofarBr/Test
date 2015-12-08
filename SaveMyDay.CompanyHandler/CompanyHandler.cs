@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SaveMyDay.CompanyHandler
 {
-    public class Class1
+    public class CompanyHandler
     {
+        
     }
 }
