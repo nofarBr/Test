@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.WebApi", "SaveMyDay.WebApi\SaveMyDay.WebApi.csproj", "{4B6CB61F-7B83-4B1F-BFBE-F4B84E092338}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.CompanyHandler", "SaveMyDay.CompanyHandler\SaveMyDay.CompanyHandler.csproj", "{047207FF-A15C-49E9-8CF6-E3D815D215A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.CompanySimulator", "SaveMyDay.CompanySimulator\SaveMyDay.CompanySimulator.csproj", "{2028B24F-E650-419A-AF9C-1A4097F6DCD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.ClientSide", "SaveMyDay.ClientSide\SaveMyDay.ClientSide.csproj", "{C4C36AA5-B76C-4993-B468-91ABED7E455F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{2028B24F-E650-419A-AF9C-1A4097F6DCD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2028B24F-E650-419A-AF9C-1A4097F6DCD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2028B24F-E650-419A-AF9C-1A4097F6DCD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4C36AA5-B76C-4993-B468-91ABED7E455F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4C36AA5-B76C-4993-B468-91ABED7E455F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4C36AA5-B76C-4993-B468-91ABED7E455F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4C36AA5-B76C-4993-B468-91ABED7E455F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
