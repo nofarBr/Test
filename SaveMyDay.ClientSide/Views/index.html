@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>Save My Day</title>
+
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../Scripts/angular-route.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Style/style.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="../Scripts/script.js"></script>
+</head>
+<body ng-app="single-page-app" style="direction:rtl">
+    <div ng-controller="homeCtrl">
+        <div>
+            <!--- Navigation Bar --->
+            <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">לוגו הארגון</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse ">
+                    <ul class="nav navbar-nav navbar-right  " id="menu_items">
+                        <li class="active navbar-right"><a href="#/home">ראשי</a></li>
+                        <li class="navbar-right"><a href="#/login">התחברות</a></li>
+                        <li class="navbar-right"><a href="#/map">הצג מפה</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <br/>
+        
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3"></script>
+        <script src="../Scripts/markerwithlabel.js"></script>
+        <script src="../Scripts/richmarker.js"></script>
+        <script src="../Scripts/maps-api.js"></script>d
+        <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOnipZ0p4Khy5BhgtWhmLdkO9j4Du1-iw"
+                async defer></script>-->
+
+        <div ng-view class="jumbotron"></div>
+    </div>
+</body>
+</html>
