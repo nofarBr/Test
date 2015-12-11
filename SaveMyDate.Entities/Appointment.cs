@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MongoDB.Bson;
 
 namespace SaveMyDate.Entities
 {
     // which custumer saved
-    public class Appointment
+       
+    public class Appointment : IMongoEntity
     {
-        
         public ObjectId Id { get; set; }
         public Company Company { get; set; }
         public DateTime Time { get; set; }

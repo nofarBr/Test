@@ -7,7 +7,7 @@ namespace SaveMyDay.WebApi.Controllers
     {
         public User GetUserByName(string name)
         {
-            return new User { Code = 1, Name = "iahel", Password = "222" };
+            return new User { Name = "iahel", Password = "222" };
         }
     }
 }

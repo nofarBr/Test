@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
 
 namespace SaveMyDate.Entities
 {
-    public class Company
+    public class Company : IMongoEntity
     {
-        public int Code { get; set; }
+        public ObjectId Id { get; set; }
         public Location Location { get; set; }
         public CompanyType Type { get; set; }
         public string UrlForApi { get; set; }
-        public List<Appointment> appoiments { get; set; }
 
         public Company()
         {
-            appoiments = new List<Appointment>();
         }
     }
 }

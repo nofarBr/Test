@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson;
 
 
 namespace SaveMyDate.Entities
 {
 
     //delete this
-    public class Path
+    public class Path : IMongoEntity
     {
-        public int Code { get; set; }
+        public ObjectId Id { get; set; }
         public User User { get; set; }
         public List<Appointment> Appointments { get; set; }
         public List<Constraint> Constraints { get; set; }
@@ -23,6 +24,6 @@ namespace SaveMyDate.Entities
         {
             Car,
             walk,
-        }
+        }        
     }
 }

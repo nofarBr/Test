@@ -36,7 +36,6 @@ namespace TestClientForControlers
                 Remark = "wtfff",
                 Company = new Company()
                 {
-                    Code = 1,
                     Type = CompanyType.Banks,
                     Location = new Location()
                     {
