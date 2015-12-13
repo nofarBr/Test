@@ -77,11 +77,16 @@
   <ItemGroup>
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\fullcalendar.css" />
+    <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\fullcalendar.print.css" />
     <Content Include="Scripts\maps-api.js" />
     <Content Include="Scripts\markerwithlabel.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\richmarker.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Style\style.css" />
+    <Content Include="Views\calendar.html" />
     <Content Include="Views\login.html" />
     <Content Include="Views\home.html" />
     <Content Include="Views\index.html" />
