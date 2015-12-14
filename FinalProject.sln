@@ -23,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.CompanyHandler", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.CompanySimulator", "SaveMyDay.CompanySimulator\SaveMyDay.CompanySimulator.csproj", "{2028B24F-E650-419A-AF9C-1A4097F6DCD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.ClientSide", "SaveMyDay.ClientSide\SaveMyDay.ClientSide.csproj", "{C4C36AA5-B76C-4993-B468-91ABED7E455F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,10 +69,6 @@ Global
 		{2028B24F-E650-419A-AF9C-1A4097F6DCD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2028B24F-E650-419A-AF9C-1A4097F6DCD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2028B24F-E650-419A-AF9C-1A4097F6DCD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4C36AA5-B76C-4993-B468-91ABED7E455F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4C36AA5-B76C-4993-B468-91ABED7E455F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4C36AA5-B76C-4993-B468-91ABED7E455F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4C36AA5-B76C-4993-B468-91ABED7E455F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
