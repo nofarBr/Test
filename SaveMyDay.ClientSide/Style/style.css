@@ -1,0 +1,65 @@
+﻿
+body {
+    background-color:#E6E6E6;
+}
+
+#logo-div {
+    background:url('Images/logo-bg.jpg');
+    background-size:cover;
+}
+
+#logo-text {
+    display:inline-block;
+    padding:15px;
+    background:rgba(255,255,255,0.8);
+    border: 1px solid #ABABAB;
+    color:black;
+}
+
+#nav-toolbar, #content-div, #footer-div {
+    border:1px solid #ABABAB;
+}
+
+/* ANIMATIONS
+============================================================================= */
+
+.view.ng-leave { z-index:9999; }
+.view.ng-enter { z-index:8888; }
+
+/* view change effects */
+/*.view.ng-leave {
+    -webkit-animation:slideOutRight 0.2s both ease-in;
+	-moz-animation:slideOutRight 0.2s both ease-in;
+	animation:slideOutRight 0.2s both ease-in; 
+}*/
+    
+.view.ng-enter {  
+    -webkit-animation:slideInRight 0.3s both ease-in;
+	-moz-animation:slideInRight 0.3s both ease-in;
+	animation:slideInRight 0.3s both ease-in;    
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+	from 	{ transform:translateX(100%); }
+	to 		{ transform: translateX(0); }
+}
+@-moz-keyframes slideInRight {
+	from 	{ -moz-transform:translateX(100%); }
+	to 		{ -moz-transform: translateX(0); }
+}
+@-webkit-keyframes slideInRight {
+	from 	{ -webkit-transform:translateX(100%); }
+	to 		{ -webkit-transform: translateX(0); }
+}
+
+/* slide out from the right */
+@keyframes slideOutRight {
+	to 		{ transform: translateX(50%); }
+}
+@-moz-keyframes slideOutRight {	
+	to 		{ -moz-transform: translateX(50%); }
+}
+@-webkit-keyframes slideOutRight {
+	to 		{ -webkit-transform: translateX(50%); }
+}

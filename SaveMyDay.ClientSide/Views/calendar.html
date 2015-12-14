@@ -1,0 +1,16 @@
+﻿<div>
+    <hr>
+    <h2 class="intro-text text-center">
+        <strong>ניהול יומן</strong>
+    </h2>
+    <hr>
+    <br />
+    <div dir="rtl" class="col-md-6">
+        <div id='arrangements' ng-controller="arrangementCtrl" style="float:right;">
+            <button ng-click="addAppointment('arrangements')">הוסף תור</button>
+        </div>
+    </div>
+    <div dir="rtl" class="col-md-6">
+        <div id='calendar' ng-controller="calendarCtrl"></div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html ng-app="mainApp" lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Save My Day</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../Style/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template CSS -->
+    <link href="../Style/template-design.css" rel="stylesheet">
+    
+    <!-- Our CSS style -->
+    <link href="../Style/style.css" rel="stylesheet">
+
+    <!-- Calendar CSS -->
+    <link href='../Style/fullcalendar.css' rel='stylesheet' />
+    <link href='../Style/fullcalendar.print.css' rel='stylesheet' media='print' />
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body dir="rtl">
+
+    <!-- Logo -->
+    <div id="logo-div" class="brand">
+        <span id="logo-text">Save My Day</span>
+        <p></p>
+    </div>
+
+    <!-- Navigation toolbar -->
+    <nav id="nav-toolbar" class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#/about">אודות</a>
+                    </li>
+                    <li>
+                        <a href="#/calendar">ניהול יומן</a>
+                    </li>
+                    <li>
+                        <a href="#/map">הצג מפה</a>
+                    </li>
+                    <li>
+                        <a href="#/login">התחברות</a>
+                    </li>
+                    <li>
+                        <a href="#/home">ראשי</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Content view -->
+    <div class="container">
+        <div class="row">
+            <div id="content-div" class="box">
+                <div class="col-lg-12">
+                    <div ng-view class="view"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer-div">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <p>Copyright &copy; - SaveMyDay Project Team 2015-2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../Scripts/jquery.js"></script>
+
+    <!-- Bootstrap and Angular Core scripts -->
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="../Scripts/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.js"></script>
+
+    <!-- Calendar scripts -->
+    <script src='../Scripts/moment.min.js'></script>
+    <script src='../Scripts/fullcalendar.min.js'></script>
+
+    <!-- Angular main app and controllers scripts -->
+    <script src="../Scripts/mainApp.js"></script>
+    <script src="../Controllers/HomeController.js"></script>
+    <script src="../Controllers/LoginController.js"></script>
+    <script src="../Controllers/MapController.js"></script>
+    <script src="../Controllers/CalendarController.js"></script>
+    <script src="../Controllers/AboutController.js"></script>
+
+    <!-- Map scripts -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3"></script>
+    <script src="../Scripts/richmarker.js"></script>
+    <script src="../Scripts/maps-api.js"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOnipZ0p4Khy5BhgtWhmLdkO9j4Du1-iw"
+            async defer></script>-->
+
+</body>
+</html>
