@@ -16,7 +16,7 @@ namespace TestClientForControlers
             while(true)
                 {
                 helper.Post();
-                var pp = helper.Get();
+              //  var pp = helper.Get();
                 Console.WriteLine("done");
             }
            

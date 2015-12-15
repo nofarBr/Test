@@ -8,7 +8,7 @@ namespace SaveMyDate.Entities
     //delete this
     public class Path : IMongoEntity
     {
-        public ObjectId Id { get; set; }
+        public string Id { get; set; }
         public User User { get; set; }
         public List<Appointment> Appointments { get; set; }
         public List<Constraint> Constraints { get; set; }

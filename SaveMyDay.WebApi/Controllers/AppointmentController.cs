@@ -1,20 +1,26 @@
 ﻿using SaveMyDate.Entities;
 using System;
 using System.Collections.Generic;
-using System.Web.Http;
+
 using System.Web.OData;
+
 using SaveMayDay.Common;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.OData.Query;
+using System.Web.OData.Routing;
 using MongoDB.Bson;
 
 namespace SaveMyDay.WebApi.Controllers
 {
-    public class AppointmentController : ApiController
+    public class AppointmentController : ODataController
     {
-        private readonly MongoCrud<Appointment> _mongoDbHandler;
+        private readonly MongoCrud<Appointment> _mongoCrud;
         public AppointmentController()
         {
-            _mongoDbHandler = new MongoCrud<Appointment>();
+            _mongoCrud = new MongoCrud<Appointment>();
         }
         public IEnumerable<Appointment> GetAppointmentByCompanyType(string Type)
         {
@@ -29,19 +35,30 @@ namespace SaveMyDay.WebApi.Controllers
             }
         }
 
-        [EnableQueryAttribute]
-        public IQueryable<Appointment> GetAllAppointment()
+        [EnableQuery]
+        public IQueryable<Appointment> GetAppointment()
         {
-            return _mongoDbHandler.GetEntity();
+            return _mongoCrud.GetAllEntities();
         }
+
+
+        //public HttpResponseMessage Post(Appointment appointment)
+        //{
+        //    _mongoCrud.SaveOrUpdate(appointment);
+        //    return Request.CreateResponse(HttpStatusCode.OK);
+        //}
 
         [HttpPost]
-        public void PostAppointment(Appointment appointment)
+     
+        public IHttpActionResult PostAppointment(ODataActionParameters parameters)
         {
-            _mongoDbHandler.SaveOrUpdate(appointment);
+            var appointment = (Appointment)parameters["Appointment"];
+            _mongoCrud.SaveOrUpdate(appointment);
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-       
+
     }
 
 }

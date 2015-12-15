@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using SaveMyDate.Entities;
 
 namespace SaveMayDay.Common
@@ -13,15 +15,21 @@ namespace SaveMayDay.Common
             _mongoDbHandler = new MongoDbHandler<T>();
         }
 
-        public IQueryable<T> GetEntity()
+        public IQueryable<T> GetAllEntities()
         {
             return _mongoDbHandler.Collection.FindAll().AsQueryable();
         }
 
         public void SaveOrUpdate(T entityToSave)
         {   
-             entityToSave.Id = ObjectId.GenerateNewId();
+             entityToSave.Id = ObjectId.GenerateNewId().ToString();
             _mongoDbHandler.Collection.Save(entityToSave);
         }
-    }
+
+        //public IQueryable<T> GetContact(string id)
+        //{
+        //    IMongoQuery query = Query.EQ("_id", id);
+        //    return _mongoDbHandler.Collection.Find(query).FirstOrDefault();
+        //}
+}
 }
