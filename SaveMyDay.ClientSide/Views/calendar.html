@@ -5,12 +5,17 @@
     </h2>
     <hr>
     <br />
-    <div dir="rtl" class="col-md-6">
-        <div id='arrangements' ng-controller="arrangementCtrl" style="float:right;">
-            <button ng-click="addAppointment('arrangements')">הוסף תור</button>
+    <div dir="rtl" class="col-md-6" style="text-align:center;">
+        <div id='arrangements' ng-controller="arrangementCtrl" style="float:none;">
+            <button ng-click="addAppointment('arrangements')" class="btn-info" style="margin-bottom:14px;">הוסף תור</button>
         </div>
     </div>
     <div dir="rtl" class="col-md-6">
+        <input dir="rtl" type="date" ng-controller="datePickCtrl" id="date-picker" class="fc-button fc-corner-right fc-corner-right fc-button-group" 
+                style="text-align:center; float:right; align-items:center; max-width:45%" required="required" />
         <div id='calendar' ng-controller="calendarCtrl"></div>
+        </div>
+    <div style="text-align:center; clear:both; padding-top:30px">
+        <button class="btn-primary">חשב יומן</button>
     </div>
 </div>

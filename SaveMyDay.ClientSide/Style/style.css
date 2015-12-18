@@ -20,6 +20,26 @@ body {
     border:1px solid #ABABAB;
 }
 
+.small-delete-button {
+    width:15px;
+    height:15px;
+    margin-left:10px;
+}
+
+.add-appointment-button {
+    height:38px;
+    margin-bottom:14px;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+.combo-box-margins {
+    margin-top:15px;
+}
+
 /* ANIMATIONS
 ============================================================================= */
 

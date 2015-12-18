@@ -22,6 +22,8 @@ app.controller('arrangementCtrl', function ($scope) {
     $scope.addAppointment = function (parent) {
         var appointmentDiv = document.createElement('div');
         appointmentDiv.id = 'appointment-div-' + $scope.arrangementsNum;
+        appointmentDiv.className = "combo-box-margins";
+
         var typesCombo = document.createElement('select');
         typesCombo.id = 'appointment-types-combo';
         typesCombo.index = $scope.arrangementsNum++
@@ -35,13 +37,25 @@ app.controller('arrangementCtrl', function ($scope) {
             typesCombo.appendChild(typesComboOption);
         }
 
+        var typesComboOption = document.createElement('option');
+        typesComboOption.selected = true;
+        typesComboOption.disabled = true;
+        typesComboOption.hidden = true;
+        typesComboOption.innerHTML = "-- select an option --";
+        typesComboOption.value = "-- select an option --";
+        typesCombo.appendChild(typesComboOption);
+
         typesCombo.onchange = function () {
-            if (document.getElementById('appointment-sub-types-combo')) {
-                document.getElementById('appointment-sub-types-combo' + typesCombo.index).remove();
+            var subBoxId = 'appointment-sub-types-combo' + typesCombo.index;
+            for (i = 0; i < appointmentDiv.childNodes.length; i++) {
+                var child = appointmentDiv.childNodes[i];
+                if (child.id === subBoxId) {
+                    child.remove();
+                }
             }
 
             var subTypesCombo = document.createElement('select');
-            subTypesCombo.id = 'appointment-sub-types-combo' + typesCombo.index;
+            subTypesCombo.id = subBoxId;
 
             var selectedSubMenu = typesCombo.selectedOptions[0].subMenu;
 
@@ -53,29 +67,47 @@ app.controller('arrangementCtrl', function ($scope) {
                 subTypesCombo.appendChild(typesComboOption);
             }
 
+            var typesComboOption = document.createElement('option');
+            typesComboOption.selected = true;
+            typesComboOption.disabled = true;
+            typesComboOption.hidden = true;
+            typesComboOption.innerHTML = "-- select an option --";
+            typesComboOption.value = "-- select an option --";
+            subTypesCombo.appendChild(typesComboOption);
+
             appointmentDiv.appendChild(subTypesCombo);
         }
 
+        var deleteButton = document.createElement("img");
+        deleteButton.src = "https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Delete.png";
+        deleteButton.onclick = function () {
+            appointmentDiv.remove();
+        }
+
+        deleteButton.className = "small-delete-button";
+
+        appointmentDiv.appendChild(deleteButton);
         appointmentDiv.appendChild(typesCombo);
 
         $('#arrangements').append(appointmentDiv);
     }
 });
 
+app.controller('datePickCtrl', function ($scope) {
+    $('#date-picker').change(function () {
+        $('#calendar').fullCalendar('gotoDate', $('#date-picker')[0].valueAsDate);
+    });
+});
+
 app.controller('calendarCtrl', function ($scope) {
+
+    $('.fc-header-title').parent('td').after($('#date-picker'));
+
     $scope.$on('$viewContentLoaded', function () {
         $('#calendar').fullCalendar({
-            customButtons: {
-                addEvent: {
-                    text: 'Add Event',
-                    click: function () {
-                        select();
-                    }
-                }
-            },
             header: {
-                left: 'prev,next today',
-                center: 'title',
+                left: 'title',
+                center: '',
                 right: '' //agendaDay month,agendaWeek,
             },
             width: ($(window).width() * 45) / 100,
