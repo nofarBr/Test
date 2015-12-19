@@ -112,6 +112,7 @@ app.controller('calendarCtrl', function ($scope) {
             },
             width: ($(window).width() * 45) / 100,
             defaultView: 'agendaDay',
+            allDaySlot: false,
             selectable: true,
             selectHelper: true,
             select: function (start, end) {
