@@ -2,23 +2,31 @@
 using System.Web.Http;
 using SaveMayDay.Common;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.OData;
 
 namespace SaveMyDay.WebApi.Controllers
 {
     public class CompanyController : ODataController
     {
-        private readonly MongoDbHandler<Company> _MongoDbHandler;
+        private readonly MongoCrud<Company> _mongoCrud;
         public CompanyController()
         {
-            _MongoDbHandler = new MongoDbHandler<Company>();
+            _mongoCrud = new MongoCrud<Company>();
         }
-
        
         [EnableQuery]
-        public IQueryable<Company> GetCompanyByKindAndLocation(string Type, [FromUri]City city)
+        public IQueryable<Company> GetAllCompanies()
         {
-            return _MongoDbHandler.Collection.FindAll().AsQueryable();
+            return _mongoCrud.GetAllEntities().AsQueryable();
+        }
+
+        [HttpPost]
+        public HttpResponseMessage PostCompany([FromBody]Company company)
+        {
+            _mongoCrud.SaveOrUpdate(company);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

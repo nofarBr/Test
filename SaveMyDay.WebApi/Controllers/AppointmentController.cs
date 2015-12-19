@@ -1,17 +1,10 @@
 ﻿using SaveMyDate.Entities;
-using System;
-using System.Collections.Generic;
-
 using System.Web.OData;
-
 using SaveMayDay.Common;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.OData.Query;
-using System.Web.OData.Routing;
-using MongoDB.Bson;
 
 namespace SaveMyDay.WebApi.Controllers
 {
@@ -22,41 +15,36 @@ namespace SaveMyDay.WebApi.Controllers
         {
             _mongoCrud = new MongoCrud<Appointment>();
         }
-        public IEnumerable<Appointment> GetAppointmentByCompanyType(string Type)
-        {
-            CompanyType CompanyType;
-            if (Enum.TryParse(Type, true, out CompanyType))
-            {
-                return new List<Appointment> { new Appointment { Company = new Company() { Type = CompanyType.Banks }, Time = DateTime.Now } };
-            }
-            else
-            {
-                return new List<Appointment>();
-            }
-        }
-
+       
         [EnableQuery]
         public IQueryable<Appointment> GetAppointment()
         {
             return _mongoCrud.GetAllEntities();
         }
 
+        [HttpPost]
+        public HttpResponseMessage PostAppointment([FromBody]Appointment appointment)
+        {
+            _mongoCrud.SaveOrUpdate(appointment);
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
 
-        //public HttpResponseMessage Post(Appointment appointment)
+        // odata other try
+        //[HttpPost]
+        //public IHttpActionResult Post([FromBody]Appointment appointment)
         //{
         //    _mongoCrud.SaveOrUpdate(appointment);
-        //    return Request.CreateResponse(HttpStatusCode.OK);
+        //    return StatusCode(HttpStatusCode.OK);
         //}
 
-        [HttpPost]
-     
-        public IHttpActionResult PostAppointment(ODataActionParameters parameters)
-        {
-            var appointment = (Appointment)parameters["Appointment"];
-            _mongoCrud.SaveOrUpdate(appointment);
+        // One try of odata
+        //public IHttpActionResult PostAppointment(ODataActionParameters parameters)
+        //{
+        //    var appointment = (Appointment)parameters["Appointment"];
+        //    _mongoCrud.SaveOrUpdate(appointment);
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
 
     }

@@ -11,7 +11,7 @@ namespace TestClientForControlers
     {
         static void Main(string[] args)
         {
-            WebApiHelper helper = new WebApiHelper("http://localhost:60799/api/Appointment/");
+            WebApiHelper helper = new WebApiHelper("http://localhost:60799/");
 
             while(true)
                 {

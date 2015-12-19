@@ -21,8 +21,7 @@ namespace SaveMayDay.Common
         }
 
         public void SaveOrUpdate(T entityToSave)
-        {   
-             entityToSave.Id = ObjectId.GenerateNewId().ToString();
+        {             
             _mongoDbHandler.Collection.Save(entityToSave);
         }
 
