@@ -14,7 +14,29 @@
         <input dir="rtl" type="date" ng-controller="datePickCtrl" id="date-picker" class="fc-button fc-corner-right fc-corner-right fc-button-group" 
                 style="text-align:center; float:right; align-items:center; max-width:45%" required="required" />
         <div id='calendar' ng-controller="calendarCtrl"></div>
+        <div dir="ltr" id="fullCalModal" class="modal fade" style="text-align:center; align-items:center; margin-top:10%;">
+            <div class="modal-dialog" style="text-align:center; align-items:center;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                        <input type="text" id="modalTitle" class="modal-title" style="text-align:center; align-items:center;" />
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="modalLocation" class="modal-title" style="text-align:center; align-items:center;" />
+                        <br/><br/>
+                        <div id="timepickerDiv">
+                            Start Time: <input id="modalStartTime" class="time start" autocomplete="off" style="max-width:15%; margin:5px;" />
+                            End Time: <input id="modalEndTime" class="time end" autocomplete="off" style="max-width:15%; margin:5px;" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="modalSave" type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+                        <button id="modalDelete" class="btn btn-primary" data-dismiss="modal">Delete</button>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
     <div style="text-align:center; clear:both; padding-top:30px">
         <button class="btn-primary">חשב יומן</button>
     </div>

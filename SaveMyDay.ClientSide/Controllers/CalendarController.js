@@ -115,89 +115,98 @@ app.controller('calendarCtrl', function ($scope) {
             selectable: true,
             selectHelper: true,
             select: function (start, end) {
-                var title = prompt('Event Title:');
-                var location = prompt('Event Location:');
-                var eventData;
-                if (title) {
-                    eventData = {
-                        title: title,
-                        location: location,
-                        start: start,
-                        end: end
+                $('#timepickerDiv .time').timepicker({
+                    'scrollDefault': 'now',
+                    'showDuration': true,
+                    'disableTextInput': true,
+                    'timeFormat': 'H:i'
+                });
+
+                // initialize datepair
+                var timepickerDiv = document.getElementById('timepickerDiv');
+                var datepair = new Datepair(timepickerDiv);
+
+                document.getElementById('modalTitle').value = 'כותרת';
+                document.getElementById('modalLocation').value ='מיקום';
+                document.getElementById('modalStartTime').value =  moment(start).format('HH:mm');
+                document.getElementById('modalEndTime').value = moment(end).format('HH:mm');
+
+                document.getElementById('modalDelete').onclick = function () {
+                    $('#calendar').fullCalendar('unselect');
+                };
+
+                document.getElementById('modalSave').onclick = function () {
+                    event = {
+                        title: '',
+                        location: '',
+                        end: '',
+                        start: ''
                     };
-                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                    var endTime = document.getElementById('modalEndTime').value.split(':');
+                    var startTime = document.getElementById('modalStartTime').value.split(':');
+
+                    event.title = document.getElementById('modalTitle').value;
+                    event.location = document.getElementById('modalLocation').value;
+
+                    end.hour(endTime[0]);
+                    end.minute(endTime[1]);
+                    event.end = end;
+
+                    start.hour(startTime[0]);
+                    start.minute(startTime[1]);
+                    event.start = start;
+
+                    $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
                 }
-                $('#calendar').fullCalendar('unselect');
+
+                $('#fullCalModal').modal();
             },
-            eventClick: function (event, element) {
-                var retVal = confirm("Do you want to delete? (click cancel to update)");
-                if (retVal == true) {
+            eventClick: function (event, jsEvent, view) {
+                $('#timepickerDiv .time').timepicker({
+                    'scrollDefault': 'now',
+                    'showDuration': true,
+                    'disableTextInput': true,
+                    'timeFormat': 'H:i'
+                });
+
+                // initialize datepair
+                var timepickerDiv = document.getElementById('timepickerDiv');
+                var datepair = new Datepair(timepickerDiv);
+
+                document.getElementById('modalTitle').value = event.title;
+                document.getElementById('modalLocation').value = event.location;
+                document.getElementById('modalStartTime').value =  moment(event.start).format('HH:mm');
+                document.getElementById('modalEndTime').value = moment(event.end).format('HH:mm');
+
+                document.getElementById('modalDelete').onclick = function () {
                     $('#calendar').fullCalendar('removeEvents', event._id);
-                }
-                else {
-                    var title = prompt('Event Title:', event.title);
-                    var location = prompt('Event Location:', event.location);
-                    event.title = title;
-                    event.location = location;
+                };
+
+                document.getElementById('modalSave').onclick = function () {
+                    var endTime = document.getElementById('modalEndTime').value.split(':');
+                    var startTime = document.getElementById('modalStartTime').value.split(':');
+
+                    event.title = document.getElementById('modalTitle').value;
+                    event.location = document.getElementById('modalLocation').value;
+
+                    event.end.hour(endTime[0]);
+                    event.end.minute(endTime[1]);
+
+                    event.start.hour(startTime[0]);
+                    event.start.minute(startTime[1]);
+
                     $('#calendar').fullCalendar('updateEvent', event);
                 }
+
+                $('#fullCalModal').modal();
             },
             editable: true,
             eventLimit: true, // allow "more" link when too many events
             events: [
                 {
-                    title: 'All Day Event',
-                    start: '2015-12-01'
-                },
-                {
-                    title: 'Long Event',
-                    start: '2015-12-07',
-                    end: '2015-12-10'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2015-12-09T16:00:00'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2015-12-16T16:00:00'
-                },
-                {
-                    title: 'Conference',
-                    start: '2015-12-11',
-                    end: '2015-12-13'
-                },
-                {
                     title: 'Meeting',
-                    start: '2015-12-12T10:30:00',
-                    end: '2015-12-12T12:30:00'
-                },
-                {
-                    title: 'Lunch',
-                    start: '2015-12-12T12:00:00'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2015-12-12T14:30:00'
-                },
-                {
-                    title: 'Happy Hour',
-                    start: '2015-12-12T17:30:00'
-                },
-                {
-                    title: 'Dinner',
-                    start: '2015-12-12T20:00:00'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: '2015-12-13T07:00:00'
-                },
-                {
-                    title: 'Click for Google',
-                    url: 'http://google.com/',
-                    start: '2015-12-28'
+                    start: '2015-12-19T10:30:00',
+                    end: '2015-12-19T12:30:00'
                 }
             ]
         });

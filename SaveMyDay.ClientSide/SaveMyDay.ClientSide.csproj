@@ -67,6 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Scripts\Datepair.js" />
+    <Content Include="Scripts\jquery.datepair.js" />
+    <Content Include="Scripts\jquery.timepicker.min.js" />
     <Content Include="Style\Fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Style\Fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Style\Fonts\glyphicons-halflings-regular.woff" />
@@ -92,6 +95,7 @@
     <Content Include="Style\bootstrap.min.css" />
     <Content Include="Style\fullcalendar.css" />
     <Content Include="Style\fullcalendar.print.css" />
+    <Content Include="Style\jquery.timepicker.css" />
     <Content Include="Style\template-design.css" />
     <Content Include="Style\style.css" />
     <Content Include="Style\Fonts\glyphicons-halflings-regular.svg" />
