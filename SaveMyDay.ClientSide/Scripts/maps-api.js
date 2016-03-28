@@ -2,6 +2,7 @@
 var geocoder;
 var markers = [];
 var directionsDisplays = [];
+var markersPerPath = [];
 
 function initializeMap() {
     geocoder = new google.maps.Geocoder();
@@ -31,22 +32,47 @@ function initializeMap() {
     markers.push(marker);
 }*/
 
-function addLabelMarker(address, text) {
+function addLabelMarker(path_id, address, text) {
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             var textmarker = new RichMarker({
-                map: map,
+                map: null,
                 position: results[0].geometry.location,
                 draggable: false,
                 flat: true,
                 anchor: RichMarkerPosition.CUSTOM,
                 content: '<div class="map-labels">' + text + '</div>'
             });
-            markers.push(textmarker);
+            markersPerPath[path_id].push(textmarker);
+            //markersPerPath.push(textmarker);
         } else {
             alert("Geocode was not successful for the following reason: " + status);
         }
     });
+}
+
+function hideAllMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+}
+
+function hideMarkersByPath(path_id) {
+    for (var i = 0; i < markersPerPath[path_id].length; i++) {
+        markersPerPath[path_id][i].setMap(null);
+    }
+}
+
+function showAllMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }
+}
+
+function showMarkersByPath(path_id) {
+    for (var i = 0; i < markersPerPath[path_id].length; i++) {
+        markersPerPath[path_id][i].setMap(map);
+    }
 }
 
 function removeAllMarkers() {
@@ -73,7 +99,7 @@ function hideAllRoutes() {
     directionsDisplays[route_id].setMap(map);
 }*/
 
-function modifyRoute(route_id, color, set_markers) {
+function modifyRoute(path_id, color, set_markers) {
 
     var supress_markers;
     var strokeWeight;
@@ -81,12 +107,14 @@ function modifyRoute(route_id, color, set_markers) {
     if (set_markers == 'true') {
         supress_markers = false;
         strokeWeight = 8;
+        showMarkersByPath(path_id);
     } else {
         supress_markers = true;
         strokeWeight = 5;
+        hideMarkersByPath(path_id);
     }
 
-    directionsDisplays[route_id].setOptions({
+    directionsDisplays[path_id].setOptions({
         suppressMarkers: supress_markers,
         polylineOptions: {
             strokeColor: color,
@@ -95,10 +123,10 @@ function modifyRoute(route_id, color, set_markers) {
         }
     });
 
-    directionsDisplays[route_id].setMap(map);
+    directionsDisplays[path_id].setMap(map);
 }
 
-function addNewRoute(places, color, set_markers) {
+function addNewRoute(path_id, places, labels) {
     
     var start = places[0];
     var end = places[places.length - 1];
@@ -112,16 +140,17 @@ function addNewRoute(places, color, set_markers) {
             });
         }
     }
-    
-    var directionsDisplay = new google.maps.DirectionsRenderer({
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+    /*var directionsDisplay = new google.maps.DirectionsRenderer({
         polylineOptions: {
             strokeColor: color,
             strokeWeight: 5,
             strokeOpacity: 0.7
         }
-    });
+    });*/
 
-    var supress_markers;
+    /*var supress_markers;
     if (set_markers == 'true')
     {
         supress_markers = false;
@@ -129,9 +158,10 @@ function addNewRoute(places, color, set_markers) {
     else
     {
         supress_markers = true;
-    }
-    directionsDisplay.setMap(map);
-    directionsDisplay.setOptions({ suppressMarkers: supress_markers });
+    }*/
+
+    directionsDisplay.setMap(null);
+    //directionsDisplay.setOptions({ suppressMarkers: supress_markers });
     var directionsService = new google.maps.DirectionsService;
 
     directionsService.route({
@@ -149,6 +179,15 @@ function addNewRoute(places, color, set_markers) {
     });
     
     directionsDisplays.push(directionsDisplay);
+
+    var currPathMarkers = [];
+    markersPerPath.push(currPathMarkers);
+
+    for (var i = 0; i < labels.length; i++) {
+        addLabelMarker(path_id, places[i], labels[i]);
+    }
+
+    //hideMarkersByPath(path_id);
 }
 
 /*function addRoute(place1, place2) {

@@ -20,6 +20,20 @@ body {
     border:1px solid #ABABAB;
 }
 
+/* Map labels for places */
+.map-labels {
+     color: black;
+     background-color: white;
+     font-family: "Lucida Grande", "Arial", sans-serif;
+     font-size: 11px;
+     font-weight: bold;
+     text-align: center;
+     width: 60px;
+     height: 20px;
+     border: 2px solid black;
+     white-space: nowrap;
+}
+
 .small-delete-button {
     width:15px;
     height:15px;

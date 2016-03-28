@@ -702,8 +702,8 @@ RichMarker.prototype.getOffset_ = function() {
      offset.height = -height;
      break;
    case RichMarkerPosition['CUSTOM']:
-       offset.width = -40;
-       offset.height = -75;
+       offset.width = -30;
+       offset.height = -60;
        break;
   }
 

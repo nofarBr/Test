@@ -67,9 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Scripts\cbpFWTabs.js" />
     <Content Include="Scripts\Datepair.js" />
     <Content Include="Scripts\jquery.datepair.js" />
     <Content Include="Scripts\jquery.timepicker.min.js" />
+    <Content Include="Scripts\modernizr.custom.js" />
     <Content Include="Style\Fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Style\Fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Style\Fonts\glyphicons-halflings-regular.woff" />
@@ -96,6 +98,8 @@
     <Content Include="Style\fullcalendar.css" />
     <Content Include="Style\fullcalendar.print.css" />
     <Content Include="Style\jquery.timepicker.css" />
+    <Content Include="Style\tabs.css" />
+    <Content Include="Style\tabstyles.css" />
     <Content Include="Style\template-design.css" />
     <Content Include="Style\style.css" />
     <Content Include="Style\Fonts\glyphicons-halflings-regular.svg" />
@@ -116,9 +120,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

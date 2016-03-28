@@ -1,68 +1,165 @@
-﻿<div>
+﻿<div ng-app="mainApp" ng-controller="mapCtrl">
     <hr>
     <h2 class="intro-text text-center">
         <strong>הצג מפה</strong>
     </h2>
     <hr>
     <br />
-    <div class="col-md-8">
-        <div id="map_canvas" style="width: 700px; height: 500px;"></div>
-    </div>
     <div class="col-md-4">
-        <h2 style="font-weight:bold">מסלולים אופציונליים</h2>
-        <br />
-        <div ng-app="mainApp" ng-controller="mapCtrl">
-            <p class="path-title" ng-click="ShowPath(1)">
-                מסלול 1
-            </p>
-            <div ng-show="Path1">
-                <h4>פירוט מסלול 1</h4>
-                <ul>
-                    <li>
-                        תור לרופא עור (רחוב הרצל 8, חולון)
-                    </li>
-                    <li>
-                        תור לספר (רחוב המסגר 4, ת"א)
-                    </li>
-                    <li>
-                        תור לדואר (רחוב אלי כהן 15, חולון)
-                    </li>
-                </ul>
+        <div class="panel panel-default" style="height:500px">
+            <div class="panel-heading">
+                <h3 style="font-weight:bold">מסלולים אופציונליים</h3>
+                <!--<h3 class="panel-title">מסלולים אופציונליים</h3>-->
             </div>
-            <p class="path-title" ng-click="ShowPath(2)">
-                מסלול 2
-            </p>
-            <div ng-show="Path2">
-                <h4>פירוט מסלול 2</h4>
-                <ul>
-                    <li>
-                        תור לרופא עור (רחוב הרצל 8, חולון)
-                    </li>
-                    <li>
-                        תור לספר (רחוב המסגר 4, ת"א)
-                    </li>
-                    <li>
-                        תור לדואר (רחוב אלי כהן 15, חולון)
-                    </li>
-                </ul>
-            </div>
-            <p class="path-title" ng-click="ShowPath(3)">
-                מסלול 3
-            </p>
-            <div ng-show="Path3">
-                <h4>פירוט מסלול 3</h4>
-                <ul>
-                    <li>
-                        תור לרופא עור (רחוב הרצל 8, חולון)
-                    </li>
-                    <li>
-                        תור לספר (רחוב המסגר 4, ת"א)
-                    </li>
-                    <li>
-                        תור לדואר (רחוב אלי כהן 15, חולון)
-                    </li>
-                </ul>
-            </div>
+            <div class="panel-body-">
+                <section>
+                    <div class="tabs tabs-style-bar">
+                        <nav>
+                            <ul class="myTabs">
+                                <li ng-repeat="path in paths | orderBy:'id'" ng-click="ShowPath(path.id)">
+                                    <a href="#section-bar-{{path.id}}">
+                                        <span>מסלול {{path.id}}</span>
+                                    </a>
+                                </li>
+                                <!--<li><a href="#section-bar-1"><span>מסלול 1</span></a></li>
+                                <li><a href="#section-bar-2"><span>מסלול 2</span></a></li>
+                                <li><a href="#section-bar-3"><span>מסלול 3</span></a></li>-->
+                            </ul>
+                        </nav>
+                        <div class="content-wrap" style="">
+                            <section ng-repeat="path in paths | orderBy:'id'" id="section-bar-{{path.id}}" my-post-repeat-directive>
+                                <ul>
+                                    <li ng-repeat="item in path.appointments">{{item}}</li>
+                                </ul>
+                            </section>
+                            <!--<section id="section-bar-1"><p>1</p></section>
+                            <section id="section-bar-2"><p>2</p></section>
+                            <section id="section-bar-3"><p>3</p></section>-->
+                        </div><!-- /content -->
+                    </div><!-- /tabs -->
+                </section>
+                <!--<div class="path-tabs" layout="column" ng-cloak>
+                    <md-content class="md-padding">
+                        <md-tabs md-selected="selectedIndex" md-border-bottom md-autoselect md-stretch-tabs="always">
+                            <md-tab ng-repeat="tab in tabs"
+                                    ng-disabled="tab.disabled"
+                                    label="{{tab.title}}"
+                                    ng-click="ShowPath(tab.id)">
+                                <div class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: center;">
+                                    <div ng-bind="tab.content"></div>
+                                    <br />
+                                </div>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+                </div>-->
+                <!--<div class="btn-group btn-group-justified" data-toggle="buttons" style="/*width:308px;*/border: 1px solid #c3bcbc;border-radius:5px;border-bottom:none;border-bottom-left-radius:0px;border-bottom-right-radius:0px">
+                    <label class="btn btn-default" ng-click="ShowPath(1)" style="border-bottom-right-radius:0px">
+                        <input type="radio" name="options" id="option1" autocomplete="off">מסלול 1
+                    </label>
+                    <label class="btn btn-default" ng-click="ShowPath(2)">
+                        <input type="radio" name="options" id="option2" autocomplete="off">מסלול 2
+                    </label>
+                    <label class="btn btn-default" ng-click="ShowPath(3)" style="border-bottom-left-radius:0px">
+                        <input type="radio" name="options" id="option3" autocomplete="off">מסלול 3
+                    </label>
+                </div>-->
+                <!--
+                <div ng-cloak>
+                    <md-content>
+                        <md-tabs md-border-bottom style="width:300px">
+                            <md-tab label="מסלול 1">
+                                <md-content class="md-padding">
+                                    <h1 class="md-display-2">Tab One</h1>
+                                    <p>בלה בלה בלה</p>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="מסלול 2">
+                                <md-content class="md-padding">
+                                    <h1 class="md-display-2">Tab Two</h1>
+                                    <p>בלה בלה בלה</p>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="מסלול 3">
+                                <md-content class="md-padding">
+                                    <h1 class="md-display-2">Tab Three</h1>
+                                    <p>בלה בלה בלה</p>
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+                </div>-->
+                <!--<div ng-app="mainApp" ng-controller="mapCtrl">
+                    <p class="path-title" ng-click="ShowPath(1)">
+                        מסלול 1
+                    </p>
+                    <div ng-show="Path1">
+                        <h4>פירוט מסלול 1</h4>
+                        <ul>
+                            <li>
+                                תור לרופא עור (רחוב הרצל 8, חולון)
+                            </li>
+                            <li>
+                                תור לספר (רחוב המסגר 4, ת"א)
+                            </li>
+                            <li>
+                                תור לדואר (רחוב אלי כהן 15, חולון)
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="path-title" ng-click="ShowPath(2)">
+                        מסלול 2
+                    </p>
+                    <div ng-show="Path2">
+                        <h4>פירוט מסלול 2</h4>
+                        <ul>
+                            <li>
+                                תור לרופא עור (רחוב הרצל 8, חולון)
+                            </li>
+                            <li>
+                                תור לספר (רחוב המסגר 4, ת"א)
+                            </li>
+                            <li>
+                                תור לדואר (רחוב אלי כהן 15, חולון)
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="path-title" ng-click="ShowPath(3)">
+                        מסלול 3
+                    </p>
+                    <div ng-show="Path3">
+                        <h4>פירוט מסלול 3</h4>
+                        <ul>
+                            <li>
+                                תור לרופא עור (רחוב הרצל 8, חולון)
+                            </li>
+                            <li>
+                                תור לספר (רחוב המסגר 4, ת"א)
+                            </li>
+                            <li>
+                                תור לדואר (רחוב אלי כהן 15, חולון)
+                            </li>
+                        </ul>
+                    </div>
+                </div>-->
+            </div>      
         </div>
     </div>
+    <div class="col-md-8">
+        <!--
+        <button ng-click="TryRest()">try rest</button>
+        <button ng-click="TryRest2()">try rest 2</button>
+            -->
+        <div id="map_canvas" style="width: 700px; height: 500px;border: 1px solid #ddd"></div>
+    </div>
 </div>
+
+<script src="../Scripts/cbpFWTabs.js"></script>
+<script>
+(function() {
+
+
+
+})();
+</script>
+    
