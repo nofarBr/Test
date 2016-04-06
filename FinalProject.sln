@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.CompanySimulator"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.ClientSide", "SaveMyDay.ClientSide\SaveMyDay.ClientSide.csproj", "{9BEC514B-5780-40CF-85EF-3EC5CD515615}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathFinder", "PathFinder\PathFinder.csproj", "{A05478ED-8345-432E-AE73-03D5CFF75BFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySchedualer", "DaySchedualer\DaySchedualer.csproj", "{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,14 @@ Global
 		{9BEC514B-5780-40CF-85EF-3EC5CD515615}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BEC514B-5780-40CF-85EF-3EC5CD515615}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BEC514B-5780-40CF-85EF-3EC5CD515615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A05478ED-8345-432E-AE73-03D5CFF75BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A05478ED-8345-432E-AE73-03D5CFF75BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A05478ED-8345-432E-AE73-03D5CFF75BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A05478ED-8345-432E-AE73-03D5CFF75BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

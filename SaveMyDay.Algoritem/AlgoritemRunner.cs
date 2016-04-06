@@ -8,14 +8,14 @@ using SaveMyDate.Entities;
 
 namespace SaveMyDay.Algoritem
 {
-    public class Algoritem
+    public class AlgoritemRunner
     {
         public IList<Constraint> Constraints { get; private set; }
         public IList<Errand> Errands { get; private set; }
         public IDictionary<CompanyType, IList<Appointment>> AppointmentDataBase { get; private set; }
         public IList<Path> Results { get; private set; }
 
-        public Algoritem()
+        public AlgoritemRunner()
         {
             AppointmentDataBase = new Dictionary<CompanyType, IList<Appointment>>();
             Results = new List<Path>();
@@ -23,7 +23,7 @@ namespace SaveMyDay.Algoritem
             Errands = new List<Errand>();
         }
 
-        public bool Activate()
+        public bool Activate(List<Company> companies)
         {
             return false;
         }
