@@ -213,3 +213,32 @@ app.controller('calendarCtrl', function ($scope) {
         });
     });
 });
+
+app.controller('calculateRequestCtrl', function ($scope) {
+    $scope.calculateRequest = function () {
+        var input = document.getElementById('citySelect');
+
+        //if ($scope.cities.indexOf(input.value.trim()) < 0) {
+        //    alert("בחר עיר מרשימת הערים");
+        //} else {
+        $.post('http://localhost:52747/api/PathCalculator');
+        //}
+    }
+
+    var dataList = document.getElementById('json-datalist');
+    var input = document.getElementById('citySelect');
+
+    $.get("../Datalist/CityList.txt", function (data) {
+        // Loop over the JSON array.
+        var cities = data.split('\n');
+        $scope.cities = cities;
+        cities.forEach(function (item) {
+            // Create a new <option> element.
+            var option = document.createElement('option');
+            // Set the value using the item in the JSON array.
+            option.value = item.trim();
+            // Add the <option> element to the <datalist>.
+            dataList.appendChild(option);
+        });
+    });
+});
