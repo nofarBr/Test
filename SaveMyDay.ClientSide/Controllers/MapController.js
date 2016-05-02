@@ -18,19 +18,6 @@ app.controller('mapCtrl', function ($scope, $http) {
 
         $scope.InitializeMapByJSon();
 
-        $scope.BuildTabs();
-        // Create (and show) the routes in the map
-        //addNewRoute(1, places1, labels1, '#808080', 'false');
-        //addNewRoute(2, places2, labels2, '#808080', 'false');
-        //addNewRoute(3, places3, labels3, '#3399FF', 'true');
-
-        // Hide the routes
-        //hideAllRoutes();
-
-        //
-        //hideMarkersByPath(1);
-        //hideMarkersByPath(2);
-        //hideMarkersByPath(3);
     });
 
     $scope.TryRest = function () {
@@ -44,7 +31,7 @@ app.controller('mapCtrl', function ($scope, $http) {
 
     $scope.InitializeMapByJSon = function () {
         // Get the paths data in json format
-        var jsonPath = "[{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Namer 10 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-17T21:51:31.0095157+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Lachish 4 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Sivan 2 Ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Megido 6 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":2,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0},{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Hagvura 5 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-17T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Hanasi 50 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0},{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Lachish 4 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":2,\"UrlForApi\":null},\"Time\":\"2015-12-17T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Tsipori 1 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Sinai 2 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Ort 2 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0175161+05:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0}]";
+        var jsonPath = "[{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Namer 10 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-17T21:40:31.0095157+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Lachish 4 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:31:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Sivan 2 Ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T11:51:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Megido 6 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":2,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0},{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Hagvura 5 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-17T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Hanasi 50 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0},{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Lachish 4 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":2,\"UrlForApi\":null},\"Time\":\"2015-12-17T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Tsipori 1 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Sinai 2 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Ort 2 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T21:51:31.0175161+05:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0}]";
         
         // Define the labels for each company type
         var arrCompanyTypeLabels = ['תור לרופא', 'תור לבנק', 'תור לדואר'];
@@ -64,7 +51,15 @@ app.controller('mapCtrl', function ($scope, $http) {
             for (var j = 0; j < arrPaths[i].Appointments.length; j++) {
                 locations.push(arrPaths[i].Appointments[j].Company.Location.Address.Street);
                 labels.push(arrCompanyTypeLabels[arrPaths[i].Appointments[j].Company.Type]);
-                path_details.push(arrPaths[i].Appointments[j].Time + " - " + arrCompanyTypeLabels[arrPaths[i].Appointments[j].Company.Type]);
+                var date = new Date(arrPaths[i].Appointments[j].Time);
+                path_details.push({
+                    icon: arrPaths[i].Appointments[j].Company.Type,
+                    time: date.getHours() + ":" + date.getMinutes(),
+                    desc: arrCompanyTypeLabels[arrPaths[i].Appointments[j].Company.Type],
+                    address: "רחוב ז'בוטינסקי 106, רמת גן"
+                });
+                //path_details.push(date.getHours() + ":" + date.getMinutes() + " - " + arrCompanyTypeLabels[arrPaths[i].Appointments[j].Company.Type]);
+                //path_details.push(arrPaths[i].Appointments[j].Time + " - " + arrCompanyTypeLabels[arrPaths[i].Appointments[j].Company.Type]);
             }
 
             // Add the current path as route in the map
@@ -74,35 +69,16 @@ app.controller('mapCtrl', function ($scope, $http) {
             //alert(paths[i].appointments);
         }
 
-        /*var paths = [
-            { id: 1, content: "Tabs will become paginated if there isn't enough room for them." },
-            { id: 2, content: "You can swipe left and right on a mobile device to change tabs." },
-            { id: 3, content: "You can bind the selected tab via the selected attribute on the md-tabs element." }
-        ];*/
-        /*var paths = [
-            { id: 1, content: ["place a", "place b", "place c"] },
-            { id: 2, content: [4, 5, 6] },
-            { id: 3, content: [7, 8, 9] }
-        ];*/
         $scope.paths = paths;
     }
 
-    $scope.ShowPath = function (path_id) {
-        /*
-        for (var i = 1; i <= 3; i++) {
-            if (i == path_id) {
-                $scope['Path' + i] = true;
-            } else {
-                $scope['Path' + i] = false;
-                modifyRoute(i - 1, '#808080', 'false');
-            }
-        }
+    $scope.ChoosePath = function () {
+        alert($scope.chosen_path);
+    }
 
-        modifyRoute(path_id - 1, '#3399FF', 'true');
-        */
-        //var places1 = ['Namer 10 ashkelon', 'Lachish 4 ashkelon', 'Sivan 2 Ashkelon', 'Megido 6 ashkelon'];
-        //var places2 = ['Hagvura 5 ashkelon', 'Hanasi 50 ashkelon'];
-        //var places3 = ['Lachish 4 ashkelon', 'Tsipori 1 ashkelon', 'Sinai 2 ashkelon', 'Tzfanya 8 ashkelon'];
+    $scope.ShowPath = function (path_id) {
+
+        $scope.chosen_path = path_id;
 
         // User chose path number 1
         if (path_id == 1) {
@@ -142,14 +118,6 @@ app.controller('mapCtrl', function ($scope, $http) {
         }
     }
 
-    $scope.BuildTabs = function () {
-        /*var tabs = [
-              { id: 1, title: 'מסלול 1', content: "Tabs will become paginated if there isn't enough room for them." },
-              { id: 2, title: 'מסלול 2', content: "You can swipe left and right on a mobile device to change tabs." },
-              { id: 3, title: 'מסלול 3', content: "You can bind the selected tab via the selected attribute on the md-tabs element." }
-        ];
-        $scope.tabs = tabs;*/
-    }
 });
 
 app.directive('myPostRepeatDirective', function () {
@@ -158,23 +126,7 @@ app.directive('myPostRepeatDirective', function () {
         [].slice.call(document.querySelectorAll('.tabs')).forEach(function (el) {
             new CBPFWTabs(el);
         });
-        //if (scope.$last) {
-            // iteration is complete, do whatever post-processing
-            // is necessary
-            //alert('finished to render repeat');
-            /*$(".tab_content").hide();
-            $(".tab_content:first").show();
-
-            $("ul.myTabs li").click(function () {
-                $("ul.myTabs li").removeClass("active");
-                $(this).addClass("active");
-                $(".tab_content").hide();
-                var activeTab = $(this).attr("rel");
-                $("#" + activeTab).fadeIn();
-            });*/
-
-
-            //element.parent().css('border', '1px solid black');
-        //}
     };
 });
+
+
