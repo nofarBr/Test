@@ -217,12 +217,24 @@ app.controller('calendarCtrl', function ($scope) {
 app.controller('calculateRequestCtrl', function ($scope) {
     $scope.calculateRequest = function () {
         var input = document.getElementById('citySelect');
+        var cityList = document.getElementById('json-datalist');
+        var valueInCityList = false;
 
-        //if ($scope.cities.indexOf(input.value.trim()) < 0) {
-        //    alert("בחר עיר מרשימת הערים");
-        //} else {
-        $.post('http://localhost:52747/api/PathCalculator');
-        //}
+        for (var opt = 0; opt < cityList.childNodes.length - 1; opt++) {
+            if (cityList.childNodes[opt].value === input.value) {
+                valueInCityList = true;
+                break;
+            }
+        }
+
+        if (!valueInCityList) {
+            alert("בחר עיר מתוך רשימת הערים");
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('POST', 'http://localhost:52747/api/PathCalculator', true);
+            xmlhttp.setRequestHeader('Content-Type', 'application/json');
+            xmlhttp.send({ 'city': 'Tel Aviv' });
+        }
     }
 
     var dataList = document.getElementById('json-datalist');
