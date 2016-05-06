@@ -214,7 +214,7 @@ app.controller('calendarCtrl', function ($scope) {
     });
 });
 
-app.controller('calculateRequestCtrl', function ($scope) {
+app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $location) {
     $scope.calculateRequest = function () {
         var input = document.getElementById('citySelect');
         var cityList = document.getElementById('json-datalist');
@@ -230,10 +230,26 @@ app.controller('calculateRequestCtrl', function ($scope) {
         if (!valueInCityList) {
             alert("בחר עיר מתוך רשימת הערים");
         } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open('POST', 'http://localhost:52747/api/PathCalculator', true);
-            xmlhttp.setRequestHeader('Content-Type', 'application/json');
-            xmlhttp.send({ 'city': 'Tel Aviv' });
+            var url = 'http://localhost:52747/api/PathCalculator';
+            var data = {
+                'city': {
+                    "Code": 1,
+                    "Decription": "Tel Aviv"
+                }, 'city2': 'Holon' };
+            $http.post(url, data)
+            .success(function (data) {
+                $rootScope.pathsList = data.paths;
+                $location.path("/map");
+            })
+            .error(function (data, status, header, config) {
+                var b = 3;
+            });
+
+
+            //var xmlhttp = new XMLHttpRequest();
+            //xmlhttp.open('POST', 'http://localhost:52747/api/PathCalculator', true);
+            //xmlhttp.setRequestHeader('Content-Type', 'application/json');
+            //xmlhttp.send({ 'city': 'Tel Aviv' });
         }
     }
 

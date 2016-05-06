@@ -3,6 +3,7 @@ using System.Web.Http;
 using SaveMyDate.Entities;
 using SaveMyDay.Algoritem;
 using System.Web.Http.Cors;
+using Newtonsoft.Json.Linq;
 
 namespace PathFinder.Controllers
 {
@@ -10,12 +11,30 @@ namespace PathFinder.Controllers
     public class PathCalculatorController : ApiController
     {
         [HttpPost]
-        public void PostPathCalculator(List<CompanyType> companyTypes, City city)
+        public object PathCalculator(JObject jsonParam)
         {
-            var companiesForAlgorithem = new ComapanyQueryHandler().GetCompaniesByTypeAndLocation(companyTypes, city);
-            var result = new AlgoritemRunner();
-            result.Activate(companiesForAlgorithem);
-            // Redirect()
+            // Example of parsing paramters.
+            City city = jsonParam["city"].ToObject<City>();
+            string city2 = jsonParam["city2"].ToObject<string>();
+
+            //var companiesForAlgorithem = new ComapanyQueryHandler().GetCompaniesByTypeAndLocation(companyTypes, city);
+            //var result = new AlgoritemRunner();
+            //result.Activate(companiesForAlgorithem);
+
+            var paths = new List<Path>();
+            var path = new Path();
+            path.Id = "1";
+            path.type = Path.MovementType.Car;
+            paths.Add(path);
+
+            var path2 = new Path();
+            path2.Id = "2";
+            path2.type = Path.MovementType.walk;
+            paths.Add(path2);
+
+            // Send to the client
+            var result = new { paths = paths, city = city };
+            return Json(result);
         }
     }
 }
