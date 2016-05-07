@@ -64,6 +64,10 @@ input {
     border-radius: 5px;
 }
 
+.pac-container {
+    z-index: 1051 !important;
+}
+
 .combo-box-margins {
     margin-top:15px;
 }

@@ -113,8 +113,6 @@ app.controller('arrangementCtrl', function ($scope) {
             appointmentDiv.appendChild(deleteButton);
             appointmentDiv.appendChild(typesCombo);
 
-            // $('#arrangements').insertBefore(appointmentDiv, $('#addArrangement'));
-            // $('#arrangements').append(appointmentDiv);
             $('#addArrangement').before(appointmentDiv);
             $('#addArrangement').before("<br />");
         }
@@ -173,6 +171,18 @@ app.controller('calendarCtrl', function ($scope) {
                 document.getElementById('modalStartTime').value = moment(start).format('HH:mm');
                 document.getElementById('modalEndTime').value = moment(end).format('HH:mm');
 
+                var input = document.getElementById('modalLocation');
+                var options = {
+                    //types: ['(cities)'],
+                    componentRestrictions: { country: 'il' }
+                };
+
+                autocomplete = new google.maps.places.Autocomplete(input, options);
+                autocomplete.addListener('place_changed', function () {
+                    var place = autocomplete.getPlace();
+                    document.getElementById('modalLocation').value = place;
+                });
+
                 document.getElementById('modalDelete').onclick = function () {
                     $('#calendar').fullCalendar('unselect');
                 };
@@ -183,7 +193,8 @@ app.controller('calendarCtrl', function ($scope) {
                             title: '',
                             location: '',
                             end: '',
-                            start: ''
+                            start: '',
+                            date: ''
                         };
                         var endTime = document.getElementById('modalEndTime').value.split(':');
                         var startTime = document.getElementById('modalStartTime').value.split(':');
@@ -198,6 +209,8 @@ app.controller('calendarCtrl', function ($scope) {
                         start.hour(startTime[0]);
                         start.minute(startTime[1]);
                         event.start = start;
+
+                        event.date = document.getElementById('date-picker').value;
 
                         $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
                         $('#fullCalModal').modal("hide");
@@ -260,15 +273,21 @@ app.controller('calendarCtrl', function ($scope) {
 
 app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $location) {
     $scope.calculateRequest = function () {
+        var allEvents = $('#calendar').fullCalendar('clientEvents');
+        var events = [];
+
+        for (var event = 0; event < allEvents.length; event++) {
+            if (allEvents[event].date === document.getElementById('date-picker').value) {
+                events.push(allEvents[event]);
+            }
+        }
+
         var input = document.getElementById('citySelect');
         var cityList = document.getElementById('json-datalist');
         var valueInCityList = false;
 
-        for (var opt = 0; opt < cityList.childNodes.length - 1; opt++) {
-            if (cityList.childNodes[opt].value === input.value) {
-                valueInCityList = true;
-                break;
-            }
+        if (input.value !== '') {
+            valueInCityList = true;
         }
 
         var unselectedDropDown = false;
@@ -285,6 +304,13 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
                 }
             }
         }
+
+        var travelWay = $('input[name="travelWay"]:checked', '#travelWayForm').val();
+
+        var dataObject = {};
+        dataObject.events = events;
+        dataObject.appointmentsCity = input.value;
+        dataObject.travelWay = travelWay;
 
         if (!valueInCityList) {
             alert("בחר עיר מתוך רשימת הערים");
@@ -314,20 +340,14 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
         }
     }
 
-    var dataList = document.getElementById('json-datalist');
     var input = document.getElementById('citySelect');
+    var options = {
+        types: ['(cities)'],
+        componentRestrictions: { country: 'il' }
+    };
 
-    $.get("../Datalist/CityList.txt", function (data) {
-        // Loop over the JSON array.
-        var cities = data.split('\n');
-        $scope.cities = cities;
-        cities.forEach(function (item) {
-            // Create a new <option> element.
-            var option = document.createElement('option');
-            // Set the value using the item in the JSON array.
-            option.value = item.trim();
-            // Add the <option> element to the <datalist>.
-            dataList.appendChild(option);
-        });
+    autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
     });
 });
