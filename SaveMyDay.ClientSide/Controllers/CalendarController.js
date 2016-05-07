@@ -180,7 +180,7 @@ app.controller('calendarCtrl', function ($scope) {
                 autocomplete = new google.maps.places.Autocomplete(input, options);
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
-                    document.getElementById('modalLocation').value = place;
+                    //document.getElementById('modalLocation').value = place;
                 });
 
                 document.getElementById('modalDelete').onclick = function () {
@@ -236,24 +236,39 @@ app.controller('calendarCtrl', function ($scope) {
                 document.getElementById('modalStartTime').value = moment(event.start).format('HH:mm');
                 document.getElementById('modalEndTime').value = moment(event.end).format('HH:mm');
 
+                var input = document.getElementById('modalLocation');
+                var options = {
+                    //types: ['(cities)'],
+                    componentRestrictions: { country: 'il' }
+                };
+
+                autocomplete = new google.maps.places.Autocomplete(input, options);
+                autocomplete.addListener('place_changed', function () {
+                    var place = autocomplete.getPlace();
+                    //document.getElementById('modalLocation').value = place;
+                });
+
                 document.getElementById('modalDelete').onclick = function () {
                     $('#calendar').fullCalendar('removeEvents', event._id);
                 };
 
                 document.getElementById('modalSave').onclick = function () {
-                    var endTime = document.getElementById('modalEndTime').value.split(':');
-                    var startTime = document.getElementById('modalStartTime').value.split(':');
+                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '') {
+                        var endTime = document.getElementById('modalEndTime').value.split(':');
+                        var startTime = document.getElementById('modalStartTime').value.split(':');
 
-                    event.title = document.getElementById('modalTitle').value;
-                    event.location = document.getElementById('modalLocation').value;
+                        event.title = document.getElementById('modalTitle').value;
+                        event.location = document.getElementById('modalLocation').value;
 
-                    event.end.hour(endTime[0]);
-                    event.end.minute(endTime[1]);
+                        event.end.hour(endTime[0]);
+                        event.end.minute(endTime[1]);
 
-                    event.start.hour(startTime[0]);
-                    event.start.minute(startTime[1]);
+                        event.start.hour(startTime[0]);
+                        event.start.minute(startTime[1]);
 
-                    $('#calendar').fullCalendar('updateEvent', event);
+                        $('#calendar').fullCalendar('updateEvent', event);
+                        $('#fullCalModal').modal("hide");
+                    }
                 }
 
                 $('#fullCalModal').modal();
