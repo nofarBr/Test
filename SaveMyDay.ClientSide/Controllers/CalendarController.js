@@ -20,90 +20,96 @@ app.controller('arrangementCtrl', function ($scope) {
     $scope.arrangementsNum = 0;
 
     $scope.addAppointment = function (parent) {
-        var appointmentDiv = document.createElement('div');
-        appointmentDiv.id = 'appointment-div-' + $scope.arrangementsNum;
-        appointmentDiv.className = "combo-box-margins";
+        if (document.getElementsByName("appointment-div").length >= 12) {
+            alert('ניתן להזין עד 12 תורים בלבד');
+        } else {
+            var appointmentDiv = document.createElement('div');
+            appointmentDiv.id = 'appointment-div-' + $scope.arrangementsNum;
+            appointmentDiv.tagName = 'appointment-div';
+            appointmentDiv.setAttribute('name', 'appointment-div');
+            appointmentDiv.className = "combo-box-margins";
 
-        var typesCombo = document.createElement('select');
-        typesCombo.id = 'appointment-types-combo';
-        typesCombo.index = $scope.arrangementsNum++
+            var typesCombo = document.createElement('select');
+            typesCombo.id = 'appointment-types-combo';
+            typesCombo.index = $scope.arrangementsNum++
 
-        for (i = 0; i < $scope.arrangements.types.length; i++) {
-            var typesComboOption = document.createElement('option');
-            typesComboOption.id = i;
-            typesComboOption.value = $scope.arrangements.types[i].type;
-            typesComboOption.innerHTML = $scope.arrangements.types[i].type;
-            typesComboOption.subMenu = $scope.arrangements.types[i].branches;
-            typesCombo.appendChild(typesComboOption);
-        }
-
-        var typesComboOption = document.createElement('option');
-        typesComboOption.selected = true;
-        typesComboOption.disabled = true;
-        typesComboOption.hidden = true;
-        typesComboOption.innerHTML = "-- בחר אופציה --";
-        typesComboOption.value = "-- בחר אופציה --";
-        typesCombo.appendChild(typesComboOption);
-
-        typesCombo.onchange = function () {
-            var subBoxId = 'appointment-sub-types-combo' + typesCombo.index;
-            for (i = 0; i < appointmentDiv.childNodes.length; i++) {
-                var child = appointmentDiv.childNodes[i];
-                if (child.id === subBoxId) {
-                    child.remove();
-                }
-            }
-
-            var subTypesCombo = document.createElement('select');
-            subTypesCombo.id = subBoxId;
-
-            var selectedSubMenu = typesCombo.selectedOptions[0].subMenu;
-
-            for (i = 0; i < selectedSubMenu.length; i++) {
+            for (i = 0; i < $scope.arrangements.types.length; i++) {
                 var typesComboOption = document.createElement('option');
                 typesComboOption.id = i;
-                typesComboOption.value = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
-                typesComboOption.innerHTML = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
-                subTypesCombo.appendChild(typesComboOption);
+                typesComboOption.value = $scope.arrangements.types[i].type;
+                typesComboOption.innerHTML = $scope.arrangements.types[i].type;
+                typesComboOption.subMenu = $scope.arrangements.types[i].branches;
+                typesCombo.appendChild(typesComboOption);
             }
 
             var typesComboOption = document.createElement('option');
             typesComboOption.selected = true;
             typesComboOption.disabled = true;
             typesComboOption.hidden = true;
-            typesComboOption.innerHTML = "-- select an option --";
-            typesComboOption.value = "-- select an option --";
-            subTypesCombo.appendChild(typesComboOption);
+            typesComboOption.innerHTML = "-- בחר אופציה --";
+            typesComboOption.value = "-- בחר אופציה --";
+            typesCombo.appendChild(typesComboOption);
 
-            appointmentDiv.appendChild(subTypesCombo);
-        }
-
-        var deleteButton = document.createElement("img");
-        deleteButton.src = "https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Delete.png";
-        deleteButton.onclick = function () {
-            arrangementsChilds = document.getElementById('arrangements').childNodes;
-            for (var element = 0; element < arrangementsChilds.length; element++) {
-                var child = arrangementsChilds[element];
-                if (child.tagName && child.tagName.toUpperCase() === 'BR') {
-                    child.remove();
-                    break;
+            typesCombo.onchange = function () {
+                var subBoxId = 'appointment-sub-types-combo' + typesCombo.index;
+                for (i = 0; i < appointmentDiv.childNodes.length; i++) {
+                    var child = appointmentDiv.childNodes[i];
+                    if (child.id === subBoxId) {
+                        child.remove();
+                    }
                 }
+
+                var subTypesCombo = document.createElement('select');
+                subTypesCombo.id = subBoxId;
+
+                var selectedSubMenu = typesCombo.selectedOptions[0].subMenu;
+
+                for (i = 0; i < selectedSubMenu.length; i++) {
+                    var typesComboOption = document.createElement('option');
+                    typesComboOption.id = i;
+                    typesComboOption.value = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
+                    typesComboOption.innerHTML = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
+                    subTypesCombo.appendChild(typesComboOption);
+                }
+
+                var typesComboOption = document.createElement('option');
+                typesComboOption.selected = true;
+                typesComboOption.disabled = true;
+                typesComboOption.hidden = true;
+                typesComboOption.innerHTML = "-- בחר אופציה --";
+                typesComboOption.value = "-- בחר אופציה --";
+                subTypesCombo.appendChild(typesComboOption);
+
+                appointmentDiv.appendChild(subTypesCombo);
             }
 
-            appointmentDiv.remove();
+            var deleteButton = document.createElement("img");
+            deleteButton.src = "https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Delete.png";
+            deleteButton.onclick = function () {
+                arrangementsChilds = document.getElementById('arrangements').childNodes;
+                for (var element = 0; element < arrangementsChilds.length; element++) {
+                    var child = arrangementsChilds[element];
+                    if (child.tagName && child.tagName.toUpperCase() === 'BR') {
+                        child.remove();
+                        break;
+                    }
+                }
+
+                appointmentDiv.remove();
+            }
+
+            deleteButton.className = "small-delete-button";
+
+            var brSpace = document.createElement('br');
+
+            appointmentDiv.appendChild(deleteButton);
+            appointmentDiv.appendChild(typesCombo);
+
+            // $('#arrangements').insertBefore(appointmentDiv, $('#addArrangement'));
+            // $('#arrangements').append(appointmentDiv);
+            $('#addArrangement').before(appointmentDiv);
+            $('#addArrangement').before("<br />");
         }
-
-        deleteButton.className = "small-delete-button";
-
-        var brSpace = document.createElement('br');
-
-        appointmentDiv.appendChild(deleteButton);
-        appointmentDiv.appendChild(typesCombo);
-
-        // $('#arrangements').insertBefore(appointmentDiv, $('#addArrangement'));
-        // $('#arrangements').append(appointmentDiv);
-        $('#addArrangement').before(appointmentDiv);
-        $('#addArrangement').before("<br />");
     }
 });
 
@@ -112,10 +118,10 @@ app.controller('datePickCtrl', function ($scope) {
     var yyyy = date.getFullYear().toString();
     var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
     var dd = date.getDate().toString();
-    var datePickerInit = (dd[1] ? dd : "0" + dd[0]) + "/" + (mm[1] ? mm : "0" + mm[0]) + "/" + yyyy;
-    $('#date-picker').innerHTML = datePickerInit;
-    $('#date-picker').value = datePickerInit;
-    $('#date-picker').innerText = datePickerInit;
+    var datePickerInit = yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]);
+    var datePicker = document.getElementById('date-picker');
+    datePicker.innerHTML = datePickerInit;
+    datePicker.value = datePickerInit;
 
     $('#date-picker').change(function () {
         $('#calendar').fullCalendar('gotoDate', $('#date-picker')[0].valueAsDate);
