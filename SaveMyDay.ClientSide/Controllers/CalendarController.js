@@ -36,6 +36,7 @@ app.controller('arrangementCtrl', function ($scope) {
             var typesCombo = document.createElement('select');
             typesCombo.id = 'appointment-types-combo';
             typesCombo.index = $scope.arrangementsNum++
+            typesCombo.className = "round-buttons-calendar-view";
 
             for (i = 0; i < $scope.arrangements.types.length; i++) {
                 var typesComboOption = document.createElement('option');
@@ -66,6 +67,7 @@ app.controller('arrangementCtrl', function ($scope) {
 
                     var subTypesCombo = document.createElement('select');
                     subTypesCombo.id = subBoxId;
+                    subTypesCombo.className = "round-buttons-calendar-view";
 
                     var selectedSubMenu = typesCombo.selectedOptions[0].subMenu;
 
@@ -166,6 +168,8 @@ app.controller('calendarCtrl', function ($scope) {
                 var timepickerDiv = document.getElementById('timepickerDiv');
                 var datepair = new Datepair(timepickerDiv);
 
+                document.getElementById('modalTitle').value = '';
+                document.getElementById('modalLocation').value ='';
                 document.getElementById('modalStartTime').value = moment(start).format('HH:mm');
                 document.getElementById('modalEndTime').value = moment(end).format('HH:mm');
 
@@ -174,27 +178,30 @@ app.controller('calendarCtrl', function ($scope) {
                 };
 
                 document.getElementById('modalSave').onclick = function () {
-                    event = {
-                        title: '',
-                        location: '',
-                        end: '',
-                        start: ''
-                    };
-                    var endTime = document.getElementById('modalEndTime').value.split(':');
-                    var startTime = document.getElementById('modalStartTime').value.split(':');
+                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '') {
+                        event = {
+                            title: '',
+                            location: '',
+                            end: '',
+                            start: ''
+                        };
+                        var endTime = document.getElementById('modalEndTime').value.split(':');
+                        var startTime = document.getElementById('modalStartTime').value.split(':');
 
-                    event.title = document.getElementById('modalTitle').value;
-                    event.location = document.getElementById('modalLocation').value;
+                        event.title = document.getElementById('modalTitle').value;
+                        event.location = document.getElementById('modalLocation').value;
 
-                    end.hour(endTime[0]);
-                    end.minute(endTime[1]);
-                    event.end = end;
+                        end.hour(endTime[0]);
+                        end.minute(endTime[1]);
+                        event.end = end;
 
-                    start.hour(startTime[0]);
-                    start.minute(startTime[1]);
-                    event.start = start;
+                        start.hour(startTime[0]);
+                        start.minute(startTime[1]);
+                        event.start = start;
 
-                    $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
+                        $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
+                        $('#fullCalModal').modal("hide");
+                    }
                 }
 
                 $('#fullCalModal').modal();

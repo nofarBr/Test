@@ -58,6 +58,12 @@ input {
     border-radius: 5px;
 }
 
+.round-buttons-calendar-view {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 .combo-box-margins {
     margin-top:15px;
 }
