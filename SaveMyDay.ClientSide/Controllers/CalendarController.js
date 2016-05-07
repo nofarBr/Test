@@ -41,8 +41,8 @@ app.controller('arrangementCtrl', function ($scope) {
         typesComboOption.selected = true;
         typesComboOption.disabled = true;
         typesComboOption.hidden = true;
-        typesComboOption.innerHTML = "-- select an option --";
-        typesComboOption.value = "-- select an option --";
+        typesComboOption.innerHTML = "-- בחר אופציה --";
+        typesComboOption.value = "-- בחר אופציה --";
         typesCombo.appendChild(typesComboOption);
 
         typesCombo.onchange = function () {
@@ -81,19 +81,37 @@ app.controller('arrangementCtrl', function ($scope) {
         var deleteButton = document.createElement("img");
         deleteButton.src = "https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Delete.png";
         deleteButton.onclick = function () {
+            for (var element in $('#arrangements').childNodes) {
+                console.log($('#arrangements').childNodes[element].tagName);
+            }
+
             appointmentDiv.remove();
         }
 
         deleteButton.className = "small-delete-button";
 
+        var brSpace = document.createElement('br');
+
         appointmentDiv.appendChild(deleteButton);
         appointmentDiv.appendChild(typesCombo);
 
-        $('#arrangements').append(appointmentDiv);
+        // $('#arrangements').insertBefore(appointmentDiv, $('#addArrangement'));
+        // $('#arrangements').append(appointmentDiv);
+        $('#addArrangement').before(appointmentDiv);
+        $('#addArrangement').before("<br />");
     }
 });
 
 app.controller('datePickCtrl', function ($scope) {
+    var date = new Date();
+    var yyyy = date.getFullYear().toString();
+    var mm = (date.getMonth() + 1).toString(); // getMonth() is zero-based
+    var dd = date.getDate().toString();
+    var datePickerInit = (dd[1] ? dd : "0" + dd[0]) + "/" + (mm[1] ? mm : "0" + mm[0]) + "/" + yyyy;
+    $('#date-picker').innerHTML = datePickerInit;
+    $('#date-picker').value = datePickerInit;
+    $('#date-picker').innerText = datePickerInit;
+
     $('#date-picker').change(function () {
         $('#calendar').fullCalendar('gotoDate', $('#date-picker')[0].valueAsDate);
     });
@@ -115,6 +133,10 @@ app.controller('calendarCtrl', function ($scope) {
             allDaySlot: false,
             selectable: true,
             selectHelper: true,
+            maxTime: '24:00:00',
+            minTime: '06:00:00',
+            lang: 'he',
+            slotLabelFormat: 'HH:mm',
             select: function (start, end) {
                 $('#timepickerDiv .time').timepicker({
                     'scrollDefault': 'now',
@@ -127,9 +149,7 @@ app.controller('calendarCtrl', function ($scope) {
                 var timepickerDiv = document.getElementById('timepickerDiv');
                 var datepair = new Datepair(timepickerDiv);
 
-                document.getElementById('modalTitle').value = 'כותרת';
-                document.getElementById('modalLocation').value ='מיקום';
-                document.getElementById('modalStartTime').value =  moment(start).format('HH:mm');
+                document.getElementById('modalStartTime').value = moment(start).format('HH:mm');
                 document.getElementById('modalEndTime').value = moment(end).format('HH:mm');
 
                 document.getElementById('modalDelete').onclick = function () {
@@ -176,7 +196,7 @@ app.controller('calendarCtrl', function ($scope) {
 
                 document.getElementById('modalTitle').value = event.title;
                 document.getElementById('modalLocation').value = event.location;
-                document.getElementById('modalStartTime').value =  moment(event.start).format('HH:mm');
+                document.getElementById('modalStartTime').value = moment(event.start).format('HH:mm');
                 document.getElementById('modalEndTime').value = moment(event.end).format('HH:mm');
 
                 document.getElementById('modalDelete').onclick = function () {
