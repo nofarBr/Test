@@ -13,6 +13,10 @@ app.controller('arrangementCtrl', function ($scope) {
             {
                 type: 'Post',
                 branches: [{ name: 'Herzel', city: 'TLV' }, { name: 'Candy', city: 'TLV2' }, { name: 'Post', city: 'TLV' }]
+            },
+            {
+                type: 'Postman'//,
+                //branches: [{ name: 'Herzel', city: 'TLV' }, { name: 'Candy', city: 'TLV2' }, { name: 'Post', city: 'TLV' }]
             }
         ]
     }
@@ -51,36 +55,38 @@ app.controller('arrangementCtrl', function ($scope) {
             typesCombo.appendChild(typesComboOption);
 
             typesCombo.onchange = function () {
-                var subBoxId = 'appointment-sub-types-combo' + typesCombo.index;
-                for (i = 0; i < appointmentDiv.childNodes.length; i++) {
-                    var child = appointmentDiv.childNodes[i];
-                    if (child.id === subBoxId) {
-                        child.remove();
+                if (typesCombo.selectedOptions[0].subMenu) {
+                    var subBoxId = 'appointment-sub-types-combo' + typesCombo.index;
+                    for (i = 0; i < appointmentDiv.childNodes.length; i++) {
+                        var child = appointmentDiv.childNodes[i];
+                        if (child.id === subBoxId) {
+                            child.remove();
+                        }
                     }
-                }
 
-                var subTypesCombo = document.createElement('select');
-                subTypesCombo.id = subBoxId;
+                    var subTypesCombo = document.createElement('select');
+                    subTypesCombo.id = subBoxId;
 
-                var selectedSubMenu = typesCombo.selectedOptions[0].subMenu;
+                    var selectedSubMenu = typesCombo.selectedOptions[0].subMenu;
 
-                for (i = 0; i < selectedSubMenu.length; i++) {
+                    for (i = 0; i < selectedSubMenu.length; i++) {
+                        var typesComboOption = document.createElement('option');
+                        typesComboOption.id = i;
+                        typesComboOption.value = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
+                        typesComboOption.innerHTML = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
+                        subTypesCombo.appendChild(typesComboOption);
+                    }
+
                     var typesComboOption = document.createElement('option');
-                    typesComboOption.id = i;
-                    typesComboOption.value = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
-                    typesComboOption.innerHTML = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
+                    typesComboOption.selected = true;
+                    typesComboOption.disabled = true;
+                    typesComboOption.hidden = true;
+                    typesComboOption.innerHTML = "-- בחר אופציה --";
+                    typesComboOption.value = "-- בחר אופציה --";
                     subTypesCombo.appendChild(typesComboOption);
+
+                    appointmentDiv.appendChild(subTypesCombo);
                 }
-
-                var typesComboOption = document.createElement('option');
-                typesComboOption.selected = true;
-                typesComboOption.disabled = true;
-                typesComboOption.hidden = true;
-                typesComboOption.innerHTML = "-- בחר אופציה --";
-                typesComboOption.value = "-- בחר אופציה --";
-                subTypesCombo.appendChild(typesComboOption);
-
-                appointmentDiv.appendChild(subTypesCombo);
             }
 
             var deleteButton = document.createElement("img");
@@ -258,8 +264,25 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
             }
         }
 
+        var unselectedDropDown = false;
+        var appointments = document.getElementsByName("appointment-div");
+
+        for (var appoint = 0; appoint < appointments.length && !unselectedDropDown; appoint++) {
+            var selectElements = appointments[appoint].childNodes;
+
+            for (var select = 0; select < selectElements.length && !unselectedDropDown; select++) {
+                if (selectElements[select].tagName && selectElements[select].tagName.toUpperCase() === 'SELECT') {
+                    if (selectElements[select].selectedOptions[0].id == '') {
+                        unselectedDropDown = true;
+                    }
+                }
+            }
+        }
+
         if (!valueInCityList) {
             alert("בחר עיר מתוך רשימת הערים");
+        } else if (unselectedDropDown) {
+            alert("בחר סידור משימת הסידורים האפשריים");
         } else {
             var url = 'http://localhost:52747/api/PathCalculator';
             var data = {

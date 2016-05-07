@@ -52,6 +52,12 @@ input[type=date]::-webkit-inner-spin-button {
     display: none;
 }
 
+input {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 .combo-box-margins {
     margin-top:15px;
 }
