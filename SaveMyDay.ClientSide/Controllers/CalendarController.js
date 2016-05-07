@@ -81,8 +81,13 @@ app.controller('arrangementCtrl', function ($scope) {
         var deleteButton = document.createElement("img");
         deleteButton.src = "https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Delete.png";
         deleteButton.onclick = function () {
-            for (var element in $('#arrangements').childNodes) {
-                console.log($('#arrangements').childNodes[element].tagName);
+            arrangementsChilds = document.getElementById('arrangements').childNodes;
+            for (var element = 0; element < arrangementsChilds.length; element++) {
+                var child = arrangementsChilds[element];
+                if (child.tagName && child.tagName.toUpperCase() === 'BR') {
+                    child.remove();
+                    break;
+                }
             }
 
             appointmentDiv.remove();
