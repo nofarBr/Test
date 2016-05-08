@@ -14,10 +14,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button><br />
-                        <input type="text" id="modalTitle" placeholder="כותרת" class="modal-title" style="text-align:center; align-items:center;" />
+                        <h2 class="intro-text text-center">
+                            <strong>הוספת אילוץ</strong>
+                        </h2>
                     </div>
                     <div class="modal-body">
-                        <input type="text" id="modalLocation" placeholder="מיקום" class="modal-title" style="text-align:center; align-items:center;" />
+                        <input type="text" id="modalTitle" placeholder="כותרת" value="" class="modal-title" style="text-align:center; align-items:center;" />
+                        <br /><br />
+                        <input type="text" id="modalLocation" placeholder="מיקום" value="" class="modal-title" style="text-align:center; align-items:center;" />
                         <br/><br/>
                         <div id="timepickerDiv" dir="rtl">
                             זמן התחלה: <input id="modalStartTime" class="time start" autocomplete="off" style="max-width:15%; margin:5px; text-align:center; align-items:center;" /> 
@@ -25,8 +29,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="modalSave" type="button" class="btn btn-default" data-dismiss="modal">שמור</button>
-                        <button id="modalDelete" class="btn btn-primary" data-dismiss="modal">מחק</button>
+                        <button id="modalSave" type="button" class="btn btn-primary">שמור</button>
+                        <!-- data-dismiss="modal" -->
+                        <button id="modalDelete" class="btn btn-default" data-dismiss="modal">מחק</button>
                     </div>
                 </div>
             </div>
@@ -34,24 +39,24 @@
     </div>
     <div dir="rtl" class="col-md-6" style="text-align:center;">
         בחר עיר
-        <input type="text" id="citySelect" list="json-datalist" placeholder="לדוגמא: תל אביב">
+        <input type="text" id="citySelect" list="json-datalist" placeholder="לדוגמא: תל אביב, ישראל">
         <datalist id="json-datalist"></datalist>
         <br />
         <br />
         איך אתה מגיע ממקום למקום?
         <form class="fc-button-group" id="travelWayForm">
-            <input type="radio" class="btn-group-lg" name="travelWay" value="onFoot" checked> ברגל
-            <input type="radio" class="btn-group-lg" name="travelWay" value="byCar"> ברכב
+            <input type="radio" class="btn-group-lg" name="travelWay" value="onFoot" checked> ברגל </input>
+            <input type="radio" class="btn-group-lg" name="travelWay" value="byCar"> ברכב </input>
         </form>
         <!-- $('input[name="travelWay"]:checked', '#travelWayForm').val() -->
         <br />
         <br />
         <div id='arrangements' ng-controller="arrangementCtrl" style="float:none;">
-            <button id="addArrangement" ng-click="addAppointment('arrangements')" class="btn-info" style="margin-bottom:14px;">הוסף סידור</button>
+            <button id="addArrangement" ng-click="addAppointment('arrangements')" class="btn-info round-buttons-calendar-view" style="margin-bottom:14px;">הוסף סידור</button>
         </div>
     </div>
     <br />
     <div ng-controller="calculateRequestCtrl" style="text-align:center; clear:both; padding-top:30px">
-        <button ng-click="calculateRequest()" class="btn-primary" style="width:120px; height:50px;">קבע תורים</button>
+        <button ng-click="calculateRequest()" class="btn-primary round-buttons-calendar-view" style="width:120px; height:50px;">קבע תורים</button>
     </div>
 </div>
