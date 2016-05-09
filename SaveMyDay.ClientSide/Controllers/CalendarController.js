@@ -194,7 +194,7 @@ app.controller('calendarCtrl', function ($scope) {
                 autocomplete = new google.maps.places.Autocomplete(input, options);
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
-                    //document.getElementById('modalLocation').value = place;
+                    document.getElementById('modalLocation').googleValue = true;
                 });
 
                 document.getElementById('modalDelete').onclick = function () {
@@ -202,7 +202,8 @@ app.controller('calendarCtrl', function ($scope) {
                 };
 
                 document.getElementById('modalSave').onclick = function () {
-                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '') {
+                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '' && 
+                        document.getElementById('modalLocation').googleValue) {
                         event = {
                             title: '',
                             location: '',
@@ -228,6 +229,10 @@ app.controller('calendarCtrl', function ($scope) {
 
                         $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
                         $('#fullCalModal').modal("hide");
+                    } else {
+                        document.getElementById('errorMsg').value = "בחר עיר מתוך רשימת הערים והזן כותרת";
+                        document.getElementById('errorMsg').innerHTML = "בחר עיר מתוך רשימת הערים והזן כותרת";
+                        $('#errorModal').modal();
                     }
                 }
 
@@ -259,7 +264,7 @@ app.controller('calendarCtrl', function ($scope) {
                 autocomplete = new google.maps.places.Autocomplete(input, options);
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
-                    //document.getElementById('modalLocation').value = place;
+                    document.getElementById('modalLocation').googleValue = true;
                 });
 
                 document.getElementById('modalDelete').onclick = function () {
@@ -267,7 +272,8 @@ app.controller('calendarCtrl', function ($scope) {
                 };
 
                 document.getElementById('modalSave').onclick = function () {
-                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '') {
+                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '' && 
+                        document.getElementById('modalLocation').googleValue) {
                         var endTime = document.getElementById('modalEndTime').value.split(':');
                         var startTime = document.getElementById('modalStartTime').value.split(':');
 
@@ -307,7 +313,15 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
 
         for (var event = 0; event < allEvents.length; event++) {
             if (allEvents[event].date === document.getElementById('date-picker').value) {
-                events.push(allEvents[event]);
+                var event = {
+                    title: allEvents[event].title,
+                    location: allEvents[event].location,
+                    end: allEvents[event].end,
+                    start: allEvents[event].start,
+                    date: allEvents[event].date
+                };
+                
+                events.push(event);
             }
         }
 
@@ -315,7 +329,7 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
         var cityList = document.getElementById('json-datalist');
         var valueInCityList = false;
 
-        if (input.value !== '') {
+        if (input.value !== '' && document.getElementById('citySelect').googleValue) {
             valueInCityList = true;
         }
 
@@ -361,7 +375,7 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
                 'city': {
                     "Code": 1,
                     "Decription": "Tel Aviv"
-                }, 'city2': 'Holon', uiData: dataObject };
+                }, 'city2': 'Holon', uiData: dataObject};
             $http.post(url, data)
             .success(function (data) {
                 $rootScope.pathsList = data.paths;
@@ -388,5 +402,6 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
     autocomplete = new google.maps.places.Autocomplete(input, options);
     autocomplete.addListener('place_changed', function () {
         var place = autocomplete.getPlace();
+        document.getElementById('citySelect').googleValue = true;
     });
 });
