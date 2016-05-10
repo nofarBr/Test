@@ -6,9 +6,9 @@
     <hr>
     <br />
     <div class="col-md-4">
-        <div class="panel panel-default" style="height:430px">
+        <div class="panel panel-default" style="height:430px;margin-bottom:10px;border-radius:5px;">
             <div class="panel-heading">
-                <h3 style="font-weight:bold">מסלולים אופציונליים</h3>
+                <h3 style="font-weight:bold;text-align:center;">מסלולים אופציונליים</h3>
             </div>
             <div class="panel-body-">
                 <section>
@@ -22,11 +22,11 @@
                                 </li>
                             </ul>
                         </nav>
-                        <div class="content-wrap" style="">
+                        <div class="content-wrap" style="overflow-y:scroll;height:300px;">
                             <section ng-repeat="path in paths | orderBy:'id'" id="section-bar-{{path.id}}" my-post-repeat-directive>
                                 <md-list>
                                     <md-list-item class="md-2-line" ng-repeat="item in path.appointments">
-                                        <img ng-src="../Style/Images/{{item.icon}}.png" class="md-avatar" style="margin-left:15px;margin-right:0px;">
+                                        <img ng-src="../Style/Images/{{item.icon}}.png" class="md-avatar2" style="margin-left:15px;margin-right:0px;width:60px;height:60px;">
                                         <div class="md-list-item-text">
                                             <h3>{{item.time}} - {{item.desc}}</h3>
                                             <p>{{item.address}}</p>
@@ -40,10 +40,14 @@
                 </section>
             </div>      
         </div>
-        <button ng-click="ChoosePath()">בחר מסלול</button>
+        <div class="btn-group btn-group-justified">
+            <div class="btn-group">
+                <button type="button" ng-click="ChoosePath()" class="btn btn-default" style="height:60px;font-size:22px;font-weight:bold;border-radius:5px;">בחר מסלול</button>
+            </div>
+        </div>
     </div>
     <div class="col-md-8">
-        <div id="map_canvas" style="width: 700px; height: 500px;border: 1px solid #ddd"></div>
+        <div id="map_canvas" style="width: 700px; height: 500px;border: 1px solid #ddd;border-radius:5px;"></div>
     </div>
 </div>
 
