@@ -3,20 +3,25 @@ app.controller('arrangementCtrl', function ($scope) {
     $scope.arrangements = {
         types: [
             {
-                type: 'Bank',
-                branches: [{ name: 'Leumi', city: 'TLV' }, { name: 'Leumi', city: 'TLV2' }, { name: 'Hapoalim', city: 'TLV' }]
+                "CompanyType" : "בנק", 
+                "CompanyNames":
+                    [{ "_id": "5730e68d1c4e0296b6a10d0e", "CompanyName": "הפועלים בנק", "Address": "סוקולוב 95 חולון", "Remark": "" },
+                    { "CompanyName": "דיסקונט בנק", "Address": "סוקולוב 68 חולון", "_id": "5730e68d1c4e0296b6a10d0f", "Remark": "" },
+                    { "_id": "5730e68d1c4e0296b6a10d10", "CompanyName": "הפועלים בנק", "Address": "סוקולוב 45 חולון", "Remark": "" }]
+            },
+            { 
+                "CompanyType" : "רופא - קופת חולים כללית", 
+                "CompanyNames":
+                [{ "_id" : "5730e68d1c4e0296b6a10d11", "CompanyName" : "ילדים", "Address" : "אילת 45 חולון", "Remark" : "ד'ר אברהם רודיטי" },
+                { "_id" : "5730e68d1c4e0296b6a10d12", "CompanyName" : "עור", "Address" : "ראשון לציון הנרייטה סולד 50", "Remark" : "ד'ר מוניקה אלמן" },
+                { "_id" : "5730e68d1c4e0296b6a10d13",  "CompanyName" : "משפחה", "Address" : "רחבעם זאבי 30 חולון", "Remark" : "ד'ר צ'יק דויד" }]
             },
             {
-                type: 'Hair Dresser',
-                branches: [{ name: 'Sami', city: 'TLV' }, { name: 'David', city: 'TLV2' }, { name: 'Eli', city: 'TLV' }]
-            },
-            {
-                type: 'Post',
-                branches: [{ name: 'Herzel', city: 'TLV' }, { name: 'Candy', city: 'TLV2' }, { name: 'Post', city: 'TLV' }]
-            },
-            {
-                type: 'Postman'//,
-                //branches: [{ name: 'Herzel', city: 'TLV' }, { name: 'Candy', city: 'TLV2' }, { name: 'Post', city: 'TLV' }]
+                "CompanyType" : "דואר",
+                "CompanyNames":
+                [{ "_id" : "5730e68d1c4e0296b6a10d14", "CompanyName" : "אסיפת חבילות", "Address" : "אחד במאי 5 חולון", "Remark" : "דואר סטרומה" },
+                { "_id" : "5730e68d1c4e0296b6a10d15", "CompanyName" : "שליחת חבילות", "Address" : "ההסתדרות 36 חולון", "Remark" : "דואר ההסתדרות" },
+                { "_id" : "5730e68d1c4e0296b6a10d16", "CompanyName" : "תשלומים ושליחת מכתבים", "Address" : "שנקר 15 חולון ", "Remark" : "דואר שנקר" }]
             }
         ]
     }
@@ -25,7 +30,9 @@ app.controller('arrangementCtrl', function ($scope) {
 
     $scope.addAppointment = function (parent) {
         if (document.getElementsByName("appointment-div").length >= 12) {
-            alert('ניתן להזין עד 12 תורים בלבד');
+            document.getElementById('errorMsg').value = "ניתן להזין עד 12 תורים בלבד";
+            document.getElementById('errorMsg').innerHTML = "ניתן להזין עד 12 תורים בלבד";
+            $('#errorModal').modal();
         } else {
             var appointmentDiv = document.createElement('div');
             appointmentDiv.id = 'appointment-div-' + $scope.arrangementsNum;
@@ -41,9 +48,10 @@ app.controller('arrangementCtrl', function ($scope) {
             for (i = 0; i < $scope.arrangements.types.length; i++) {
                 var typesComboOption = document.createElement('option');
                 typesComboOption.id = i;
-                typesComboOption.value = $scope.arrangements.types[i].type;
-                typesComboOption.innerHTML = $scope.arrangements.types[i].type;
-                typesComboOption.subMenu = $scope.arrangements.types[i].branches;
+                typesComboOption.value = $scope.arrangements.types[i].CompanyType;
+                typesComboOption.mongoId = $scope.arrangements.types[i]._id;
+                typesComboOption.innerHTML = $scope.arrangements.types[i].CompanyType;
+                typesComboOption.subMenu = $scope.arrangements.types[i].CompanyNames;
                 typesCombo.appendChild(typesComboOption);
             }
 
@@ -74,9 +82,15 @@ app.controller('arrangementCtrl', function ($scope) {
                     for (i = 0; i < selectedSubMenu.length; i++) {
                         var typesComboOption = document.createElement('option');
                         typesComboOption.id = i;
-                        typesComboOption.value = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
-                        typesComboOption.innerHTML = selectedSubMenu[i].name + ", " + selectedSubMenu[i].city;
+                        typesComboOption.value = selectedSubMenu[i].CompanyName + ", " + selectedSubMenu[i].Address;
+                        typesComboOption.innerHTML = selectedSubMenu[i].CompanyName + ", " + selectedSubMenu[i].Address;
+                        typesComboOption.mongoId = selectedSubMenu[i]._id;
                         subTypesCombo.appendChild(typesComboOption);
+
+                        if (selectedSubMenu[i].Remark && selectedSubMenu[i].Remark !== '') {
+                            typesComboOption.innerHTML +=  ", " + selectedSubMenu[i].Remark;
+                            typesComboOption.value += ", " + selectedSubMenu[i].Remark;
+                        }
                     }
 
                     var typesComboOption = document.createElement('option');
@@ -180,7 +194,7 @@ app.controller('calendarCtrl', function ($scope) {
                 autocomplete = new google.maps.places.Autocomplete(input, options);
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
-                    //document.getElementById('modalLocation').value = place;
+                    document.getElementById('modalLocation').googleValue = true;
                 });
 
                 document.getElementById('modalDelete').onclick = function () {
@@ -188,7 +202,8 @@ app.controller('calendarCtrl', function ($scope) {
                 };
 
                 document.getElementById('modalSave').onclick = function () {
-                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '') {
+                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '' && 
+                        document.getElementById('modalLocation').googleValue) {
                         event = {
                             title: '',
                             location: '',
@@ -214,6 +229,10 @@ app.controller('calendarCtrl', function ($scope) {
 
                         $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
                         $('#fullCalModal').modal("hide");
+                    } else {
+                        document.getElementById('errorMsg').value = "בחר עיר מתוך רשימת הערים והזן כותרת";
+                        document.getElementById('errorMsg').innerHTML = "בחר עיר מתוך רשימת הערים והזן כותרת";
+                        $('#errorModal').modal();
                     }
                 }
 
@@ -245,7 +264,7 @@ app.controller('calendarCtrl', function ($scope) {
                 autocomplete = new google.maps.places.Autocomplete(input, options);
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
-                    //document.getElementById('modalLocation').value = place;
+                    document.getElementById('modalLocation').googleValue = true;
                 });
 
                 document.getElementById('modalDelete').onclick = function () {
@@ -253,7 +272,8 @@ app.controller('calendarCtrl', function ($scope) {
                 };
 
                 document.getElementById('modalSave').onclick = function () {
-                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '') {
+                    if (document.getElementById('modalTitle').value !== '' && document.getElementById('modalLocation').value !== '' && 
+                        document.getElementById('modalLocation').googleValue) {
                         var endTime = document.getElementById('modalEndTime').value.split(':');
                         var startTime = document.getElementById('modalStartTime').value.split(':');
 
@@ -293,7 +313,15 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
 
         for (var event = 0; event < allEvents.length; event++) {
             if (allEvents[event].date === document.getElementById('date-picker').value) {
-                events.push(allEvents[event]);
+                var event = {
+                    title: allEvents[event].title,
+                    location: allEvents[event].location,
+                    end: allEvents[event].end,
+                    start: allEvents[event].start,
+                    date: allEvents[event].date
+                };
+                
+                events.push(event);
             }
         }
 
@@ -301,11 +329,12 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
         var cityList = document.getElementById('json-datalist');
         var valueInCityList = false;
 
-        if (input.value !== '') {
+        if (input.value !== '' && document.getElementById('citySelect').googleValue) {
             valueInCityList = true;
         }
 
         var unselectedDropDown = false;
+        var selectedAppointments = [];
         var appointments = document.getElementsByName("appointment-div");
 
         for (var appoint = 0; appoint < appointments.length && !unselectedDropDown; appoint++) {
@@ -313,6 +342,10 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
 
             for (var select = 0; select < selectElements.length && !unselectedDropDown; select++) {
                 if (selectElements[select].tagName && selectElements[select].tagName.toUpperCase() === 'SELECT') {
+                    if (selectElements[select].selectedOptions[0].mongoId) {
+                        selectedAppointments.push(selectElements[select].selectedOptions[0].mongoId);
+                    }
+
                     if (selectElements[select].selectedOptions[0].id == '') {
                         unselectedDropDown = true;
                     }
@@ -326,18 +359,23 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
         dataObject.events = events;
         dataObject.appointmentsCity = input.value;
         dataObject.travelWay = travelWay;
+        dataObject.selectedAppointments = selectedAppointments;
 
         if (!valueInCityList) {
-            alert("בחר עיר מתוך רשימת הערים");
+            document.getElementById('errorMsg').value = "בחר עיר מתוך רשימת הערים";
+            document.getElementById('errorMsg').innerHTML = "בחר עיר מתוך רשימת הערים";
+            $('#errorModal').modal();
         } else if (unselectedDropDown) {
-            alert("בחר סידור משימת הסידורים האפשריים");
+            document.getElementById('errorMsg').value = "בחר סידור משימת הסידורים האפשריים";
+            document.getElementById('errorMsg').innerHTML = "בחר סידור משימת הסידורים האפשריים";
+            $('#errorModal').modal();
         } else {
             var url = 'http://localhost:52747/api/PathCalculator';
             var data = {
                 'city': {
                     "Code": 1,
                     "Decription": "Tel Aviv"
-                }, 'city2': 'Holon' };
+                }, 'city2': 'Holon', uiData: dataObject};
             $http.post(url, data)
             .success(function (data) {
                 $rootScope.pathsList = data.paths;
@@ -364,5 +402,6 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
     autocomplete = new google.maps.places.Autocomplete(input, options);
     autocomplete.addListener('place_changed', function () {
         var place = autocomplete.getPlace();
+        document.getElementById('citySelect').googleValue = true;
     });
 });
