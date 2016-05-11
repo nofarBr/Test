@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using Newtonsoft.Json.Linq;
 using System.Web.Http;
 
 namespace DaySchedualer.Controllers
@@ -10,9 +6,10 @@ namespace DaySchedualer.Controllers
     public class PathController : ApiController
     {
         [HttpPost]
-        public void PostAppointment(int pathId)
+        public void PostAppointment(JObject jsonParam)
         {
             //schedual path & appointment
+            var pathId = jsonParam["pathId"].ToObject<int>();
         }
     }
 }
