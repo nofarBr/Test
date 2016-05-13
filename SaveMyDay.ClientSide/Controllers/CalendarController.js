@@ -5,23 +5,26 @@ app.controller('arrangementCtrl', function ($scope) {
             {
                 "CompanyType" : "בנק", 
                 "CompanyNames":
-                    [{ "_id": "5730e68d1c4e0296b6a10d0e", "CompanyName": "הפועלים בנק", "Address": "סוקולוב 95 חולון", "Remark": "" },
-                    { "CompanyName": "דיסקונט בנק", "Address": "סוקולוב 68 חולון", "_id": "5730e68d1c4e0296b6a10d0f", "Remark": "" },
-                    { "_id": "5730e68d1c4e0296b6a10d10", "CompanyName": "הפועלים בנק", "Address": "סוקולוב 45 חולון", "Remark": "" }]
+                    [{ "_id": "5730e68d1c4e0296b6a10d0e", "CompanyName": "בנק הפועלים", "Address": "", "Remark": "" },
+                    { "CompanyName": "בנק דיסקונט", "Address": "", "_id": "5730e68d1c4e0296b6a10d0f", "Remark": "" },
+                    { "_id": "5730e68d1c4e0296b6a10d10", "CompanyName": "בנק מזרחי", "Address": "", "Remark": "" },
+                    { "_id": "7730e68d1c4e0296b6a10d10", "CompanyName": "בנק ירושלים", "Address": "", "Remark": "" },
+                    { "_id": "5730e68d1c4e0296b6a10d10", "CompanyName": "בנק אוצר החייל", "Address": "", "Remark": "" }]
             },
             { 
                 "CompanyType" : "רופא - קופת חולים כללית", 
                 "CompanyNames":
-                [{ "_id" : "5730e68d1c4e0296b6a10d11", "CompanyName" : "ילדים", "Address" : "אילת 45 חולון", "Remark" : "ד'ר אברהם רודיטי" },
-                { "_id" : "5730e68d1c4e0296b6a10d12", "CompanyName" : "עור", "Address" : "ראשון לציון הנרייטה סולד 50", "Remark" : "ד'ר מוניקה אלמן" },
-                { "_id" : "5730e68d1c4e0296b6a10d13",  "CompanyName" : "משפחה", "Address" : "רחבעם זאבי 30 חולון", "Remark" : "ד'ר צ'יק דויד" }]
+                [{ "_id" : "5730e68d1c4e0296b6a10d11", "CompanyName" : "ילדים", "Address" : "", "Remark" : "" },
+                { "_id" : "5730e68d1c4e0296b6a10d12", "CompanyName" : "עור", "Address" : "", "Remark" : "" },
+                { "_id": "5730e68d1c4e0296b6a10d13", "CompanyName": "משפחה", "Address": "", "Remark": "" },
+                { "_id": "5730e68d1c4e0296b6a10d13", "CompanyName": "עיניים", "Address": "", "Remark": "" }]
             },
             {
                 "CompanyType" : "דואר",
                 "CompanyNames":
-                [{ "_id" : "5730e68d1c4e0296b6a10d14", "CompanyName" : "אסיפת חבילות", "Address" : "אחד במאי 5 חולון", "Remark" : "דואר סטרומה" },
-                { "_id" : "5730e68d1c4e0296b6a10d15", "CompanyName" : "שליחת חבילות", "Address" : "ההסתדרות 36 חולון", "Remark" : "דואר ההסתדרות" },
-                { "_id" : "5730e68d1c4e0296b6a10d16", "CompanyName" : "תשלומים ושליחת מכתבים", "Address" : "שנקר 15 חולון ", "Remark" : "דואר שנקר" }]
+                [{ "_id" : "5730e68d1c4e0296b6a10d14", "CompanyName" : "איסוף חבילות", "Address" : "", "Remark" : "" },
+                { "_id" : "5730e68d1c4e0296b6a10d15", "CompanyName" : "שליחת חבילות", "Address" : "", "Remark" : "" },
+                { "_id" : "5730e68d1c4e0296b6a10d16", "CompanyName" : "תשלומים ושליחת מכתבים", "Address" : "", "Remark" : "" }]
             }
         ]
     }
@@ -82,8 +85,8 @@ app.controller('arrangementCtrl', function ($scope) {
                     for (i = 0; i < selectedSubMenu.length; i++) {
                         var typesComboOption = document.createElement('option');
                         typesComboOption.id = i;
-                        typesComboOption.value = selectedSubMenu[i].CompanyName + ", " + selectedSubMenu[i].Address;
-                        typesComboOption.innerHTML = selectedSubMenu[i].CompanyName + ", " + selectedSubMenu[i].Address;
+                        typesComboOption.value = selectedSubMenu[i].CompanyName /* + ", " + selectedSubMenu[i].Address*/;
+                        typesComboOption.innerHTML = selectedSubMenu[i].CompanyName /* + ", " + selectedSubMenu[i].Address*/;
                         typesComboOption.mongoId = selectedSubMenu[i]._id;
                         subTypesCombo.appendChild(typesComboOption);
 
