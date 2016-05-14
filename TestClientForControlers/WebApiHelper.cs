@@ -44,7 +44,7 @@ namespace TestClientForControlers
         {
             var company = new Company()
             {
-                Location = new Location() {X = 32.5669, Y = 36.5589},
+                //Location = new Location() {X = 32.5669, Y = 36.5589},
                 Type = CompanyType.Banks,
                 UrlForApi = "this ia the best uri in the world hai tov baolam!!!!!"
             };

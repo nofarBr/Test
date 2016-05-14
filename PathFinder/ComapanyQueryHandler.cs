@@ -19,7 +19,7 @@ namespace PathFinder
         {
             return
                 _mongoDbHandler.Collection.AsQueryable<Company>()
-                    .Where(x => x.Type.In(companyType) && x.Location.Address.City.Decription == city.Decription)
+                    .Where(x => x.Type.In(companyType) && x.Location.City.Decription == city.Decription)
                     .ToList();
         }
     }

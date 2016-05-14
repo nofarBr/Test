@@ -8,7 +8,7 @@ namespace SaveMyDate.Entities
     public class Appointment : IMongoEntity
     {
         public string Id { get; set; }
-        public string CompanyId { get; set; }
+        public Company Company { get; set; }
         public DateTime Time { get; set; }
         public string Remark { get; set; }
 
