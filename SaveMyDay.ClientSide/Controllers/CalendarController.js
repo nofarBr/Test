@@ -198,6 +198,7 @@ app.controller('calendarCtrl', function ($scope) {
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
                     document.getElementById('modalLocation').googleValue = true;
+                    document.getElementById('modalLocation').googleCity = place.address_components[1].long_name;
                 });
 
                 document.getElementById('modalDelete').onclick = function () {
@@ -210,6 +211,7 @@ app.controller('calendarCtrl', function ($scope) {
                         event = {
                             title: '',
                             location: '',
+                            city: '',
                             end: '',
                             start: '',
                             date: ''
@@ -219,6 +221,7 @@ app.controller('calendarCtrl', function ($scope) {
 
                         event.title = document.getElementById('modalTitle').value;
                         event.location = document.getElementById('modalLocation').value;
+                        event.city = document.getElementById('modalLocation').googleCity;
 
                         end.hour(endTime[0]);
                         end.minute(endTime[1]);
@@ -268,6 +271,7 @@ app.controller('calendarCtrl', function ($scope) {
                 autocomplete.addListener('place_changed', function () {
                     var place = autocomplete.getPlace();
                     document.getElementById('modalLocation').googleValue = true;
+                    document.getElementById('modalLocation').googleCity = place.address_components[1].long_name;
                 });
 
                 document.getElementById('modalDelete').onclick = function () {
@@ -282,6 +286,7 @@ app.controller('calendarCtrl', function ($scope) {
 
                         event.title = document.getElementById('modalTitle').value;
                         event.location = document.getElementById('modalLocation').value;
+                        event.city = document.getElementById('modalLocation').googleCity;
 
                         event.end.hour(endTime[0]);
                         event.end.minute(endTime[1]);
@@ -316,15 +321,16 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
 
         for (var event = 0; event < allEvents.length; event++) {
             if (allEvents[event].date === document.getElementById('date-picker').value) {
-                var event = {
+                var currEvent = {
                     title: allEvents[event].title,
                     location: allEvents[event].location,
+                    city: allEvents[event].city,
                     end: allEvents[event].end,
                     start: allEvents[event].start,
                     date: allEvents[event].date
                 };
                 
-                events.push(event);
+                events.push(currEvent);
             }
         }
 
