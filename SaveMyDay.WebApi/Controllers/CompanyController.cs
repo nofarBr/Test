@@ -17,9 +17,9 @@ namespace SaveMyDay.WebApi.Controllers
         }
        
         [EnableQuery]
-        public IQueryable<Company> GetAllCompanies()
+        public IQueryable<Company> Get()
         {
-            return _mongoCrud.GetAllEntities().AsQueryable();
+            return _mongoCrud.GetAllEntities();
         }
 
         [HttpPost]

@@ -44,6 +44,7 @@ namespace TestClientForControlers
         {
             var company = new Company()
             {
+                Id = ObjectId.GenerateNewId().ToString(),
                 //Location = new Location() {X = 32.5669, Y = 36.5589},
                 Type = CompanyType.Banks,
                 UrlForApi = "this ia the best uri in the world hai tov baolam!!!!!"
@@ -58,7 +59,7 @@ namespace TestClientForControlers
             };
 
        
-          //  var response = _client.PostAsJsonAsync("http://localhost:60799/api/Company", company).Result;
+            var response1 = _client.PostAsJsonAsync("http://localhost:60799/api/Company", company).Result;
            var response = _client.PostAsJsonAsync("http://localhost:60799/api/Appointment", gizmo).Result;
             return response.Content.ToString();
 

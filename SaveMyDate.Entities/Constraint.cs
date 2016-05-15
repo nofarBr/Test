@@ -8,7 +8,12 @@ namespace SaveMyDate.Entities
     public class Constraint : TimeWindow
     {
         public int Code { get; set; }
-        public Location StartLocation { get; set; }
-        public Location EndLocation { get; set; }
+        public string Title { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public DateTime Date { get; set; }
+        public string Location { get; set; }
+
+
     }
 }
