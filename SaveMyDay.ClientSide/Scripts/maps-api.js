@@ -31,7 +31,8 @@ function addLabelMarker(path_id, address, text) {
             });
             markersPerPath[path_id].push(textmarker);
         } else {
-            alert("Geocode was not successful for the following reason: " + status);
+            //alert(address);
+            alert("Test-Geocode was not successful for the following reason: " + status);
         }
     });
 }
@@ -75,29 +76,32 @@ function hideAllRoutes() {
 
 function modifyRoute(path_id, color, set_markers) {
 
-    var supress_markers;
-    var strokeWeight;
+    if (path_id < directionsDisplays.length)
+    {
+        var supress_markers;
+        var strokeWeight;
 
-    if (set_markers == 'true') {
-        supress_markers = false;
-        strokeWeight = 6;
-        showMarkersByPath(path_id);
-    } else {
-        supress_markers = true;
-        strokeWeight = 4;
-        hideMarkersByPath(path_id);
-    }
-
-    directionsDisplays[path_id].setOptions({
-        suppressMarkers: supress_markers,
-        polylineOptions: {
-            strokeColor: color,
-            strokeWeight: strokeWeight,
-            strokeOpacity: 0.7
+        if (set_markers == 'true') {
+            supress_markers = false;
+            strokeWeight = 6;
+            showMarkersByPath(path_id);
+        } else {
+            supress_markers = true;
+            strokeWeight = 4;
+            hideMarkersByPath(path_id);
         }
-    });
 
-    directionsDisplays[path_id].setMap(map);
+        directionsDisplays[path_id].setOptions({
+            suppressMarkers: supress_markers,
+            polylineOptions: {
+                strokeColor: color,
+                strokeWeight: strokeWeight,
+                strokeOpacity: 0.7
+            }
+        });
+
+        directionsDisplays[path_id].setMap(map);
+    }
 }
 
 function addNewRoute(path_id, places, labels, travel_type) {
@@ -122,7 +126,7 @@ function addNewRoute(path_id, places, labels, travel_type) {
 
     var travelModeType;
 
-    if (travel_type == 'car') {
+    if (travel_type == 0) {
         travelModeType = google.maps.TravelMode.DRIVING;
     } else {
         travelModeType = google.maps.TravelMode.WALKING;

@@ -10,6 +10,12 @@ html, body {
     background-size:cover;
 }
 
+/*#logo-div {
+    background:url('Images/new-logo.png');
+    background-size:100% 100%;
+    height:180px;
+}*/
+
 #logo-text {
     display:inline-block;
     padding:15px;
