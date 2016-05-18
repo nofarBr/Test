@@ -16,7 +16,7 @@ namespace SaveMyDay.WebApi
             config.MapHttpAttributeRoutes();
             // odata routing
             ODataModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<Company>("Company");
+           // builder.EntitySet<Company>("Company");
             builder.EntitySet<Appointment>("Appointment");
             
             config.MapODataServiceRoute(

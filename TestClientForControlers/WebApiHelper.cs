@@ -47,7 +47,8 @@ namespace TestClientForControlers
                 Id = ObjectId.GenerateNewId().ToString(),
                 //Location = new Location() {X = 32.5669, Y = 36.5589},
                 Type = CompanyType.Banks,
-                UrlForApi = "this ia the best uri in the world hai tov baolam!!!!!"
+                UrlForApi = "this ia the best uri in the world hai tov baolam!!!!!",
+                SubType = "פועלים"
             };
 
             var gizmo = new Appointment()

@@ -1,14 +1,16 @@
-﻿using SaveMyDate.Entities;
+﻿using System.Collections.Generic;
+using SaveMyDate.Entities;
 using System.Web.Http;
 using SaveMayDay.Common;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.OData;
+using Newtonsoft.Json.Linq;
 
 namespace SaveMyDay.WebApi.Controllers
 {
-    public class CompanyController : ODataController
+    public class CompanyController : ApiController
     {
         private readonly MongoCrud<Company> _mongoCrud;
         public CompanyController()
@@ -16,10 +18,19 @@ namespace SaveMyDay.WebApi.Controllers
             _mongoCrud = new MongoCrud<Company>();
         }
        
-        [EnableQuery]
-        public IQueryable<Company> Get()
+        [HttpGet]
+        public List<JObject> Get()
         {
-            return _mongoCrud.GetAllEntities();
+            var allCompanies = _mongoCrud.GetAllEntities();
+            List<JObject> companies = new List<JObject>();
+            foreach (var company in allCompanies)
+            {
+                companies.Add(new JObject(new JProperty("companyId", company.Id),
+                              new JProperty("companyType", company.Type.ToString()),
+                              new JProperty("SubType", company.SubType)));
+            }
+
+            return companies;
         }
 
         [HttpPost]
