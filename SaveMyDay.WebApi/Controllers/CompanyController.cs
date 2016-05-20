@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.OData;
 using Newtonsoft.Json.Linq;
 using System.Web.Http.Cors;
+using System;
 
 namespace SaveMyDay.WebApi.Controllers
 {
@@ -23,13 +24,13 @@ namespace SaveMyDay.WebApi.Controllers
         [HttpGet]
         public List<JObject> Get()
         {
-            var allCompanies = _mongoCrud.GetAllEntities();
+            var allCompanies = _mongoCrud.GetDistinctCompanyTypes();
             List<JObject> companies = new List<JObject>();
             foreach (var company in allCompanies)
             {
-                companies.Add(new JObject(new JProperty("companyId", company.Id),
-                              new JProperty("companyType", company.Type.ToString()),
-                              new JProperty("SubType", company.SubType)));
+                companies.Add(new JObject(
+                              new JProperty("companyType", Enum.GetName(typeof(CompanyType), company.GetElement("type").Value.AsInt32)),
+                              new JProperty("SubType", company.GetElement("_id").Value.AsString)));
             }
 
             return companies;

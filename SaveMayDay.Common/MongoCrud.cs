@@ -25,10 +25,35 @@ namespace SaveMayDay.Common
             _mongoDbHandler.Collection.Save(entityToSave);
         }
 
+        public BsonDocument[] GetDistinctCompanyTypes()
+        {
+            var match = new BsonDocument
+                {
+                    { "$match", new BsonDocument { } }
+                };
+
+            var group = new BsonDocument
+                {
+                    { "$group", new BsonDocument {
+                                        {
+                                            "_id", "$SubType"
+                                        },
+                                        {
+                                            "type", new BsonDocument { { "$first", "$Type" } }
+                                        }
+                                }
+                    }
+                };
+            // "_id", "$SubType", "type", new BsonDocument { "$first", "$Type" } }
+            var pipeline = new AggregateArgs();
+            pipeline.Pipeline = new[] { match, group };
+            return _mongoDbHandler.Collection.Aggregate(pipeline).ToArray();
+        }
+
         //public IQueryable<T> GetContact(string id)
         //{
         //    IMongoQuery query = Query.EQ("_id", id);
         //    return _mongoDbHandler.Collection.Find(query).FirstOrDefault();
         //}
-}
+    }
 }

@@ -7,6 +7,7 @@ app.controller('arrangementCtrl', function ($scope) {
         if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
             var dbArrangements = JSON.parse(xmlhttp.response);
             var dictionary = { Banks: "בנק", MedicalClinic: "קופת חולים", PostOffice: "דואר" }
+            $scope.dictionary = { "בנק" : "Banks", "קופת חולים" : "MedicalClinic", "דואר" : "PostOffice" };
 
             $scope.arrangements = {
                 types: []
@@ -53,7 +54,7 @@ app.controller('arrangementCtrl', function ($scope) {
                 var typesComboOption = document.createElement('option');
                 typesComboOption.id = i;
                 typesComboOption.value = $scope.arrangements.types[i].CompanyType;
-                typesComboOption.mongoId = $scope.arrangements.types[i].companyId;
+                //typesComboOption.mongoId = $scope.arrangements.types[i].companyId;
                 typesComboOption.innerHTML = $scope.arrangements.types[i].CompanyType;
                 typesComboOption.subMenu = $scope.arrangements.types[i].CompanyNames;
                 typesCombo.appendChild(typesComboOption);
@@ -88,7 +89,8 @@ app.controller('arrangementCtrl', function ($scope) {
                         typesComboOption.id = i;
                         typesComboOption.value = selectedSubMenu[i].SubType /* + ", " + selectedSubMenu[i].Address*/;
                         typesComboOption.innerHTML = selectedSubMenu[i].SubType /* + ", " + selectedSubMenu[i].Address*/;
-                        typesComboOption.mongoId = selectedSubMenu[i].companyId;
+                        typesComboOption.subType = selectedSubMenu[i].SubType;
+                        typesComboOption.mainType = $scope.dictionary[typesCombo.selectedOptions[0].value];
                         subTypesCombo.appendChild(typesComboOption);
 
                         if (selectedSubMenu[i].Remark && selectedSubMenu[i].Remark !== '') {
@@ -358,8 +360,8 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
 
             for (var select = 0; select < selectElements.length && !unselectedDropDown; select++) {
                 if (selectElements[select].tagName && selectElements[select].tagName.toUpperCase() === 'SELECT') {
-                    if (selectElements[select].selectedOptions[0].mongoId) {
-                        selectedAppointments.push(selectElements[select].selectedOptions[0].mongoId);
+                    if (selectElements[select].selectedOptions[0].mainType) {
+                        selectedAppointments.push({ companyType: selectElements[select].selectedOptions[0].mainType, SubType: selectElements[select].selectedOptions[0].subType });
                     }
 
                     if (selectElements[select].selectedOptions[0].id == '') {
