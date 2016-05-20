@@ -7,9 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.OData;
 using Newtonsoft.Json.Linq;
+using System.Web.Http.Cors;
 
 namespace SaveMyDay.WebApi.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CompanyController : ApiController
     {
         private readonly MongoCrud<Company> _mongoCrud;

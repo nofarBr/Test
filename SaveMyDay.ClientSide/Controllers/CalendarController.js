@@ -1,33 +1,34 @@
 ﻿
 app.controller('arrangementCtrl', function ($scope) {
-    $scope.arrangements = {
-        types: [
-            {
-                "CompanyType" : "בנק", 
-                "CompanyNames":
-                    [{ "_id": "5730e68d1c4e0296b6a10d0e", "CompanyName": "בנק הפועלים", "Address": "", "Remark": "" },
-                    { "CompanyName": "בנק דיסקונט", "Address": "", "_id": "5730e68d1c4e0296b6a10d0f", "Remark": "" },
-                    { "_id": "5730e68d1c4e0296b6a10d10", "CompanyName": "בנק מזרחי", "Address": "", "Remark": "" },
-                    { "_id": "7730e68d1c4e0296b6a10d10", "CompanyName": "בנק ירושלים", "Address": "", "Remark": "" },
-                    { "_id": "5730e68d1c4e0296b6a10d10", "CompanyName": "בנק אוצר החייל", "Address": "", "Remark": "" }]
-            },
-            { 
-                "CompanyType" : "רופא - קופת חולים כללית", 
-                "CompanyNames":
-                [{ "_id" : "5730e68d1c4e0296b6a10d11", "CompanyName" : "ילדים", "Address" : "", "Remark" : "" },
-                { "_id" : "5730e68d1c4e0296b6a10d12", "CompanyName" : "עור", "Address" : "", "Remark" : "" },
-                { "_id": "5730e68d1c4e0296b6a10d13", "CompanyName": "משפחה", "Address": "", "Remark": "" },
-                { "_id": "5730e68d1c4e0296b6a10d13", "CompanyName": "עיניים", "Address": "", "Remark": "" }]
-            },
-            {
-                "CompanyType" : "דואר",
-                "CompanyNames":
-                [{ "_id" : "5730e68d1c4e0296b6a10d14", "CompanyName" : "איסוף חבילות", "Address" : "", "Remark" : "" },
-                { "_id" : "5730e68d1c4e0296b6a10d15", "CompanyName" : "שליחת חבילות", "Address" : "", "Remark" : "" },
-                { "_id" : "5730e68d1c4e0296b6a10d16", "CompanyName" : "תשלומים ושליחת מכתבים", "Address" : "", "Remark" : "" }]
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('GET', 'http://localhost:60799/api/Company', true);
+
+    xmlhttp.onreadystatechange = function (data) {
+        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+            var dbArrangements = JSON.parse(xmlhttp.response);
+            var dictionary = { Banks: "בנק", MedicalClinic: "קופת חולים", PostOffice: "דואר" }
+
+            $scope.arrangements = {
+                types: []
+            };
+
+            var arrangementsByType = []
+            for (var i = 0; i < dbArrangements.length; i++) {
+                if (!arrangementsByType[dbArrangements[i].companyType]) {
+                    arrangementsByType[dbArrangements[i].companyType] = [];
+                }
+
+                arrangementsByType[dbArrangements[i].companyType].push(dbArrangements[i]);
             }
-        ]
+
+            for (var i = 0; i < Object.keys(arrangementsByType).length; i++) {
+                $scope.arrangements.types.push({ CompanyType: dictionary[Object.keys(arrangementsByType)[i]], CompanyNames: arrangementsByType[Object.keys(arrangementsByType)[i]] });
+            }
+        }
+
     }
+
+    xmlhttp.send();
 
     $scope.arrangementsNum = 0;
 
@@ -52,7 +53,7 @@ app.controller('arrangementCtrl', function ($scope) {
                 var typesComboOption = document.createElement('option');
                 typesComboOption.id = i;
                 typesComboOption.value = $scope.arrangements.types[i].CompanyType;
-                typesComboOption.mongoId = $scope.arrangements.types[i]._id;
+                typesComboOption.mongoId = $scope.arrangements.types[i].companyId;
                 typesComboOption.innerHTML = $scope.arrangements.types[i].CompanyType;
                 typesComboOption.subMenu = $scope.arrangements.types[i].CompanyNames;
                 typesCombo.appendChild(typesComboOption);
@@ -85,9 +86,9 @@ app.controller('arrangementCtrl', function ($scope) {
                     for (i = 0; i < selectedSubMenu.length; i++) {
                         var typesComboOption = document.createElement('option');
                         typesComboOption.id = i;
-                        typesComboOption.value = selectedSubMenu[i].CompanyName /* + ", " + selectedSubMenu[i].Address*/;
-                        typesComboOption.innerHTML = selectedSubMenu[i].CompanyName /* + ", " + selectedSubMenu[i].Address*/;
-                        typesComboOption.mongoId = selectedSubMenu[i]._id;
+                        typesComboOption.value = selectedSubMenu[i].SubType /* + ", " + selectedSubMenu[i].Address*/;
+                        typesComboOption.innerHTML = selectedSubMenu[i].SubType /* + ", " + selectedSubMenu[i].Address*/;
+                        typesComboOption.mongoId = selectedSubMenu[i].companyId;
                         subTypesCombo.appendChild(typesComboOption);
 
                         if (selectedSubMenu[i].Remark && selectedSubMenu[i].Remark !== '') {
@@ -393,12 +394,6 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
             .error(function (data, status, header, config) {
                 var b = 3;
             });
-
-
-            //var xmlhttp = new XMLHttpRequest();
-            //xmlhttp.open('POST', 'http://localhost:52747/api/PathCalculator', true);
-            //xmlhttp.setRequestHeader('Content-Type', 'application/json');
-            //xmlhttp.send({ 'city': 'Tel Aviv' });
         }
     }
 

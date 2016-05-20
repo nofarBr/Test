@@ -13,6 +13,10 @@ namespace SaveMyDay.WebApi
     {
         public static void Register(HttpConfiguration config)
         {
+            // Web API configuration and services
+            // New code
+            config.EnableCors();
+
             config.MapHttpAttributeRoutes();
             // odata routing
             ODataModelBuilder builder = new ODataConventionModelBuilder();
