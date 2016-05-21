@@ -389,7 +389,7 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
             $('#errorModal').modal();
         } else {
             var url = 'http://localhost:52747/api/PathCalculator';
-            var data = { uiData: dataObject };
+            var data = dataObject;
             $http.post(url, data)
             .success(function (data) {
                 $rootScope.pathsList = data.paths;

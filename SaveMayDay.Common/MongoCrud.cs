@@ -50,10 +50,10 @@ namespace SaveMayDay.Common
             return _mongoDbHandler.Collection.Aggregate(pipeline).ToArray();
         }
 
-        //public IQueryable<T> GetContact(string id)
-        //{
-        //    IMongoQuery query = Query.EQ("_id", id);
-        //    return _mongoDbHandler.Collection.Find(query).FirstOrDefault();
-        //}
+        public T GetEntityById(string id)
+        {
+            IMongoQuery query = Query.EQ("_id", id);
+            return _mongoDbHandler.Collection.Find(query).FirstOrDefault();
+        }
     }
 }

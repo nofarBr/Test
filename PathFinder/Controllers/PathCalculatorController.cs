@@ -16,10 +16,19 @@ namespace PathFinder.Controllers
         {
             // Example of parsing paramters.
             //City city = jsonParam["city"].ToObject<City>(); no need fo this....!
-            //List<Constraint> constraintList = jsonParam["events"].ToObject<List<Constraint>>();
-            //City city1 = jsonParam["appointmentsCity"].ToObject<City>();
-            //List<string> appointmentsIds = jsonParam["selectedAppointments"].ToObject<List<string>>();
-           
+            List<Constraint> constraintList = jsonParam["events"].ToObject<List<Constraint>>();
+            string city1 = jsonParam["appointmentsCity"].ToObject<string>();
+            string travel = jsonParam["travelWay"].ToObject<string>();
+            List<JObject> appointmentsJobj = jsonParam["selectedAppointments"].ToObject<List<JObject>>();
+
+            List<string[]> appointments = new List<string[]>();
+            foreach (JObject appointment in appointmentsJobj)
+            {
+                string type = appointment["companyType"].ToObject<String>();
+                string subType = appointment["SubType"].ToObject<String>();
+                appointments.Add(new string[] { type, subType } );
+            }
+
             //  Constraint cconstraint2 = jsonParam["city2"].ToObject<string>();
 
             //var companiesForAlgorithem = new ComapanyQueryHandler().GetCompaniesByTypeAndLocation(companyTypes, city);

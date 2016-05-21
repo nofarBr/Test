@@ -61,6 +61,8 @@
     <Compile Include="CompanyType.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Errand.cs" />
+    <Compile Include="FreeAppointment.cs" />
+    <Compile Include="FreeAppointmentCompany.cs" />
     <Compile Include="IMongoEntity.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
