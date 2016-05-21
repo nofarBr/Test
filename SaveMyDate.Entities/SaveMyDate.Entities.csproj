@@ -57,16 +57,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Appointment.cs" />
-    <Compile Include="City.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="CompanyType.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Errand.cs" />
-    <Compile Include="Location.cs" />
     <Compile Include="IMongoEntity.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeWindow.cs" />
+    <Compile Include="travelWay.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

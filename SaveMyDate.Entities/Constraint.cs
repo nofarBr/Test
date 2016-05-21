@@ -13,6 +13,7 @@ namespace SaveMyDate.Entities
         public DateTime End { get; set; }
         public DateTime Date { get; set; }
         public string Location { get; set; }
+        public string City { get; set; }
 
 
     }

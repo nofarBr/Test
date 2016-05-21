@@ -15,11 +15,11 @@ namespace PathFinder
             _mongoDbHandler = new MongoDbHandler<Company>();
         }
 
-        public List<Company> GetCompaniesByTypeAndLocation(List<CompanyType> companyType, City city)
+        public List<Company> GetCompaniesByTypeAndLocation(List<CompanyType> companyType, string city)
         {
             return
                 _mongoDbHandler.Collection.AsQueryable<Company>()
-                    .Where(x => x.Type.In(companyType) && x.Location.City.Decription == city.Decription)
+                    .Where(x => x.Type.In(companyType) && x.Location == city)
                     .ToList();
         }
     }

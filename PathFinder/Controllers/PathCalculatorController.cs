@@ -8,14 +8,13 @@ using System;
 
 namespace PathFinder.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PathCalculatorController : ApiController
     {
         [HttpPost]
         public object PathCalculator(JObject jsonParam)
         {
             // Example of parsing paramters.
-            City city = jsonParam["city"].ToObject<City>();
+            //City city = jsonParam["city"].ToObject<City>(); no need fo this....!
             //List<Constraint> constraintList = jsonParam["events"].ToObject<List<Constraint>>();
             //City city1 = jsonParam["appointmentsCity"].ToObject<City>();
             //List<string> appointmentsIds = jsonParam["selectedAppointments"].ToObject<List<string>>();
@@ -33,90 +32,48 @@ namespace PathFinder.Controllers
             var company_bank1 = new Company()
             {
                 Id = "1",
-                Location = new Location()
-                {
-                    City = new City()
-                    {
-                        Code = 1,
-                        Decription = "אשקלון"
-                    },
-                    FullAddress = "אורט 8, אשקלון"
-                },
+                Location = "אורט 8, אשקלון",
+                 
                 Type = CompanyType.Banks
             };
 
             var company_bank2 = new Company()
             {
                 Id = "2",
-                Location = new Location()
-                {
-                    City = new City()
-                    {
-                        Code = 1,
-                        Decription = "אשקלון"
-                    },
-                    FullAddress = "נמר 4, אשקלון"
-                },
+                Location = "נמר 4, אשקלון",
+               
                 Type = CompanyType.Banks
             };
 
             var company_clinic1 = new Company()
             {
                 Id = "3",
-                Location = new Location()
-                {
-                    City = new City()
-                    {
-                        Code = 1,
-                        Decription = "אשקלון"
-                    },
-                    FullAddress = "לכיש 4, אשקלון"
-                },
+                Location = "לכיש 4, אשקלון",
+               
                 Type = CompanyType.MedicalClinic
             };
 
             var company_clinic2 = new Company()
             {
                 Id = "4",
-                Location = new Location()
-                {
-                    City = new City()
-                    {
-                        Code = 1,
-                        Decription = "אשקלון"
-                    },
-                    FullAddress = "אילת 2, אשקלון"
-                },
+                Location = "אילת 2, אשקלון",
+               
                 Type = CompanyType.MedicalClinic
             };
 
             var company_post1 = new Company()
             {
                 Id = "5",
-                Location = new Location()
-                {
-                    City = new City()
-                    {
-                        Code = 1,
-                        Decription = "אשקלון"
-                    },
-                    FullAddress = "העבודה 2, אשקלון"
-                },
+                Location = "העבודה 2, אשקלון",
+               
                 Type = CompanyType.PostOffice
             };
 
             var company_post2 = new Company()
             {
                 Id = "6",
-                Location = new Location()
-                {
-                    City = new City()
-                    {
-                        Code = 1,
-                        Decription = "אשקלון"
-                    },
-                    FullAddress = "דוד רמז 8, אשקלון"
-                },
+                Location = "דוד רמז 8, אשקלון",
+               
                 Type = CompanyType.PostOffice
             };
 
@@ -208,7 +165,7 @@ namespace PathFinder.Controllers
             */
 
             // Send to the client
-            var result = new { paths = paths, city = city };
+            var result = new { paths = paths};
             return Json(result);
         }
     }
