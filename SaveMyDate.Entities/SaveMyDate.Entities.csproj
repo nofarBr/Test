@@ -65,7 +65,7 @@
     <Compile Include="Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimeWindow.cs" />
-    <Compile Include="travelWay.cs" />
+    <Compile Include="TravelWay.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

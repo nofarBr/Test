@@ -8,6 +8,7 @@ using System;
 
 namespace PathFinder.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PathCalculatorController : ApiController
     {
         [HttpPost]
@@ -97,7 +98,7 @@ namespace PathFinder.Controllers
                         Remark = "רופא עיניים - ד''ר סימנובסקי"
                     }
                 },
-                type = Path.MovementType.Car
+                type = TravelWay.Car
             };
 
             var path_2 = new Path()
@@ -120,7 +121,7 @@ namespace PathFinder.Controllers
                         Remark = "בנק מזרחי - סניף אשקלון"
                     }
                 },
-                type = Path.MovementType.Car
+                type = TravelWay.Car
             };
 
             var path_3 = new Path()
@@ -143,7 +144,7 @@ namespace PathFinder.Controllers
                         Remark = "רופא עיניים - ד''ר כהן"
                     }
                 },
-                type = Path.MovementType.Car
+                type = TravelWay.Car
             };
 
             paths.Add(path_1);

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SaveMyDate.Entities;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -11,7 +12,7 @@ namespace DaySchedualer.Controllers
         public void PostAppointment(JObject jsonParam)
         {
             //schedual path & appointment
-            var pathId = jsonParam["pathId"].ToObject<int>();
+            var selectedPath = jsonParam.ToObject<Path>();
         }
     }
 }

@@ -12,18 +12,12 @@ namespace SaveMyDate.Entities
         public User User { get; set; }
         public List<Appointment> Appointments { get; set; }
         public List<Constraint> Constraints { get; set; }
-        public MovementType type { get; set; }
+        public TravelWay type { get; set; }
 
         public Path()
         {
             Appointments = new List<Appointment>();
             Constraints = new List<Constraint>();
-        }
-
-        public enum MovementType
-        {
-            Car,
-            walk,
-        }        
+        }     
     }
 }

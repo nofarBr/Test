@@ -28,6 +28,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
 
             // Running over all the given paths
             var arrPaths = angular.fromJson(jsonPath);
+            $scope.AllPaths = arrPaths;
             var paths = [];
 
             for (var i = 0; i < arrPaths.length; i++) {
@@ -46,15 +47,12 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                         time: date.getHours() + ":" + date.getMinutes(),
                         desc: arrPaths[i].Appointments[j].Remark,
                         address: arrPaths[i].Appointments[j].Company.Location.Address.Street
-                        //address: "רחוב ז'בוטינסקי 106, רמת גן"
                     });
                 }
 
                 // Add the current path as route in the map
                 addNewRoute(i, locations, labels, "car");
                 paths.push({ id: i + 1, appointments: path_details });
-                //$scope.PauseComp(2000);
-                //setTimeout(function () { alert('hi!'); }, 3000);
             }
 
             $scope.paths = paths;
@@ -62,6 +60,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
         else
         {
             var arrAlgorithmPaths = angular.fromJson(pathsList);
+            $scope.AllPaths = arrAlgorithmPaths;
             var paths = [];
 
             // Running over all the given paths
@@ -73,14 +72,14 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                 
                 // Running over all the appointments for the current path
                 for (var j = 0; j < arrAlgorithmPaths[i].Appointments.length; j++) {
-                    locations.push(arrAlgorithmPaths[i].Appointments[j].Company.Location.FullAddress);
+                    locations.push(arrAlgorithmPaths[i].Appointments[j].Company.Location);
                     labels.push(arrCompanyTypeLabels[arrAlgorithmPaths[i].Appointments[j].Company.Type]);
                     var date = new Date(arrAlgorithmPaths[i].Appointments[j].Time);
                     path_details.push({
                         icon: arrAlgorithmPaths[i].Appointments[j].Company.Type,
                         time: date.getHours() + ":" + date.getMinutes(),
                         desc: arrAlgorithmPaths[i].Appointments[j].Remark,
-                        address: arrAlgorithmPaths[i].Appointments[j].Company.Location.FullAddress
+                        address: arrAlgorithmPaths[i].Appointments[j].Company.Location
                     });
                 }
 
@@ -91,62 +90,21 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
 
             $scope.paths = paths;
         }
-
-        //////////////////////////
-        //                      //
-        //    TEST TEST TEST    //
-        //                      //
-        //////////////////////////
-
-        /*
-        // Get the paths data in json format
-        var jsonPath = "[{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Namer 10 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-17T09:30:31.0095157+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Lachish 4 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T10:30:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Sivan 2 Ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T14:10:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Megido 6 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":2,\"UrlForApi\":null},\"Time\":\"2015-12-21T19:30:31.0165161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0},{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Hagvura 5 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-17T18:45:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Hanasi 50 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T19:30:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0},{\"Id\":\"000000000000000000000000\",\"User\":{\"Id\":\"000000000000000000000000\",\"Name\":\"Ori\",\"Password\":\"Aa123456\"},\"Appointments\":[{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Lachish 4 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":2,\"UrlForApi\":null},\"Time\":\"2015-12-17T09:15:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Tsipori 1 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":1,\"UrlForApi\":null},\"Time\":\"2015-12-21T10:10:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Sinai 2 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T13:30:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"},{\"Id\":\"000000000000000000000000\",\"Company\":{\"Id\":\"000000000000000000000000\",\"Location\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"Ort 2 ashkelon\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"6\"}},\"Type\":0,\"UrlForApi\":null},\"Time\":\"2015-12-21T18:50:31.0175161+02:00\",\"LastModified\":\"0001-01-01T00:00:00\",\"Remark\":\"notes notes notes\"}],\"Constraints\":[{\"Code\":1,\"StartLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street1\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"10\"}},\"EndLocation\":{\"X\":0.0,\"Y\":0.0,\"Address\":{\"Street\":\"street2\",\"City\":{\"Code\":1,\"Decription\":\"wooo city\"},\"HouseNumber\":\"16\"}},\"StartTime\":\"2015-12-18T01:51:31.0175161+02:00\",\"EndTime\":\"2015-12-18T03:51:31.0175161+02:00\"}],\"type\":0}]";
-        
-        // Define the labels for each company type
-        var arrCompanyTypeLabels = ['תור לרופא', 'תור לבנק', 'תור לדואר'];
-
-        // Running over all the given paths
-        var arrPaths = angular.fromJson(jsonPath);
-        var paths = [];
-
-        for (var i = 0; i < arrPaths.length; i++) {
-
-            var locations = [];
-            var labels = [];
-            var path_details = [];
-
-            // Running over all the appointments for the current path
-            for (var j = 0; j < arrPaths[i].Appointments.length; j++) {
-                locations.push(arrPaths[i].Appointments[j].Company.Location.Address.Street);
-                labels.push(arrCompanyTypeLabels[arrPaths[i].Appointments[j].Company.Type]);
-                var date = new Date(arrPaths[i].Appointments[j].Time);
-                path_details.push({
-                    icon: arrPaths[i].Appointments[j].Company.Type,
-                    time: date.getHours() + ":" + date.getMinutes(),
-                    desc: arrCompanyTypeLabels[arrPaths[i].Appointments[j].Company.Type],
-                    address: "רחוב ז'בוטינסקי 106, רמת גן"
-                });
-            }
-
-            // Add the current path as route in the map
-            addNewRoute(i, locations, labels, "car");
-            paths.push({ id: i + 1, appointments: path_details });
-        }
-
-        $scope.paths = paths;*/
     }
 
     $scope.ChoosePath = function () {
         var url = 'http://localhost:53528/api/Path/PostAppointment';
-        var data = {
-            'pathId': $scope.chosen_path
-        };
-        
+        var data = angular.toJson($scope.AllPaths[$scope.chosen_path - 1])
+
+        $('#resultModal').on('hidden.bs.modal', function (e) {
+            window.location.href = '#/home';
+        })
+
+        $('#resultModal').modal({ backdrop: 'static', keyboard: false });
+
         $http.post(url, data)
         .success(function (data) {
             alert('The path chosen successfully!');
-            //$rootScope.pathsList = data.paths;
-            //$location.path("/map");
         })
         .error(function (data, status, header, config) {
             alert('Error!');
