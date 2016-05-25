@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathFinder", "PathFinder\Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaySchedualer", "DaySchedualer\DaySchedualer.csproj", "{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMyDay.DistancesMatrix", "SaveMyDay.DistancesMatrix\SaveMyDay.DistancesMatrix.csproj", "{4B37FFF5-6E6D-41FA-8B66-9DCEA81E8DBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93BBAC66-70A1-48D5-BBC1-8A9D43650BE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B37FFF5-6E6D-41FA-8B66-9DCEA81E8DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B37FFF5-6E6D-41FA-8B66-9DCEA81E8DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B37FFF5-6E6D-41FA-8B66-9DCEA81E8DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B37FFF5-6E6D-41FA-8B66-9DCEA81E8DBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SaveMyDay.DistancesMatrix;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,10 @@ namespace TestClientForControlers
     {
         static void Main(string[] args)
         {
-            WebApiHelper helper = new WebApiHelper("http://localhost:60799/");
+            //DistancesMatrixCreator.Run();
+            //Dictionary<Tuple<string, string>, int> dictionary = DistancesMatrixReader.Read();
+
+            /*WebApiHelper helper = new WebApiHelper("http://localhost:60799/");
 
             while(true)
                 {
@@ -20,7 +24,7 @@ namespace TestClientForControlers
                 Console.WriteLine("done");
             }
            
-
+            */
         }
     }
 }
