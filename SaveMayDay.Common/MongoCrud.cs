@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -54,6 +55,12 @@ namespace SaveMayDay.Common
         {
             IMongoQuery query = Query.EQ("_id", id);
             return _mongoDbHandler.Collection.Find(query).FirstOrDefault();
+        }
+
+        public List<T> GetEntityByCompanySubType(string subType)
+        {
+            IMongoQuery query = Query.EQ("Company.SubType", subType);
+            return _mongoDbHandler.Collection.Find(query).ToList();
         }
     }
 }

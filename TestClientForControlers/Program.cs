@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CompanySimulator;
+using SaveMyDate.Entities;
 using TestClientForControlers;
 
 namespace TestClientForControlers
@@ -12,6 +14,8 @@ namespace TestClientForControlers
     {
         static void Main(string[] args)
         {
+            // test for finding free appointments
+            var pp = new FreeAppointmentFinder().FindFreeAppointmentByDay(DateTime.Now, CompanyType.Banks, "פועלים");
             //DistancesMatrixCreator.Run();
             //Dictionary<Tuple<string, string>, int> dictionary = DistancesMatrixReader.Read();
 

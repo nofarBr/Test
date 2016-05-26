@@ -88,6 +88,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CompanySimulator\CompanySimulator.csproj">
+      <Project>{5d97f7b0-4050-43f8-84c1-a3e44011e4c5}</Project>
+      <Name>CompanySimulator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SaveMyDate.Entities\SaveMyDate.Entities.csproj">
       <Project>{6568170b-243d-4f17-85d2-8369f78686f8}</Project>
       <Name>SaveMyDate.Entities</Name>
