@@ -5,6 +5,9 @@ using SaveMyDay.Algoritem;
 using System.Web.Http.Cors;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
+using CompanySimulator;
+using SaveMyDay.DistancesMatrix;
 
 namespace PathFinder.Controllers
 {
@@ -15,9 +18,8 @@ namespace PathFinder.Controllers
         public object PathCalculator(JObject jsonParam)
         {
             // Example of parsing paramters.
-            //City city = jsonParam["city"].ToObject<City>(); no need fo this....!
             List<Constraint> constraintList = jsonParam["events"].ToObject<List<Constraint>>();
-            string city1 = jsonParam["appointmentsCity"].ToObject<string>();
+            string city = jsonParam["appointmentsCity"].ToObject<string>();
             string travel = jsonParam["travelWay"].ToObject<string>();
             List<JObject> appointmentsJobj = jsonParam["selectedAppointments"].ToObject<List<JObject>>();
 
@@ -29,11 +31,12 @@ namespace PathFinder.Controllers
                 appointments.Add(new string[] { type, subType } );
             }
 
-            //  Constraint cconstraint2 = jsonParam["city2"].ToObject<string>();
-
-            //var companiesForAlgorithem = new ComapanyQueryHandler().GetCompaniesByTypeAndLocation(companyTypes, city);
-            //var result = new AlgoritemRunner();
-            //result.Activate(companiesForAlgorithem);
+            // this is the call to company simulator for dror, then is the call to algorithem,need to fill up parameters.
+            var freeAppointmentFinder = new FreeAppointmentFinder();
+            //freeAppointmentFinder.FindFreeAppointmentByDay(null,null,"");
+            var matrixDictionary = DistancesMatrixReader.Read();
+            var algoritemRunner = new AlgoritemRunner();
+            algoritemRunner.Activate(null, constraintList,null, matrixDictionary);
 
             var paths = new List<Path>();
 

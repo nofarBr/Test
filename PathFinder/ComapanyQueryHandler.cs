@@ -6,6 +6,7 @@ using SaveMyDate.Entities;
 
 namespace PathFinder
 {
+    // no need for this class, will be deleted!!!!
     public class ComapanyQueryHandler
     {
         private readonly MongoDbHandler<Company> _mongoDbHandler;
@@ -15,12 +16,13 @@ namespace PathFinder
             _mongoDbHandler = new MongoDbHandler<Company>();
         }
 
-        public List<Company> GetCompaniesByTypeAndLocation(List<CompanyType> companyType, string city)
+        public List<Company> GetCompaniesByTypeAndLocation(List<string[]> companyTypeAndSubtypeList, string city)
         {
-            return
-                _mongoDbHandler.Collection.AsQueryable<Company>()
-                    .Where(x => x.Type.In(companyType) && x.Location == city)
-                    .ToList();
+            return null;
+            //return
+            //    _mongoDbHandler.Collection.AsQueryable<Company>()
+            //        .Where(x => companyTypeAndSubtypeList && x.Location == city)
+            //        .ToList();
         }
     }
 }

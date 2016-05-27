@@ -122,6 +122,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CompanySimulator\CompanySimulator.csproj">
+      <Project>{5D97F7B0-4050-43F8-84C1-A3E44011E4C5}</Project>
+      <Name>CompanySimulator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SaveMayDay.Common\SaveMayDay.Common.csproj">
       <Project>{386BB575-B30F-4394-AB44-D3EAFB1E5497}</Project>
       <Name>SaveMayDay.Common</Name>
@@ -133,6 +137,10 @@
     <ProjectReference Include="..\SaveMyDay.Algoritem\SaveMyDay.Algoritem.csproj">
       <Project>{1e415541-c674-49f4-ad48-ff94a4b4e760}</Project>
       <Name>SaveMyDay.Algoritem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SaveMyDay.DistancesMatrix\SaveMyDay.DistancesMatrix.csproj">
+      <Project>{4B37FFF5-6E6D-41FA-8B66-9DCEA81E8DBC}</Project>
+      <Name>SaveMyDay.DistancesMatrix</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
