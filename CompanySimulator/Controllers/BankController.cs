@@ -20,9 +20,9 @@ namespace CompanySimulator.Controllers
         }
 
         [HttpGet]
-        public List<FreeAppointmentCompany> Get(string subType)
+        public List<FreeAppointmentCompany> Get(string subType, string location)
         {
-            return _mongoCrud.GetEntityByCompanySubType(subType);
+            return _mongoCrud.GetEntityByCompanySubType(subType, location);
         }
     }
 }

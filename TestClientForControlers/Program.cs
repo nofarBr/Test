@@ -15,7 +15,7 @@ namespace TestClientForControlers
         static void Main(string[] args)
         {
             // test for finding free appointments
-            var pp = new FreeAppointmentFinder().FindFreeAppointmentByDay(DateTime.Now, CompanyType.Banks, "פועלים");
+            var pp = new FreeAppointmentFinder().FindFreeAppointmentByDay(DateTime.Now, CompanyType.Banks, "פועלים","1אשדוד");
             //DistancesMatrixCreator.Run();
             //Dictionary<Tuple<string, string>, int> dictionary = DistancesMatrixReader.Read();
 

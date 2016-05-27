@@ -57,9 +57,11 @@ namespace SaveMayDay.Common
             return _mongoDbHandler.Collection.Find(query).FirstOrDefault();
         }
 
-        public List<T> GetEntityByCompanySubType(string subType)
+        public List<T> GetEntityByCompanySubType(string subType, string location)
         {
-            IMongoQuery query = Query.EQ("Company.SubType", subType);
+            IMongoQuery query  = Query.And(
+                                 Query.EQ("Company.SubType", subType),
+                                 Query.EQ("Company.Location", location));
             return _mongoDbHandler.Collection.Find(query).ToList();
         }
     }
