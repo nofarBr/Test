@@ -16,5 +16,21 @@ namespace SaveMyDate.Entities
         {
             this.freeAppointments = new List<DbAppointment>();
         }
+
+        public List<Appointment> ConvertToAppointments()
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+            foreach(DbAppointment dbAppointment in this.freeAppointments)
+            {
+                Appointment app = new Appointment();
+                app.Company = this.Company;
+                app.Remark = dbAppointment.Remark;
+                app.Time = dbAppointment.StartTime;
+                appointments.Add(app);
+            }
+
+            return appointments;
+        }
     }
 }
