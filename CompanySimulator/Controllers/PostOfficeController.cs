@@ -9,14 +9,14 @@ namespace CompanySimulator.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PostOfficeController : ApiController
     {
-        private readonly MongoCrud<FreeAppointmentCompany> _mongoCrud;
+        private readonly MongoCrud<DbAppointmentCompany> _mongoCrud;
         public PostOfficeController()
         {
-            _mongoCrud = new MongoCrud<FreeAppointmentCompany>();
+            _mongoCrud = new MongoCrud<DbAppointmentCompany>();
         }
 
         [HttpGet]
-        public List<FreeAppointmentCompany> Get(string subType, string location)
+        public List<DbAppointmentCompany> Get(string subType, string location)
         {
             return _mongoCrud.GetEntityByCompanySubType(subType, location);
         }

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace SaveMyDate.Entities
 {
-    public class FreeAppointmentCompany : IMongoEntity
+    public class DbAppointmentCompany : IMongoEntity
     {
         public string Id { get; set; }
         public Company Company { get; set; }
-        public List<FreeAppointment> freeAppointments { get; set; }
+        public List<DbAppointment> freeAppointments { get; set; }
 
-        public FreeAppointmentCompany()
+        public DbAppointmentCompany()
         {
-            this.freeAppointments = new List<FreeAppointment>();
+            this.freeAppointments = new List<DbAppointment>();
         }
     }
 }

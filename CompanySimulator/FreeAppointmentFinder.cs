@@ -8,9 +8,9 @@ namespace CompanySimulator
 {
     public class FreeAppointmentFinder
     {
-        public List<FreeAppointmentCompany> FindFreeAppointmentByDay(DateTime dayToScedual, CompanyType companyType, string companySubType, string location)
+        public List<DbAppointmentCompany> FindFreeAppointmentByDay(DateTime dayToScedual, CompanyType companyType, string companySubType, string location)
         {
-            List<FreeAppointmentCompany> freeAppointmentCompany;
+            List<DbAppointmentCompany> freeAppointmentCompany;
 
             switch (companyType)
             {
@@ -36,7 +36,7 @@ namespace CompanySimulator
             return freeAppointmentCompany;
         }
 
-        private List<FreeAppointmentCompany> GetData(string controllerName, string subType, DateTime dayToScedual, string location)
+        private List<DbAppointmentCompany> GetData(string controllerName, string subType, DateTime dayToScedual, string location)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:61820/");
@@ -48,7 +48,7 @@ namespace CompanySimulator
 
             if (response.IsSuccessStatusCode)
             {
-                var freeAppointmentCompanies = response.Content.ReadAsAsync<List<FreeAppointmentCompany>>().Result;
+                var freeAppointmentCompanies = response.Content.ReadAsAsync<List<DbAppointmentCompany>>().Result;
                 foreach (var freeAppointmentCompany in freeAppointmentCompanies)
                 {
                     freeAppointmentCompany.freeAppointments.RemoveAll(x => x.StartTime.ToShortDateString() != dayToScedual.ToShortDateString());
@@ -62,7 +62,7 @@ namespace CompanySimulator
                 //MessageBox.Show("Error Code" +
                 //response.StatusCode + " : Message - " + response.ReasonPhrase);
             }
-            return new List<FreeAppointmentCompany>();
+            return new List<DbAppointmentCompany>();
         }
     }
 }

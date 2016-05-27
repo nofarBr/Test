@@ -185,7 +185,7 @@ namespace PathFinder.Controllers
         private List<Appointment> FindAppointments(List<string[]> errands, DateTime selectedDate, string citySelected)
         {
             var freeAppointmentFinder = new FreeAppointmentFinder();
-            List<FreeAppointmentCompany> dbCompanyList = new List<FreeAppointmentCompany>();
+            List<DbAppointmentCompany> dbCompanyList = new List<DbAppointmentCompany>();
             List<Appointment> resultList = new List<Appointment>();
 
             foreach (string[] errand in errands)
