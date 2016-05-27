@@ -378,6 +378,7 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
         dataObject.appointmentsCity = input.value;
         dataObject.travelWay = travelWay;
         dataObject.selectedAppointments = selectedAppointments;
+        dataObject.selectedDate = document.getElementById('date-picker').value;
 
         if (!valueInCityList) {
             document.getElementById('errorMsg').value = "בחר עיר מתוך רשימת הערים";

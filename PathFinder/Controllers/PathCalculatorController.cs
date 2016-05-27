@@ -21,19 +21,19 @@ namespace PathFinder.Controllers
             List<Constraint> constraintList = jsonParam["events"].ToObject<List<Constraint>>();
             string city = jsonParam["appointmentsCity"].ToObject<string>();
             string travel = jsonParam["travelWay"].ToObject<string>();
+            DateTime selectedDate = jsonParam["selectedDate"].ToObject<DateTime>();
             List<JObject> appointmentsJobj = jsonParam["selectedAppointments"].ToObject<List<JObject>>();
 
-            List<string[]> appointments = new List<string[]>();
+            List<string[]> errands = new List<string[]>();
             foreach (JObject appointment in appointmentsJobj)
             {
                 string type = appointment["companyType"].ToObject<String>();
                 string subType = appointment["SubType"].ToObject<String>();
-                appointments.Add(new string[] { type, subType } );
+                errands.Add(new string[] { type, subType } );
             }
 
             // this is the call to company simulator for dror, then is the call to algorithem,need to fill up parameters.
-            var freeAppointmentFinder = new FreeAppointmentFinder();
-            //freeAppointmentFinder.FindFreeAppointmentByDay(null,null,"");
+            var appointments = FindAppointments(errands, selectedDate, city);
             var matrixDictionary = DistancesMatrixReader.Read();
             var algoritemRunner = new AlgoritemRunner();
             algoritemRunner.Activate(null, constraintList,null, matrixDictionary);
@@ -180,6 +180,20 @@ namespace PathFinder.Controllers
             // Send to the client
             var result = new { paths = paths};
             return Json(result);
+        }
+
+        private List<Appointment> FindAppointments(List<string[]> errands, DateTime selectedDate, string citySelected)
+        {
+            var freeAppointmentFinder = new FreeAppointmentFinder();
+            List<FreeAppointmentCompany> dbCompanyList = new List<FreeAppointmentCompany>();
+            List<Appointment> resultList = new List<Appointment>();
+
+            foreach (string[] errand in errands)
+            {
+                dbCompanyList.AddRange(freeAppointmentFinder.FindFreeAppointmentByDay(selectedDate, (CompanyType) Enum.Parse(typeof(CompanyType), errand[0]), errand[1], citySelected));
+            }
+
+            return resultList;
         }
     }
 }
