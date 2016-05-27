@@ -59,38 +59,18 @@ namespace SaveMyDay.Algoritem
 
         public double CalcWatedTimeInSeconds()
         {
-            IEnumerable<object> sorted = Path.Appointments.Concat<object>(Path.Constraints)
-               .OrderBy(n => n is Appointment ? ((Appointment)n).Time : ((Constraint)n).StartTime);
+            List<PathItemHandler> items = new List<PathItemHandler>();
+            Path.Appointments.ForEach(a => items.Add(new PathItemHandler(a)));
+            Path.Constraints.ForEach(c => items.Add(new PathItemHandler(c)));
+            items = items.OrderBy(i => i.StartTime).ToList<PathItemHandler>();
 
             double diffInSeconds = 0;
 
-            DateTime before = DateTime.MinValue;
-            foreach (object either in sorted)
+            DateTime before = items[0].StartTime;
+            foreach (PathItemHandler item in items)
             {
-                if (either is Appointment)
-                {
-                    if (before == DateTime.MinValue)
-                    {
-                        before = ((Appointment)either).Time.AddHours(1);
-                    }
-                    else
-                    {
-                        diffInSeconds += (((Appointment)either).Time - before).TotalMinutes;
-                        before = ((Appointment)either).Time.AddHours(1);
-                    }
-                }
-                else
-                {
-                    if (before == DateTime.MinValue)
-                    {
-                        before = ((Constraint)either).EndTime;
-                    }
-                    else
-                    {
-                        diffInSeconds += (((Constraint)either).StartTime - before).TotalMinutes;
-                        before = ((Constraint)either).EndTime;
-                    }
-                }
+                diffInSeconds += (item.StartTime - before).TotalMinutes;
+                before = item.EndTime;
             }
 
             return diffInSeconds;
