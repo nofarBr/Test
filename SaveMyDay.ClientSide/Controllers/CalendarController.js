@@ -9,9 +9,24 @@ app.controller('arrangementCtrl', function ($scope) {
             var dictionary = { Banks: "בנק", MedicalClinic: "קופת חולים", PostOffice: "דואר" }
             $scope.dictionary = { "בנק" : "Banks", "קופת חולים" : "MedicalClinic", "דואר" : "PostOffice" };
 
+            var dictionary2 = {
+                PackagesCollection: "איסוף חבילות", FamilyDoctor: "רופא משפחה", ChildsDoctor: "רופא ילדים", BankMizrahi: "בנק מזרחי",
+                PaymentsAndLettersShipping: "תשלומים ושליחת מכתבים", PackagesShipping: "שליחת חבילות", SkinDoctor: "רופא עור",
+                BankLeumi: "בנק לאומי", BankDiscount: "בנק דיסקונט"
+            }
+            $scope.subDictionary = {
+                "איסוף חבילות": "PackagesCollection", "רופא משפחה": "FamilyDoctor", "רופא ילדים": "ChildsDoctor", "בנק מזרחי": "BankMizrahi",
+                "תשלומים ושליחת מכתבים": "PaymentsAndLettersShipping", "שליחת חבילות": "PackagesShipping", "רופא עור": "SkinDoctor",
+                "בנק לאומי": "BankLeumi", "בנק דיסקונט": "BankDiscount"
+            };
+
             $scope.arrangements = {
                 types: []
             };
+
+            for (var i = 0; i < dbArrangements.length; i++) {
+                dbArrangements[i].SubType = dictionary2[dbArrangements[i].SubType];
+            }
 
             var arrangementsByType = []
             for (var i = 0; i < dbArrangements.length; i++) {
@@ -89,7 +104,7 @@ app.controller('arrangementCtrl', function ($scope) {
                         typesComboOption.id = i;
                         typesComboOption.value = selectedSubMenu[i].SubType /* + ", " + selectedSubMenu[i].Address*/;
                         typesComboOption.innerHTML = selectedSubMenu[i].SubType /* + ", " + selectedSubMenu[i].Address*/;
-                        typesComboOption.subType = selectedSubMenu[i].SubType;
+                        typesComboOption.subType = $scope.subDictionary[selectedSubMenu[i].SubType];
                         typesComboOption.mainType = $scope.dictionary[typesCombo.selectedOptions[0].value];
                         subTypesCombo.appendChild(typesComboOption);
 
