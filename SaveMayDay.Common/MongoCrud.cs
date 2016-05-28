@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using SaveMyDate.Entities;
+using System;
 
 namespace SaveMayDay.Common
 {
@@ -59,9 +60,10 @@ namespace SaveMayDay.Common
 
         public List<T> GetEntityByCompanySubType(string subType, string location)
         {
-            IMongoQuery query  = Query.And(
-                                 Query.EQ("Company.SubType", subType),
-                                 Query.EQ("Company.Location", location));
+            IMongoQuery query = Query.And(
+                                 Query.EQ("Company.SubType", Int32.Parse(subType)),
+                                 Query.EQ("Company.Location", new BsonRegularExpression("/"+location+"/")));
+
             return _mongoDbHandler.Collection.Find(query).ToList();
         }
     }

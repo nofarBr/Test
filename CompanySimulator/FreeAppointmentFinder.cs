@@ -44,7 +44,7 @@ namespace CompanySimulator
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("api/" + controllerName + "?SubType=" + companySubType.ToString() + "&Location=" + location).Result;
+            HttpResponseMessage response = client.GetAsync("api/" + controllerName + "?SubType=" + ((int)companySubType).ToString() + "&Location=" + location).Result;
 
             if (response.IsSuccessStatusCode)
             {
