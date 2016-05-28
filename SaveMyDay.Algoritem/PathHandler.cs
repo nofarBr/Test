@@ -52,9 +52,9 @@ namespace SaveMyDay.Algoritem
             {
                 if (item.StartTime > appointment.Time)
                 {
-                    if (GetDeadTime(new PathItemHandler(appointment), item, deltaTimeMatrix) > new TimeSpan())
+                    if (GetDeadTime(new PathItemHandler(appointment), item, deltaTimeMatrix) >= new TimeSpan())
                     {
-                        if (lastItem != null && GetDeadTime(lastItem, new PathItemHandler(appointment), deltaTimeMatrix) > new TimeSpan())
+                        if (lastItem == null || GetDeadTime(lastItem, new PathItemHandler(appointment), deltaTimeMatrix) > new TimeSpan())
                             return true;
                     }
                     return false;
@@ -66,7 +66,7 @@ namespace SaveMyDay.Algoritem
         
         private TimeSpan GetDeadTime(PathItemHandler first, PathItemHandler second, Dictionary<Tuple<string, string>, int> deltaTimeMatrix)
         {
-            return second.StartTime - first.EndTime;// - new TimeSpan(0,0,deltaTimeMatrix[new Tuple<string,string>(first.Id, second.Id)]); // TODO: add distance time
+            return second.StartTime - first.EndTime - new TimeSpan(0,0,deltaTimeMatrix[new Tuple<string,string>(first.Id, second.Id)]);
         }
 
         public double CalcWatedTimeInSeconds()
