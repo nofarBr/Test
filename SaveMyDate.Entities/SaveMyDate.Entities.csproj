@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Appointment.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="CompanySubType.cs" />
     <Compile Include="CompanyType.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="Errand.cs" />

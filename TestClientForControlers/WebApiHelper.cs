@@ -48,7 +48,7 @@ namespace TestClientForControlers
                 //Location = new Location() {X = 32.5669, Y = 36.5589},
                 Type = CompanyType.Banks,
                 UrlForApi = "this ia the best uri in the world hai tov baolam!!!!!",
-                SubType = "פועלים"
+                SubType = CompanySubType.BankDiscount
             };
 
             var gizmo = new Appointment()

@@ -30,7 +30,8 @@ namespace SaveMyDay.WebApi.Controllers
             {
                 companies.Add(new JObject(
                               new JProperty("companyType", Enum.GetName(typeof(CompanyType), company.GetElement("type").Value.AsInt32)),
-                              new JProperty("SubType", company.GetElement("_id").Value.AsString)));
+                              new JProperty("SubType", Enum.GetName(typeof(CompanySubType), company.GetElement("subtype").Value.AsInt32))));
+                            //new JProperty("SubType", company.GetElement("_id").Value.AsString)));
             }
 
             return companies;

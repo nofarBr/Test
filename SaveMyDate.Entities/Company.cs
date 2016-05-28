@@ -8,7 +8,7 @@ namespace SaveMyDate.Entities
         public string Id { get; set; }
         public string Location { get; set; }
         public CompanyType Type { get; set; }
-        public string SubType { get; set; }
+        public CompanySubType SubType { get; set; }
         public string UrlForApi { get; set; }
 
         public Company()
