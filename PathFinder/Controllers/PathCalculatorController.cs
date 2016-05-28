@@ -38,7 +38,7 @@ namespace PathFinder.Controllers
             var appointments = FindAppointments(errands, selectedDate, city);
             var matrixDictionary = DistancesMatrixReader.Read();
             var algoritemRunner = new AlgoritemRunner();
-            algoritemRunner.Activate(errandsForAlgo, constraintList,null, matrixDictionary);
+            algoritemRunner.Activate(errandsForAlgo, constraintList, appointments, matrixDictionary);
 
             List<Path> resultPaths = algoritemRunner.Results.ToList().GetRange(0, 3);
 
@@ -49,18 +49,17 @@ namespace PathFinder.Controllers
             return Json(result);
         }
 
-        private List<Appointment> FindAppointments(List<string[]> errands, DateTime selectedDate, string citySelected)
+        private Dictionary<CompanySubType, List<Appointment>> FindAppointments(List<string[]> errands, DateTime selectedDate, string citySelected)
         {
             var freeAppointmentFinder = new FreeAppointmentFinder();
-            List<DbAppointmentCompany> dbCompanyList = new List<DbAppointmentCompany>();
-            List<Appointment> resultList = new List<Appointment>();
+            var dbCompanyList = new List<DbAppointmentCompany>();
 
             foreach (string[] errand in errands)
             {
                 dbCompanyList.AddRange(freeAppointmentFinder.FindFreeAppointmentByDay(selectedDate, (CompanyType) Enum.Parse(typeof(CompanyType), errand[0]), errand[1], citySelected));
             }
 
-            return resultList;
+            return dbCompanyList.ToDictionary(dbAppointmentCompany => dbAppointmentCompany.Company.SubType, dbAppointmentCompany => dbAppointmentCompany.ConvertToAppointments());
         }
     }
 }
