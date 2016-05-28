@@ -8,7 +8,7 @@ namespace CompanySimulator
 {
     public class FreeAppointmentFinder
     {
-        public List<DbAppointmentCompany> FindFreeAppointmentByDay(DateTime dayToScedual, CompanyType companyType, string companySubType, string location)
+        public List<DbAppointmentCompany> FindFreeAppointmentByDay(DateTime dayToScedual, CompanyType companyType, CompanySubType companySubType, string location)
         {
             List<DbAppointmentCompany> freeAppointmentCompany;
 
@@ -36,7 +36,7 @@ namespace CompanySimulator
             return freeAppointmentCompany;
         }
 
-        private List<DbAppointmentCompany> GetData(string controllerName, string subType, DateTime dayToScedual, string location)
+        private List<DbAppointmentCompany> GetData(string controllerName, CompanySubType companySubType, DateTime dayToScedual, string location)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:61820/");
@@ -44,7 +44,7 @@ namespace CompanySimulator
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("api/" + controllerName + "?SubType=" + subType + "&Location=" + location).Result;
+            HttpResponseMessage response = client.GetAsync("api/" + controllerName + "?SubType=" + companySubType.ToString() + "&Location=" + location).Result;
 
             if (response.IsSuccessStatusCode)
             {

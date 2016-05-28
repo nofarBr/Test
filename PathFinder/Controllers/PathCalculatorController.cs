@@ -56,7 +56,7 @@ namespace PathFinder.Controllers
 
             foreach (string[] errand in errands)
             {
-                dbCompanyList.AddRange(freeAppointmentFinder.FindFreeAppointmentByDay(selectedDate, (CompanyType) Enum.Parse(typeof(CompanyType), errand[0]), errand[1], citySelected));
+                dbCompanyList.AddRange(freeAppointmentFinder.FindFreeAppointmentByDay(selectedDate, (CompanyType) Enum.Parse(typeof(CompanyType), errand[0]), (CompanySubType)Enum.Parse(typeof(CompanySubType), errand[1]), citySelected));
             }
 
             return dbCompanyList.ToDictionary(dbAppointmentCompany => dbAppointmentCompany.Company.SubType, dbAppointmentCompany => dbAppointmentCompany.ConvertToAppointments());
