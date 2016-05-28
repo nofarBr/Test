@@ -53,13 +53,27 @@ namespace PathFinder.Controllers
         {
             var freeAppointmentFinder = new FreeAppointmentFinder();
             var dbCompanyList = new List<DbAppointmentCompany>();
+            var appointmentDictonary = new Dictionary<CompanySubType, List<Appointment>>();
 
             foreach (string[] errand in errands)
             {
                 dbCompanyList.AddRange(freeAppointmentFinder.FindFreeAppointmentByDay(selectedDate, (CompanyType) Enum.Parse(typeof(CompanyType), errand[0]), (CompanySubType)Enum.Parse(typeof(CompanySubType), errand[1]), citySelected));
             }
 
-            return dbCompanyList.ToDictionary(dbAppointmentCompany => dbAppointmentCompany.Company.SubType, dbAppointmentCompany => dbAppointmentCompany.ConvertToAppointments());
+            foreach (var dbCompany in dbCompanyList)
+            {
+                var appointmentList = dbCompany.ConvertToAppointments();
+                if (appointmentDictonary.ContainsKey(dbCompany.Company.SubType))
+                {
+                    appointmentDictonary[dbCompany.Company.SubType].AddRange(appointmentList);
+                }
+                else
+                {
+                    appointmentDictonary.Add(dbCompany.Company.SubType, appointmentList);
+                }
+            }
+          
+            return appointmentDictonary;
         }
     }
 }
