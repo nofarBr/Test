@@ -21,7 +21,7 @@ namespace SaveMyDay.Algoritem
         {
         }
 
-        public bool Activate(List<CompanyType> errands, List<Constraint> constraints, Dictionary<CompanyType,List<Appointment>> appointmentDataBase, Dictionary<Tuple<string,string>,int> deltaTimeMatrix)
+        public bool Activate(List<CompanySubType> errands, List<Constraint> constraints, Dictionary<CompanySubType, List<Appointment>> appointmentDataBase, Dictionary<Tuple<string,string>,int> deltaTimeMatrix)
         {
             // the number of options in every row
             var numberOfErrandCombinations = (int)Math.Pow(2, errands.Count);
@@ -89,12 +89,7 @@ namespace SaveMyDay.Algoritem
             }
             return result;
         }
-
-        private TimeSpan GetDeadTime(Appointment appointment, DateTime time, Dictionary<Tuple<string, string>, int> deltaTimeMatrix)
-        {
-            return appointment.Time - time; // TODO: add distance time
-        }
-
+        
         private List<PathHandler> FindTheBestPath(List<PathHandler> paths)
         {
             return paths.OrderByDescending(p => p.Path.Appointments.Count).ThenBy(p => p.CalcWatedTimeInSeconds()).ToList();

@@ -25,13 +25,13 @@ namespace SaveMyDay.Algoritem
             return new PathHandler(path);
         }
         
-        public IList<CompanyType> GetErrandsCodes()
+        public IList<CompanySubType> GetErrandsCodes()
         {
-            IList<CompanyType> erransdCods = new List<CompanyType>();
+            IList<CompanySubType> erransdCods = new List<CompanySubType>();
             foreach (var appointment in Path.Appointments)
             {
-                if(!erransdCods.Contains(appointment.Company.Type))
-                    erransdCods.Add(appointment.Company.Type);
+                if(!erransdCods.Contains(appointment.Company.SubType))
+                    erransdCods.Add(appointment.Company.SubType);
             }
             return erransdCods;
         }
@@ -43,18 +43,30 @@ namespace SaveMyDay.Algoritem
 
         public bool IsAppointmentAddable(Appointment appointment, Dictionary<Tuple<string, string>, int> deltaTimeMatrix)
         {
-            //TODO: code
-            /* for all app/cons
-             * find the on in middle by times
-             * check by distance to see if fits V
-            */
+            List<PathItemHandler> items = new List<PathItemHandler>();
+            Path.Appointments.ForEach(a => items.Add(new PathItemHandler(a)));
+            Path.Constraints.ForEach(c => items.Add(new PathItemHandler(c)));
+            items = items.OrderBy(i => i.StartTime).ToList<PathItemHandler>();
+            PathItemHandler lastItem = null;
+            foreach (var item in items)
+            {
+                if (item.StartTime > appointment.Time)
+                {
+                    if (GetDeadTime(new PathItemHandler(appointment), item, deltaTimeMatrix) > new TimeSpan())
+                    {
+                        if (lastItem != null && GetDeadTime(lastItem, new PathItemHandler(appointment), deltaTimeMatrix) > new TimeSpan())
+                            return true;
+                    }
+                    return false;
+                }
+                lastItem = item;
+            }
             return true;
         }
         
-        private TimeSpan GetDeadTime(/* app/cons 1, app/cons 2, matrix*/)
+        private TimeSpan GetDeadTime(PathItemHandler first, PathItemHandler second, Dictionary<Tuple<string, string>, int> deltaTimeMatrix)
         {
-            //return appointment.Time - time - matrix(id,id); // TODO: add distance time
-            return new TimeSpan();
+            return second.StartTime - first.EndTime;// - new TimeSpan(0,0,deltaTimeMatrix[new Tuple<string,string>(first.Id, second.Id)]); // TODO: add distance time
         }
 
         public double CalcWatedTimeInSeconds()
