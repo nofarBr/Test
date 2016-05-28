@@ -25,18 +25,22 @@ namespace PathFinder.Controllers
             List<JObject> appointmentsJobj = jsonParam["selectedAppointments"].ToObject<List<JObject>>();
 
             List<string[]> errands = new List<string[]>();
+            List<CompanySubType> errandsForAlgo = new List<CompanySubType>();
             foreach (JObject appointment in appointmentsJobj)
             {
                 string type = appointment["companyType"].ToObject<String>();
                 string subType = appointment["SubType"].ToObject<String>();
                 errands.Add(new string[] { type, subType } );
+                errandsForAlgo.Add((CompanySubType)Enum.Parse(typeof(CompanySubType), subType));
             }
 
             // this is the call to company simulator for dror, then is the call to algorithem,need to fill up parameters.
             var appointments = FindAppointments(errands, selectedDate, city);
             var matrixDictionary = DistancesMatrixReader.Read();
             var algoritemRunner = new AlgoritemRunner();
-            algoritemRunner.Activate(null, constraintList,null, matrixDictionary);
+            algoritemRunner.Activate(errandsForAlgo, constraintList,null, matrixDictionary);
+
+            List<Path> result = algoritemRunner.Results.ToList().GetRange(0, 3);
 
             var paths = new List<Path>();
 
