@@ -45,7 +45,11 @@ namespace SaveMyDay.Algoritem
         {
             List<PathItemHandler> items = new List<PathItemHandler>();
             Path.Appointments.ForEach(a => items.Add(new PathItemHandler(a)));
-            Path.Constraints.ForEach(c => items.Add(new PathItemHandler(c)));
+            for (int i = 0; i < Path.Constraints.Count; i++)
+            {
+                items.Add(new PathItemHandler(Path.Constraints[i], i));
+            }
+            //Path.Constraints.ForEach(c => items.Add(new PathItemHandler(c)));
             items = items.OrderBy(i => i.StartTime).ToList<PathItemHandler>();
             PathItemHandler lastItem = null;
             foreach (var item in items)
@@ -73,7 +77,11 @@ namespace SaveMyDay.Algoritem
         {
             List<PathItemHandler> items = new List<PathItemHandler>();
             Path.Appointments.ForEach(a => items.Add(new PathItemHandler(a)));
-            Path.Constraints.ForEach(c => items.Add(new PathItemHandler(c)));
+            for (int i = 0; i < Path.Constraints.Count; i++)
+            {
+                items.Add(new PathItemHandler(Path.Constraints[i], i));
+            }
+            //Path.Constraints.ForEach(c => items.Add(new PathItemHandler(c)));
             items = items.OrderBy(i => i.StartTime).ToList<PathItemHandler>();
 
             double diffInSeconds = 0;

@@ -13,11 +13,12 @@ namespace SaveMyDay.Algoritem
             Id = app.Company.Id;
         }
 
-        public PathItemHandler(Constraint con)
+        public PathItemHandler(Constraint con, int id)
         {
             StartTime = con.StartTime;
             EndTime = con.EndTime;
             Type = PathItemType.Constraint;
+            Id = id.ToString();
         }
 
         public DateTime StartTime { get; private set; }
