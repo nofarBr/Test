@@ -45,7 +45,7 @@ namespace PathFinder.Controllers
             var paths = new List<Path>();
 
            // Send to the client
-            var result = new { paths = resultPaths };
+            var result = new { paths = resultPaths, DoesSuccedded =  true};
             return Json(result);
         }
 
