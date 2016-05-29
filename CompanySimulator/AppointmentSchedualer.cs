@@ -45,7 +45,7 @@ namespace CompanySimulator
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            var response =  client.PostAsJsonAsync("api/" + controllerName, appointment).Result;
+            var response =  client.PostAsJsonAsync("api/" + controllerName, appointment.Id).Result;
             return response.IsSuccessStatusCode;
            
         }

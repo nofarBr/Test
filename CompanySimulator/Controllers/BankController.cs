@@ -27,9 +27,11 @@ namespace CompanySimulator.Controllers
         }
 
         [HttpPost]
-        public bool Post(JObject appointment)
+        public bool Post(int appointmentId)
         {
             //schedual appointment with company
+            //delete appointment after schedual
+            //_mongoCrud.Delete(appointmentId);
             return true;
         }
     }

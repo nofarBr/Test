@@ -27,6 +27,12 @@ namespace SaveMayDay.Common
             _mongoDbHandler.Collection.Save(entityToSave);
         }
 
+        public void Delete(int entityIdToDelete)
+        {
+            IMongoQuery query = Query.EQ("_id", entityIdToDelete);
+            _mongoDbHandler.Collection.Remove(query);
+        }
+
         public BsonDocument[] GetDistinctCompanyTypes()
         {
             var match = new BsonDocument
