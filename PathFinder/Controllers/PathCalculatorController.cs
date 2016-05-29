@@ -36,7 +36,7 @@ namespace PathFinder.Controllers
 
             // this is the call to company simulator for dror, then is the call to algorithem,need to fill up parameters.
             var appointments = FindAppointments(errands, selectedDate, city);
-            var matrixDictionary = DistancesMatrixReader.Read();
+            var matrixDictionary = DistancesMatrixHandler.BuildDistancesMatrix(city, errandsForAlgo, constraintList);
             var algoritemRunner = new AlgoritemRunner();
             algoritemRunner.Activate(errandsForAlgo, constraintList, appointments, matrixDictionary);
 
