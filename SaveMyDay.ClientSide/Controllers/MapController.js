@@ -95,19 +95,21 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
     $scope.ChoosePath = function () {
         var url = 'http://localhost:53528/api/Path/PostAppointment';
         var data = angular.toJson($scope.AllPaths[$scope.chosen_path - 1])
-
-        $('#resultModal').on('hidden.bs.modal', function (e) {
-            window.location.href = '#/home';
-        })
-
-        $('#resultModal').modal({ backdrop: 'static', keyboard: false });
-
+        
         $http.post(url, data)
         .success(function (data) {
-            alert('The path chosen successfully!');
+            $('#resultModal').on('hidden.bs.modal', function (e) {
+                window.location.href = '#/home';
+            });
+
+            $('#resultModal').modal({ backdrop: 'static', keyboard: false });            
         })
         .error(function (data, status, header, config) {
-            alert('Error!');
+            $('#failedResultModal').on('hidden.bs.modal', function (e) {
+                window.location.href = '#/home';
+            });
+
+            $('#failedResultModal').modal({ backdrop: 'static', keyboard: false });
         });
         
     }
