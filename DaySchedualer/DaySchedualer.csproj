@@ -114,6 +114,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CompanySimulator\CompanySimulator.csproj">
+      <Project>{5D97F7B0-4050-43F8-84C1-A3E44011E4C5}</Project>
+      <Name>CompanySimulator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SaveMayDay.Common\SaveMayDay.Common.csproj">
       <Project>{386bb575-b30f-4394-ab44-d3eafb1e5497}</Project>
       <Name>SaveMayDay.Common</Name>

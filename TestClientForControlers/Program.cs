@@ -16,6 +16,7 @@ namespace TestClientForControlers
         static void Main(string[] args)
         {
             // test for finding free appointments
+            var oo  = new AppointmentSchedualer().SchedualAppointment(new Appointment() {Company = new Company() {Type = CompanyType.PostOffice} });
             var pp = new FreeAppointmentFinder().FindFreeAppointmentByDay(DateTime.Now, CompanyType.Banks,CompanySubType.BankDiscount ,"ראשון לציון");
             //DistancesMatrixCreator.Run();
             //Dictionary<Tuple<string, string>, int> dictionary = DistancesMatrixReader.Read();
