@@ -36,9 +36,12 @@ namespace SaveMyDay.DistancesMatrix
 
             var filteredMatrix = DistancesMatrixHandler.FilterMatrixBySpecificCompanies(matrixDictionary, lstRelevantCompanies);
 
-            var matrixWithConsts = DistancesMatrixHandler.AddConstraintsToDistancesMatrix(filteredMatrix, lstRelevantCompanies, lstConstraints);
+            if (lstConstraints.Count > 0)
+            {
+                filteredMatrix = DistancesMatrixHandler.AddConstraintsToDistancesMatrix(filteredMatrix, lstRelevantCompanies, lstConstraints);
+            }
 
-            return (matrixWithConsts);
+            return (filteredMatrix);
         }
 
         private static Dictionary<Tuple<string, string>, int> AddConstraintsToDistancesMatrix(

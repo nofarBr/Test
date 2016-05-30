@@ -18,7 +18,8 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
 
         // Define the labels for each company type
         var arrCompanyTypeLabels = ['תור לרופא', 'תור לבנק', 'תור לדואר'];
-
+        var arrCompanySubTypeLabels = ['רופא ילדים', 'רופא עור', 'רופא משפחה', 'בנק דיסקונט', 'בנק מזרחי', 'בנק לאומי', 'איסוף חבילות', 'משלוח חבילות', 'תשלומים ומשלוח מכתבים']
+        
         var arrAlgorithmPaths = angular.fromJson(pathsList);
         $scope.AllPaths = arrAlgorithmPaths;
         var paths = [];
@@ -37,6 +38,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                 var date = new Date(arrAlgorithmPaths[i].Appointments[j].Time);
                 path_details.push({
                     icon: arrAlgorithmPaths[i].Appointments[j].Company.Type,
+                    sub_type: arrCompanySubTypeLabels[arrAlgorithmPaths[i].Appointments[j].Company.SubType],
                     time: date.getHours() + ":" + date.getMinutes(),
                     desc: arrAlgorithmPaths[i].Appointments[j].Remark,
                     address: arrAlgorithmPaths[i].Appointments[j].Company.Location

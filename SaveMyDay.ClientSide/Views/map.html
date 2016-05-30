@@ -28,7 +28,8 @@
                                     <md-list-item class="md-2-line" ng-repeat="item in path.appointments">
                                         <img ng-src="../Style/Images/{{item.icon}}.png" class="md-avatar2" style="margin-left:15px;margin-right:0px;width:60px;height:60px;">
                                         <div class="md-list-item-text">
-                                            <h3>{{item.time}} - {{item.desc}}</h3>
+                                            <h3>{{item.time}} - {{item.sub_type}}</h3>
+                                            <h4>{{item.desc}}</h4>
                                             <p>{{item.address}}</p>
                                         </div>
                                         <md-divider md-inset ng-if="!$last"></md-divider>
