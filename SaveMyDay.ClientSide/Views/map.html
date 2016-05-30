@@ -28,7 +28,8 @@
                                     <md-list-item class="md-2-line" ng-repeat="item in path.appointments">
                                         <img ng-src="../Style/Images/{{item.icon}}.png" class="md-avatar2" style="margin-left:15px;margin-right:0px;width:60px;height:60px;">
                                         <div class="md-list-item-text">
-                                            <h3>{{item.time}} - {{item.desc}}</h3>
+                                            <h3>{{item.time}} - {{item.sub_type}}</h3>
+                                            <h4>{{item.desc}}</h4>
                                             <p>{{item.address}}</p>
                                         </div>
                                         <md-divider md-inset ng-if="!$last"></md-divider>
@@ -55,11 +56,26 @@
                 <div class="modal-header">
                 </div>
                 <div class="modal-body">
-                    <img src="../Style/Images/success-result.png" style="width:100px;height:100px" />
+                    <img src="../Style/Images/success-result.png" style="width:100px;height:100px"/>
                     <p id="errorMsg" class="modal-title" style="text-align:center; align-items:center;" ><br />!התורים נקבעו בהצלחה</p>
                 </div>
                 <div class="modal-footer">
                     <button id="modalDelete" class="btn btn-default" data-dismiss="modal">אישור</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div dir="ltr" id="failedResultModal" class="modal fade" style="text-align:center; align-items:center; margin-top:10%;">
+        <div class="modal-dialog" style="text-align:center; align-items:center;">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <img src="../Style/Images/fail-result.jpg" style="width:100px;height:100px" />
+                    <p id="errorMsg" class="modal-title" style="text-align:center; align-items:center;"><br />!שגיאה בקביעת התורים</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="modalDelete" class="btn btn-default" data-dismiss="modal">סגור</button>
                 </div>
             </div>
         </div>

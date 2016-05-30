@@ -68,7 +68,7 @@ namespace SaveMyDay.Algoritem
                         PathHandler best = optionList[0];
                         foreach (var option in optionList)
                         {
-                            if (best.CalcWatedTimeInSeconds() > option.CalcWatedTimeInSeconds())
+                            if (best.GetOverallDeadTime(deltaTimeMatrix) > option.GetOverallDeadTime(deltaTimeMatrix))
                                 best = option;
                         }
                         _routeMatrix[currHour - HOUR_MIN, i] = best;
@@ -83,8 +83,18 @@ namespace SaveMyDay.Algoritem
                 }
             }
 
+            for (var i = 0; finalOptionList.Count < 3 && i < HOUR_MAX - HOUR_MIN; i++)
+            {
+                for (var j = 1; finalOptionList.Count < 3 && j <= errands.Count; j++)
+                {
+                    if (_routeMatrix[i, numberOfErrandCombinations - j - 1] != null)
+                        finalOptionList.Add(_routeMatrix[i, numberOfErrandCombinations - j - 1]);
+                }
+            }
+
             ExtractResultFromPathHandlerList(FindTheBestPath(finalOptionList));
-            return true;
+
+            return Results.Count != 0;
         }
 
         private List<PathHandler> FindAppointmentsBetweenTimes(int startHour, int endHour, 
