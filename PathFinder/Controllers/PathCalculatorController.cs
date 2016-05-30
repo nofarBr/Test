@@ -36,16 +36,20 @@ namespace PathFinder.Controllers
 
             // this is the call to company simulator for dror, then is the call to algorithem,need to fill up parameters.
             var appointments = FindAppointments(errands, selectedDate, city);
-            var matrixDictionary = DistancesMatrixReader.Read();
+            var matrixDictionary = DistancesMatrixHandler.BuildDistancesMatrix(city, errandsForAlgo, constraintList);
             var algoritemRunner = new AlgoritemRunner();
             algoritemRunner.Activate(errandsForAlgo, constraintList, appointments, matrixDictionary);
 
             List<Path> resultPaths = algoritemRunner.Results.ToList().GetRange(0, 3);
+            for (int i = 0; i < resultPaths.Count; i++)
+            {
+                resultPaths[i].Appointments.Reverse();
+            }
 
             var paths = new List<Path>();
 
            // Send to the client
-            var result = new { paths = resultPaths };
+            var result = new { paths = resultPaths, DoesSuccedded =  true};
             return Json(result);
         }
 
@@ -53,13 +57,27 @@ namespace PathFinder.Controllers
         {
             var freeAppointmentFinder = new FreeAppointmentFinder();
             var dbCompanyList = new List<DbAppointmentCompany>();
+            var appointmentDictonary = new Dictionary<CompanySubType, List<Appointment>>();
 
             foreach (string[] errand in errands)
             {
                 dbCompanyList.AddRange(freeAppointmentFinder.FindFreeAppointmentByDay(selectedDate, (CompanyType) Enum.Parse(typeof(CompanyType), errand[0]), (CompanySubType)Enum.Parse(typeof(CompanySubType), errand[1]), citySelected));
             }
 
-            return dbCompanyList.ToDictionary(dbAppointmentCompany => dbAppointmentCompany.Company.SubType, dbAppointmentCompany => dbAppointmentCompany.ConvertToAppointments());
+            foreach (var dbCompany in dbCompanyList)
+            {
+                var appointmentList = dbCompany.ConvertToAppointments();
+                if (appointmentDictonary.ContainsKey(dbCompany.Company.SubType))
+                {
+                    appointmentDictonary[dbCompany.Company.SubType].AddRange(appointmentList);
+                }
+                else
+                {
+                    appointmentDictonary.Add(dbCompany.Company.SubType, appointmentList);
+                }
+            }
+          
+            return appointmentDictonary;
         }
     }
 }

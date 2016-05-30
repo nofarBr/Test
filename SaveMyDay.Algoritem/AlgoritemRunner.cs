@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +20,17 @@ namespace SaveMyDay.Algoritem
 
         public AlgoritemRunner()
         {
+            Results = new List<Path>();
         }
 
         public bool Activate(List<CompanySubType> errands, List<Constraint> constraints, Dictionary<CompanySubType, List<Appointment>> appointmentDataBase, Dictionary<Tuple<string,string>,int> deltaTimeMatrix)
         {
+            constraints = constraints.OrderBy(c => c.Start).ToList();
+
             // the number of options in every row
             var numberOfErrandCombinations = (int)Math.Pow(2, errands.Count);
-            _routeMatrix = new PathHandler[HOUR_MAX - HOUR_MIN, numberOfErrandCombinations];
-
+            _routeMatrix = new PathHandler[HOUR_MAX - HOUR_MIN + 1, numberOfErrandCombinations];
+            _routeMatrix[HOUR_MAX - HOUR_MIN,0] = new PathHandler(new Path { Constraints = constraints });
             var finalOptionList = new List<PathHandler>();
 
             // for every hour in day, counting from the end
@@ -52,28 +56,47 @@ namespace SaveMyDay.Algoritem
                     {
                         if (bits[bit])
                         {
-                            optionList.AddRange(FindAppointmentsBetweenTimes(currHour, currHour + 1, _routeMatrix[currHour-HOUR_MIN,i-(int)Math.Pow(2,bit)],
-                                appointmentDataBase[errands[bit]], deltaTimeMatrix));
+                            for(int j = currHour; j < HOUR_MAX; j++)
+                                if(_routeMatrix[j - HOUR_MIN + 1, i - (int)Math.Pow(2, bit)] != null)
+                                    optionList.AddRange(FindAppointmentsBetweenTimes(currHour, currHour + 1, _routeMatrix[j-HOUR_MIN+1,i-(int)Math.Pow(2,bit)],
+                                        appointmentDataBase[errands[bit]], deltaTimeMatrix));
                             // 2 path combiner ?????? TODO:
                         }
                     }
 
                     //pick best for the slot from option list
-                    PathHandler best = optionList[0];
-                    foreach (var option in optionList)
+                    if (optionList.Count != 0)
                     {
-                        if (best.CalcWatedTimeInSeconds() > option.CalcWatedTimeInSeconds())
-                            best = option;
+                        PathHandler best = optionList[0];
+                        foreach (var option in optionList)
+                        {
+                            if (best.GetOverallDeadTime(deltaTimeMatrix) > option.GetOverallDeadTime(deltaTimeMatrix))
+                                best = option;
+                        }
+                        _routeMatrix[currHour - HOUR_MIN, i] = best;
                     }
-                    _routeMatrix[currHour - HOUR_MIN, i] = best;
+                    else
+                    {
+                        _routeMatrix[currHour - HOUR_MIN, i] = null;
+                    }
 
-                    if(i == numberOfErrandCombinations)
+                    if(i == numberOfErrandCombinations-1)
                         finalOptionList.AddRange(optionList);
                 }
             }
 
+            for (var i = 0; finalOptionList.Count < 3 && i < HOUR_MAX - HOUR_MIN; i++)
+            {
+                for (var j = 1; finalOptionList.Count < 3 && j <= errands.Count; j++)
+                {
+                    if (_routeMatrix[i, numberOfErrandCombinations - j - 1] != null)
+                        finalOptionList.Add(_routeMatrix[i, numberOfErrandCombinations - j - 1]);
+                }
+            }
+
             ExtractResultFromPathHandlerList(FindTheBestPath(finalOptionList));
-            return true;
+
+            return Results.Count != 0;
         }
 
         private List<PathHandler> FindAppointmentsBetweenTimes(int startHour, int endHour, 
@@ -81,7 +104,7 @@ namespace SaveMyDay.Algoritem
         {
             var result = new List<PathHandler>();
             foreach (var appointment in appointments.Where(
-                    a => a.Time.Hour > startHour && a.Time.Hour < endHour && currPath.IsAppointmentAddable(a, deltaTimeMatrix)).ToList())
+                    a => a.Time.Hour >= startHour && a.Time.Hour < endHour && currPath.IsAppointmentAddable(a, deltaTimeMatrix)).ToList())
             {
                 var tmp = currPath.Clone();
                 tmp.AddAppointment(appointment);

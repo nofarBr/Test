@@ -2,6 +2,7 @@
 using SaveMyDate.Entities;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using CompanySimulator;
 
 namespace DaySchedualer.Controllers
 {
@@ -13,6 +14,12 @@ namespace DaySchedualer.Controllers
         {
             //schedual path & appointment
             var selectedPath = jsonParam.ToObject<Path>();
+            var appointmentSchedualer = new AppointmentSchedualer();
+
+            foreach (var appointment in selectedPath.Appointments)
+            {
+                appointmentSchedualer.SchedualAppointment(appointment);
+            }
         }
     }
 }

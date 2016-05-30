@@ -391,7 +391,7 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
 
         var dataObject = {};
         dataObject.events = events;
-        dataObject.appointmentsCity = input.value;
+        dataObject.appointmentsCity = input.value.split(",")[0];
         dataObject.travelWay = travelWay;
         dataObject.selectedAppointments = selectedAppointments;
         dataObject.selectedDate = document.getElementById('date-picker').value;

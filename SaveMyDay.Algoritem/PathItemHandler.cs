@@ -10,13 +10,15 @@ namespace SaveMyDay.Algoritem
             StartTime = app.Time;
             EndTime = app.Time.AddHours(1);
             Type = PathItemType.Appointment;
+            Id = app.Company.Id;
         }
 
-        public PathItemHandler(Constraint con)
+        public PathItemHandler(Constraint con, int id)
         {
-            StartTime = con.StartTime;
-            EndTime = con.EndTime;
+            StartTime = con.Start;
+            EndTime = con.End;
             Type = PathItemType.Constraint;
+            Id = id.ToString();
         }
 
         public DateTime StartTime { get; private set; }
