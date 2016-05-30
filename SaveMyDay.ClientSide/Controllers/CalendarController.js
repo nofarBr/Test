@@ -340,6 +340,7 @@ app.controller('calendarCtrl', function ($scope) {
 
 app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $location) {
     $scope.calculateRequest = function () {
+        $scope.showBusy = true;
         var allEvents = $('#calendar').fullCalendar('clientEvents');
         var events = [];
 
@@ -399,20 +400,24 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
             document.getElementById('errorMsg').value = "בחר עיר מתוך רשימת הערים";
             document.getElementById('errorMsg').innerHTML = "בחר עיר מתוך רשימת הערים";
             $('#errorModal').modal();
+            $scope.showBusy = false;
         } else if (unselectedDropDown) {
             document.getElementById('errorMsg').value = "בחר סידור משימת הסידורים האפשריים";
             document.getElementById('errorMsg').innerHTML = "בחר סידור משימת הסידורים האפשריים";
             $('#errorModal').modal();
+            $scope.showBusy = false;
         } else {
             var url = 'http://localhost:52747/api/PathCalculator';
             var data = dataObject;
             $http.post(url, data)
             .success(function (data) {
+                $scope.showBusy = false;
                 $rootScope.pathsList = data.paths;
                 $location.path("/map");
             })
             .error(function (data, status, header, config) {
                 var b = 3;
+                $scope.showBusy = false;
             });
         }
     }
