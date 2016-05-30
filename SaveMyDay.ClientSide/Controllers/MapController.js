@@ -39,7 +39,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                 path_details.push({
                     icon: arrAlgorithmPaths[i].Appointments[j].Company.Type,
                     sub_type: arrCompanySubTypeLabels[arrAlgorithmPaths[i].Appointments[j].Company.SubType],
-                    time: date.getHours() + ":" + date.getMinutes(),
+                    time: date.toTimeString().replace(/^(\d{2}:\d{2}).*/, "$1"),
                     desc: arrAlgorithmPaths[i].Appointments[j].Remark,
                     address: arrAlgorithmPaths[i].Appointments[j].Company.Location
                 });

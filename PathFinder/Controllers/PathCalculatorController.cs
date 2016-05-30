@@ -41,6 +41,10 @@ namespace PathFinder.Controllers
             algoritemRunner.Activate(errandsForAlgo, constraintList, appointments, matrixDictionary);
 
             List<Path> resultPaths = algoritemRunner.Results.ToList().GetRange(0, 3);
+            for (int i = 0; i < resultPaths.Count; i++)
+            {
+                resultPaths[i].Appointments.Reverse();
+            }
 
             var paths = new List<Path>();
 
