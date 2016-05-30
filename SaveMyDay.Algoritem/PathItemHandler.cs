@@ -15,8 +15,8 @@ namespace SaveMyDay.Algoritem
 
         public PathItemHandler(Constraint con, int id)
         {
-            StartTime = con.StartTime;
-            EndTime = con.EndTime;
+            StartTime = con.Start;
+            EndTime = con.End;
             Type = PathItemType.Constraint;
             Id = id.ToString();
         }
