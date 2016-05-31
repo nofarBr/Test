@@ -18,9 +18,22 @@ function initializeMap() {
     map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 }
 
-function addLabelMarker(path_id, address, text) {
+
+/*function addLabelMarker(path_id, address, text) {
     geocoder.geocode({ 'address': address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
+            var textmarker = new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: null,
+                title: text
+            });
+            var infowindow = new google.maps.InfoWindow({
+                content: text,
+                maxWidth: 150
+            });
+            textmarker.addListener('click', function () {
+                infowindow.open(map, textmarker);
+            });
             var textmarker = new RichMarker({
                 map: null,
                 position: results[0].geometry.location,
@@ -32,10 +45,10 @@ function addLabelMarker(path_id, address, text) {
             markersPerPath[path_id].push(textmarker);
         } else {
             //alert(address);
-            alert("Test-Geocode was not successful for the following reason: " + status);
+            //alert("Test-Geocode was not successful for the following reason: " + status);
         }
     });
-}
+}*/
 
 function hideAllMarkers() {
     for (var i = 0; i < markers.length; i++) {
@@ -120,7 +133,6 @@ function addNewRoute(path_id, places, labels, travel_type) {
     }
 
     var directionsDisplay = new google.maps.DirectionsRenderer();
-
     directionsDisplay.setMap(null);
     var directionsService = new google.maps.DirectionsService;
 
@@ -151,7 +163,7 @@ function addNewRoute(path_id, places, labels, travel_type) {
     var currPathMarkers = [];
     markersPerPath.push(currPathMarkers);
 
-    for (var i = 0; i < labels.length; i++) {
+    /*for (var i = 0; i < labels.length; i++) {
         addLabelMarker(path_id, places[i], labels[i]);
-    }
+    }*/
 }
