@@ -58,9 +58,6 @@
     <br />
     <div ng-controller="calculateRequestCtrl" style="text-align:center; clear:both; padding-top:30px">
         <button ng-click="calculateRequest()" class="btn-primary round-buttons-calendar-view" style="width:120px; height:50px;">קבע תורים</button>
-        <div ng-if="showBusy" layout="row" layout-sm="column" layout-align="space-around">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-        </div>
     </div>
     
     <div dir="ltr" id="errorModal" class="modal fade" style="text-align:center; align-items:center; margin-top:10%;">
@@ -77,6 +74,23 @@
                 </div>
                 <div class="modal-footer">
                     <button id="modalDelete" class="btn btn-default" data-dismiss="modal">סגור</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div dir="ltr" id="waitModal" class="modal fade" style="text-align:center; align-items:center; margin-top:10%;">
+        <div class="modal-dialog" style="text-align:center; align-items:center;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="intro-text text-center">
+                        <strong>נא המתן</strong>
+                    </h2>
+                </div>
+                <div class="modal-body text-center">
+                    <div layout="row" layout-sm="column" layout-align="space-around" align="center">
+                        <md-progress-circular md-mode="indeterminate" class="text-center"></md-progress-circular>
+                    </div>
                 </div>
             </div>
         </div>
