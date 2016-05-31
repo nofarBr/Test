@@ -340,7 +340,7 @@ app.controller('calendarCtrl', function ($scope) {
 
 app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $location) {
     $scope.calculateRequest = function () {
-        $('#waitModal').modal({ backdrop: 'static', keyboard: false });
+        $('#waitModal').modal();
         var allEvents = $('#calendar').fullCalendar('clientEvents');
         var events = [];
 
