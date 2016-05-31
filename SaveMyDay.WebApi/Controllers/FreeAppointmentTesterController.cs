@@ -74,5 +74,29 @@ namespace SaveMyDay.WebApi.Controllers
             //}
             return null;
         }
+
+        [HttpGet]
+        public void AlterAppointments()
+        {
+            List<DbAppointmentCompany> dacs = _mongoCrud.GetAllEntities().ToList();
+
+            foreach(DbAppointmentCompany dac in dacs)
+            {
+                List<DbAppointment> daRemoval = new List<DbAppointment>();
+                foreach(DbAppointment da in dac.freeAppointments)
+                {
+                    if (da.StartTime.Hour < 21 && da.StartTime.Hour >= 6)
+                    {
+                        daRemoval.Add(da);
+                    }
+                }
+
+                dac.freeAppointments.RemoveRange(0, dac.freeAppointments.Count);
+                dac.freeAppointments.AddRange(daRemoval);
+
+                var t = dac;
+                _mongoCrud.SaveOrUpdate(dac);
+            }
+        }
     }
 }
