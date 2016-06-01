@@ -340,7 +340,7 @@ app.controller('calendarCtrl', function ($scope) {
 
 app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $location) {
     $scope.calculateRequest = function () {
-        $('#waitModal').modal();
+        $('#waitModal').modal({ backdrop: 'static', keyboard: false });
         var allEvents = $('#calendar').fullCalendar('clientEvents');
         var events = [];
 
@@ -399,36 +399,29 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
         if (!valueInCityList) {
             document.getElementById('errorMsg').value = "בחר עיר מתוך רשימת הערים";
             document.getElementById('errorMsg').innerHTML = "בחר עיר מתוך רשימת הערים";
-            //$('#waitModalClose').click();
-            //$('#waitModal').modal();
             $('#waitModal').modal('hide');
-            //$('#waitModal').remove();
+            $('#errorModal').modal();
         } else if (unselectedDropDown) {
             document.getElementById('errorMsg').value = "בחר סידור משימת הסידורים האפשריים";
             document.getElementById('errorMsg').innerHTML = "בחר סידור משימת הסידורים האפשריים";
-            //$('#waitModalClose').click();
-            //$('#waitModal').modal();
             $('#waitModal').modal('hide');
-            //$('#waitModal').remove();
+            $('#errorModal').modal();
         } else {
             var url = 'http://localhost:52747/api/PathCalculator';
             var data = dataObject;
             $http.post(url, data)
             .success(function (data) {
-                //$('#waitModalClose').click();
-                //$('#waitModal').modal();
                 $('#waitModal').modal('hide');
-                //$('#waitModal').remove();
                 setTimeout(function () {
                     $rootScope.pathsList = data.paths;
-                    $location.path("/map");
-                }, 0);
+                    window.location.href = '#/map';
+                }, 500);
             })
             .error(function (data, status, header, config) {
-                //$('#waitModalClose').click();
-                //$('#waitModal').modal();
                 $('#waitModal').modal('hide');
-                //$('#waitModal').remove();
+                document.getElementById('errorMsg').value = "שגיאה בקביעת התורים";
+                document.getElementById('errorMsg').innerHTML = "שגיאה בקביעת התורים";
+                $('#errorModal').modal();
             });
         }
     }
