@@ -10,7 +10,7 @@ namespace DaySchedualer.Controllers
     public class PathController : ApiController
     {
         [HttpPost]
-        public void PostAppointment(JObject jsonParam)
+        public object PostAppointment(JObject jsonParam)
         {
             //schedual path & appointment
             var selectedPath = jsonParam.ToObject<Path>();
@@ -20,6 +20,9 @@ namespace DaySchedualer.Controllers
             {
                 appointmentSchedualer.SchedualAppointment(appointment);
             }
+
+            var result = new { success= true };
+            return Json(result);
         }
     }
 }

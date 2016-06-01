@@ -228,11 +228,19 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
         
         $http.post(url, data)
         .success(function (data) {
-            $('#resultModal').on('hidden.bs.modal', function (e) {
-                window.location.href = '#/home';
-            });
+            if (data.success) {
+                $('#resultModal').on('hidden.bs.modal', function (e) {
+                    window.location.href = '#/home';
+                });
 
-            $('#resultModal').modal({ backdrop: 'static', keyboard: false });            
+                $('#resultModal').modal({ backdrop: 'static', keyboard: false });
+            } else {
+                $('#failedResultModal').on('hidden.bs.modal', function (e) {
+                    window.location.href = '#/home';
+                });
+
+                $('#failedResultModal').modal({ backdrop: 'static', keyboard: false });
+            }
         })
         .error(function (data, status, header, config) {
             $('#failedResultModal').on('hidden.bs.modal', function (e) {
