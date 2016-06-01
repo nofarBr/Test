@@ -107,7 +107,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                     path_details.push({
                         icon: arrAlgorithmPaths[i].Appointments[itemIndex].Company.Type,
                         sub_type: arrCompanySubTypeLabels[arrAlgorithmPaths[i].Appointments[itemIndex].Company.SubType],
-                        time: date.toTimeString().replace(/^(\d{2}:\d{2}).*/, "$1"),
+                        time: date.toISOString().split('T')[1].replace(/^(\d{2}:\d{2}).*/, "$1"),
                         desc: arrAlgorithmPaths[i].Appointments[itemIndex].Remark,
                         address: arrAlgorithmPaths[i].Appointments[itemIndex].Company.Location
                     });
@@ -121,7 +121,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                     path_details.push({
                         icon: 3,
                         sub_type: arrAlgorithmPaths[i].Constraints[itemIndex].Title,
-                        time: date.toTimeString().replace(/^(\d{2}:\d{2}).*/, "$1"),
+                        time: date.toISOString().split('T')[1].replace(/^(\d{2}:\d{2}).*/, "$1"),
                         desc: "",
                         address: arrAlgorithmPaths[i].Constraints[itemIndex].Location
                     });
