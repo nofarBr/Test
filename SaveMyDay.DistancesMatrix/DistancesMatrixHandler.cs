@@ -32,7 +32,7 @@ namespace SaveMyDay.DistancesMatrix
             List<Company> lstRelevantCompanies = lstAllCompanies.Where(
                 c => c.Location.Contains(strCity) && lstCompanyTypes.Contains(c.SubType)).ToList<Company>();
 
-            var matrixDictionary = DistancesMatrixReader.Read();
+            var matrixDictionary = DistancesMatrixReader.Read(strCity);
 
             var filteredMatrix = DistancesMatrixHandler.FilterMatrixBySpecificCompanies(matrixDictionary, lstRelevantCompanies);
 
@@ -61,7 +61,6 @@ namespace SaveMyDay.DistancesMatrix
                 strConstraintsAddresses += lstConstraints[j].Location + "|";
             }
             strConstraintsAddresses = strConstraintsAddresses.Remove(strConstraintsAddresses.Length - 1, 1);
-
 
             string strRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + strCompaniesAddresses + "&destinations=" + strConstraintsAddresses + "&key=AIzaSyCOnipZ0p4Khy5BhgtWhmLdkO9j4Du1-iw";
 

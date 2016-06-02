@@ -5,6 +5,9 @@ var directionsDisplays = [];
 var markersPerPath = [];
 
 function initializeMap() {
+    markers = [];
+    directionsDisplays = [];
+    markersPerPath = [];
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
         center: new google.maps.LatLng(31.382911, 35.030984),

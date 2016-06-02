@@ -13,32 +13,39 @@ namespace SaveMyDay.DistancesMatrix
 {
     public class DistancesMatrixReader
     {
-        public static Dictionary<Tuple<string, string>, int> Read()
+        public static Dictionary<Tuple<string, string>, int> Read(string strCity)
         {
             // Connecting to the DB
             MongoClient client = new MongoClient(@"mongodb://localhost:27017/SaveMayDay");
             var server = client.GetServer();
             var database = server.GetDatabase("SaveMayDay");
-            MongoCollection distancesCollection = database.GetCollection("distances");
+            MongoCollection<BsonDocument> distancesCollection = database.GetCollection("distances");
 
             Dictionary<Tuple<string, string>, int> dictDistances = new Dictionary<Tuple<string, string>, int>();
 
             // Reading the distances document from the DB
-            BsonValue bsonContent = distancesCollection.FindAllAs<BsonDocument>().ElementAt(0)["content"];
+            IMongoQuery query = Query.Matches("city", strCity);
+            BsonDocument bsonDoc = distancesCollection.Find(query).FirstOrDefault();
 
-            // Run over all the distances items
-            for (int i = 0; i < bsonContent.AsBsonArray.Count; i++)
+            // Validate that we found the document
+            if (bsonDoc != null)
             {
-                string strId1 = bsonContent.AsBsonArray.ElementAt(i)["id1"].ToString();
-                string strId2 = bsonContent.AsBsonArray.ElementAt(i)["id2"].ToString();
-                int nDistance = bsonContent.AsBsonArray.ElementAt(i)["distance"].ToInt32();
+                BsonValue bsonContent = bsonDoc["content"];
 
-                // Add the current distance to the dictionary
-                Tuple<string, string> tupleDistance = new Tuple<string, string>(strId1, strId2);
-                dictDistances.Add(tupleDistance, nDistance);
+                // Run over all the distances items
+                for (int i = 0; i < bsonContent.AsBsonArray.Count; i++)
+                {
+                    string strId1 = bsonContent.AsBsonArray.ElementAt(i)["id1"].ToString();
+                    string strId2 = bsonContent.AsBsonArray.ElementAt(i)["id2"].ToString();
+                    int nDistance = bsonContent.AsBsonArray.ElementAt(i)["distance"].ToInt32();
+
+                    // Add the current distance to the dictionary
+                    Tuple<string, string> tupleDistance = new Tuple<string, string>(strId1, strId2);
+                    dictDistances.Add(tupleDistance, nDistance);
+                }
             }
 
-            // Return the full dictionary
+            // Return the dictionary
             return (dictDistances);
         }
     }
