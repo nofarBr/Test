@@ -401,9 +401,9 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
             document.getElementById('errorMsg').innerHTML = "בחר עיר מתוך רשימת הערים";
             $('#waitModal').modal('hide');
             $('#errorModal').modal();
-        } else if (unselectedDropDown) {
-            document.getElementById('errorMsg').value = "בחר סידור משימת הסידורים האפשריים";
-            document.getElementById('errorMsg').innerHTML = "בחר סידור משימת הסידורים האפשריים";
+        } else if (unselectedDropDown || selectedAppointments.length == 0) {
+            document.getElementById('errorMsg').value = "הוסף\\בחר סידור מרשימת הסידורים האפשריים";
+            document.getElementById('errorMsg').innerHTML = "הוסף\\בחר סידור מרשימת הסידורים האפשריים";
             $('#waitModal').modal('hide');
             $('#errorModal').modal();
         } else {
