@@ -84,15 +84,15 @@ namespace SaveMyDay.Algoritem
                         finalOptionList.AddRange(optionList);
                 }
             }
-
-            for (var i = 0; finalOptionList.Count < 3 && i < HOUR_MAX - HOUR_MIN; i++)
-            {
-                for (var j = 1; finalOptionList.Count < 3 && j <= errands.Count; j++)
+            if(finalOptionList.Count < 3)
+                for (var i = 0; i < HOUR_MAX - HOUR_MIN; i++)
                 {
-                    if (_routeMatrix[i, numberOfErrandCombinations - j - 1] != null)
-                        finalOptionList.Add(_routeMatrix[i, numberOfErrandCombinations - j - 1]);
+                    for (var j = 1; j < numberOfErrandCombinations; j*=2)
+                    {
+                        if (_routeMatrix[i, numberOfErrandCombinations - j - 1] != null)
+                            finalOptionList.Add(_routeMatrix[i, numberOfErrandCombinations - j - 1]);
+                    }
                 }
-            }
 
             ExtractResultFromPathHandlerList(FindTheBestPath(finalOptionList));
 
