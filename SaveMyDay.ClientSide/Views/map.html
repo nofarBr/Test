@@ -6,7 +6,7 @@
     <hr>
     <br />
     <div class="col-md-4">
-        <div class="panel panel-default" style="height:430px;margin-bottom:10px;border-radius:5px;">
+        <div id="pathsPanel" class="panel panel-default" style="height:430px;margin-bottom:10px;border-radius:5px;">
             <div class="panel-heading">
                 <h3 style="font-weight:bold;text-align:center;">מסלולים אופציונליים</h3>
             </div>
@@ -41,14 +41,25 @@
                 </section>
             </div>      
         </div>
-        <div class="btn-group btn-group-justified">
+        <div class="btn-group btn-group-justified" id="ChoosePathBtnGroup">
             <div class="btn-group">
                 <button type="button" ng-click="ChoosePath()" class="btn btn-default" style="height:60px;font-size:22px;font-weight:bold;border-radius:5px;">בחר מסלול</button>
             </div>
         </div>
+        <div class="btn-group btn-group-justified" id="ExportPathBtnGroup" style="visibility:hidden; display:none;">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" style="width:49%;height:60px;font-size:20px;font-weight:bold;border-radius:5px;margin-left:3px">הדפס מסלול</button>
+                <button type="button" class="btn btn-default" style="width:49%;height:60px;font-size:20px;font-weight:bold;border-radius:5px;margin-right:3px">ייצא מסלול לקובץ</button>
+            </div>
+        </div>
+        <div class="btn-group btn-group-justified" id="NewDay">
+            <div class="btn-group">
+                <button type="button" ng-click="ConfirmCreateNewDay()" class="btn btn-default" style="height:60px;font-size:22px;font-weight:bold;border-radius:5px;margin-top:5px">צור יום סידורים מחדש</button>
+            </div>
+        </div>
     </div>
     <div class="col-md-8">
-        <div id="map_canvas" style="width: 700px; height: 500px;border: 1px solid #ddd;border-radius:5px;"></div>
+        <div id="map_canvas" style="width: 700px; height: 560px;border: 1px solid #ddd;border-radius:5px;"></div>
     </div>
     <div dir="ltr" id="resultModal" class="modal fade" style="text-align:center; align-items:center; margin-top:10%;">
         <div class="modal-dialog" style="text-align:center; align-items:center;">
@@ -76,6 +87,25 @@
                 </div>
                 <div class="modal-footer">
                     <button id="modalDelete" class="btn btn-default" data-dismiss="modal">סגור</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div dir="ltr" id="confirmModal" class="modal fade" style="text-align:center; align-items:center; margin-top:10%;">
+        <div class="modal-dialog" style="text-align:center; align-items:center;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button><br />
+                    <h2 class="intro-text text-center">
+                        <strong>?האם אתה בטוח</strong>
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMsg" class="modal-title" style="text-align:center; align-items:center;" >כל המסלולים שנמצאו יימחקו</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="modalDelete" class="btn btn-default" data-dismiss="modal">סגור</button>
+                    <button id="modalConfirm" ng-click="CreateNewDay()" class="btn btn-primary" data-dismiss="modal">אישור</button>
                 </div>
             </div>
         </div>

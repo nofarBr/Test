@@ -127,6 +127,12 @@ namespace SaveMyDay.WebApi.Controllers
                 fac3.freeAppointments.Add(new DbAppointment(testDate3, 30, "", ObjectId.GenerateNewId().ToString()));
                 fac3.freeAppointments.Add(new DbAppointment(testDate4, 30, "", ObjectId.GenerateNewId().ToString()));
                 testDate = testDate.AddDays(1);
+                testDate2 = testDate2.AddDays(1);
+                testDate3 = testDate3.AddDays(1);
+                testDate4 = testDate4.AddDays(1);
+                testDate5 = testDate5.AddDays(1);
+                testDate6 = testDate6.AddDays(1);
+                testDate7 = testDate7.AddDays(1);
             }
 
             _mongoCrud.SaveOrUpdate(fac);
@@ -212,6 +218,12 @@ namespace SaveMyDay.WebApi.Controllers
                 fac2.freeAppointments.Add(new DbAppointment(testDate6, 30, "", ObjectId.GenerateNewId().ToString()));
                 fac3.freeAppointments.Add(new DbAppointment(testDate7, 30, "", ObjectId.GenerateNewId().ToString()));
                 testDate = testDate.AddDays(1);
+                testDate2 = testDate2.AddDays(1);
+                testDate3 = testDate3.AddDays(1);
+                testDate4 = testDate4.AddDays(1);
+                testDate5 = testDate5.AddDays(1);
+                testDate6 = testDate6.AddDays(1);
+                testDate7 = testDate7.AddDays(1);
             }
 
             _mongoCrud.SaveOrUpdate(fac);
@@ -272,6 +284,12 @@ namespace SaveMyDay.WebApi.Controllers
                 fac2.freeAppointments.Add(new DbAppointment(testDate3, 30, "", ObjectId.GenerateNewId().ToString()));
                 fac2.freeAppointments.Add(new DbAppointment(testDate4, 30, "", ObjectId.GenerateNewId().ToString()));
                 testDate = testDate.AddDays(1);
+                testDate2 = testDate2.AddDays(1);
+                testDate3 = testDate3.AddDays(1);
+                testDate4 = testDate4.AddDays(1);
+                testDate5 = testDate5.AddDays(1);
+                testDate6 = testDate6.AddDays(1);
+                testDate7 = testDate7.AddDays(1);
             }
 
             _mongoCrud.SaveOrUpdate(fac);
@@ -347,6 +365,12 @@ namespace SaveMyDay.WebApi.Controllers
                 fac2.freeAppointments.Add(new DbAppointment(testDate3, 30, "", ObjectId.GenerateNewId().ToString()));
                 fac3.freeAppointments.Add(new DbAppointment(testDate4, 30, "", ObjectId.GenerateNewId().ToString()));
                 testDate = testDate.AddDays(1);
+                testDate2 = testDate2.AddDays(1);
+                testDate3 = testDate3.AddDays(1);
+                testDate4 = testDate4.AddDays(1);
+                testDate5 = testDate5.AddDays(1);
+                testDate6 = testDate6.AddDays(1);
+                testDate7 = testDate7.AddDays(1);
             }
 
             _mongoCrud.SaveOrUpdate(fac);
@@ -422,6 +446,12 @@ namespace SaveMyDay.WebApi.Controllers
                 fac3.freeAppointments.Add(new DbAppointment(testDate3, 30, "", ObjectId.GenerateNewId().ToString()));
                 fac3.freeAppointments.Add(new DbAppointment(testDate4, 30, "", ObjectId.GenerateNewId().ToString()));
                 testDate = testDate.AddDays(1);
+                testDate2 = testDate2.AddDays(1);
+                testDate3 = testDate3.AddDays(1);
+                testDate4 = testDate4.AddDays(1);
+                testDate5 = testDate5.AddDays(1);
+                testDate6 = testDate6.AddDays(1);
+                testDate7 = testDate7.AddDays(1);
             }
 
             _mongoCrud.SaveOrUpdate(fac);
@@ -463,6 +493,12 @@ namespace SaveMyDay.WebApi.Controllers
                 fac.freeAppointments.Add(new DbAppointment(testDate, 30, "", ObjectId.GenerateNewId().ToString()));
                 fac.freeAppointments.Add(new DbAppointment(testDate2, 30, "", ObjectId.GenerateNewId().ToString()));
                 testDate = testDate.AddDays(1);
+                testDate2 = testDate2.AddDays(1);
+                testDate3 = testDate3.AddDays(1);
+                testDate4 = testDate4.AddDays(1);
+                testDate5 = testDate5.AddDays(1);
+                testDate6 = testDate6.AddDays(1);
+                testDate7 = testDate7.AddDays(1);
             }
 
             _mongoCrud.SaveOrUpdate(fac);
@@ -519,6 +555,12 @@ namespace SaveMyDay.WebApi.Controllers
                 fac2.freeAppointments.Add(new DbAppointment(testDate2, 30, "", ObjectId.GenerateNewId().ToString()));
                 fac2.freeAppointments.Add(new DbAppointment(testDate3, 30, "", ObjectId.GenerateNewId().ToString()));
                 testDate = testDate.AddDays(1);
+                testDate2 = testDate2.AddDays(1);
+                testDate3 = testDate3.AddDays(1);
+                testDate4 = testDate4.AddDays(1);
+                testDate5 = testDate5.AddDays(1);
+                testDate6 = testDate6.AddDays(1);
+                testDate7 = testDate7.AddDays(1);
             }
 
             _mongoCrud.SaveOrUpdate(fac);
@@ -576,6 +618,12 @@ namespace SaveMyDay.WebApi.Controllers
                 fac.freeAppointments.Add(new DbAppointment(testDate2, 30, "", ObjectId.GenerateNewId().ToString()));
                 fac2.freeAppointments.Add(new DbAppointment(testDate3, 30, "", ObjectId.GenerateNewId().ToString()));
                 testDate = testDate.AddDays(1);
+                testDate2 = testDate2.AddDays(1);
+                testDate3 = testDate3.AddDays(1);
+                testDate4 = testDate4.AddDays(1);
+                testDate5 = testDate5.AddDays(1);
+                testDate6 = testDate6.AddDays(1);
+                testDate7 = testDate7.AddDays(1);
             }
 
             _mongoCrud.SaveOrUpdate(fac);

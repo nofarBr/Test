@@ -38,18 +38,22 @@ namespace PathFinder.Controllers
             var appointments = FindAppointments(errands, selectedDate, city);
             var matrixDictionary = DistancesMatrixHandler.BuildDistancesMatrix(city, errandsForAlgo, constraintList);
             var algoritemRunner = new AlgoritemRunner();
-            algoritemRunner.Activate(errandsForAlgo, constraintList, appointments, matrixDictionary);
+            var succeed = algoritemRunner.Activate(errandsForAlgo, constraintList, appointments, matrixDictionary);
 
-            List<Path> resultPaths = algoritemRunner.Results.ToList().GetRange(0, 3);
-            for (int i = 0; i < resultPaths.Count; i++)
+
+            List<Path> resultPaths = new List<Path>();
+            if (succeed)
             {
-                resultPaths[i].Appointments.Reverse();
+                resultPaths = algoritemRunner.Results.ToList().GetRange(0, Math.Min(3, algoritemRunner.Results.Count));
+                for (int i = 0; i < resultPaths.Count; i++)
+                {
+                    resultPaths[i].Appointments.Reverse();
+                }
             }
-
             var paths = new List<Path>();
 
            // Send to the client
-            var result = new { paths = resultPaths, DoesSuccedded =  true};
+            var result = new { paths = resultPaths, DoesSuccedded = succeed };
             return Json(result);
         }
 
