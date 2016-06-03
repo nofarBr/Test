@@ -146,11 +146,15 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                 $('#resultModal').on('hidden.bs.modal', function (e) {
                     var choosePathBtnGroup = document.getElementById('ChoosePathBtnGroup');
                     var exportPathBtnGroup = document.getElementById('ExportPathBtnGroup');
+                    var pathsPanel = document.getElementById('pathsPanel');
 
                     choosePathBtnGroup.style.display = 'none';
                     choosePathBtnGroup.style.visibility = 'hidden';
                     exportPathBtnGroup.style.display = 'block';
                     exportPathBtnGroup.style.visibility = 'visible';
+
+                    pathsPanel.style.pointerEvents = 'none';
+                    pathsPanel.style.opacity = 0.6;
                 });
 
                 $('#resultModal').modal({ backdrop: 'static', keyboard: false });
