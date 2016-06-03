@@ -13,17 +13,6 @@ namespace SaveMyDay.DistancesMatrix
 {
     public class DistancesMatrixHandler
     {
-        public class BasicMatrixItem
-        {
-            public string Id { get; set; }
-            public string Location { get; set; }
-
-            public BasicMatrixItem(string strId, string strLocation)
-            {
-                Id = strId; Location = strLocation;
-            }
-        }
-
         public static Dictionary<Tuple<string, string>, int> BuildDistancesMatrix(string strCity, 
             List<CompanySubType> lstCompanyTypes, List<Constraint> lstConstraints)
         {
@@ -45,6 +34,141 @@ namespace SaveMyDay.DistancesMatrix
         }
 
         private static Dictionary<Tuple<string, string>, int> AddConstraintsToDistancesMatrix(
+            Dictionary<Tuple<string, string>, int> dictMatrix, List<Company> lstRelevantCompanies,
+            List<Constraint> lstConstraints)
+        {
+            int nCompaniesBulkSize = 8;
+            int nConstraintsBulkSize = 5;
+            int nCompaniesIterations = Convert.ToInt32(Math.Ceiling(lstRelevantCompanies.Count / Convert.ToDouble(nCompaniesBulkSize)));
+            int nConstraintsIterations = Convert.ToInt32(Math.Ceiling(lstConstraints.Count / Convert.ToDouble(nConstraintsBulkSize)));
+            string strRequestUrl;
+            WebRequest request;
+            WebResponse response;
+            XDocument xdoc;
+            IEnumerable<XElement> lstRows;
+
+            // Companies + Constraints Section
+
+            for (int i = 0; i < nCompaniesIterations; i++)
+            {
+                string strCompaniesAddresses = "";
+                for (int j = 0; (j < nCompaniesBulkSize) && (((i * nCompaniesBulkSize) + j) < lstRelevantCompanies.Count); j++)
+                {
+                    strCompaniesAddresses += lstRelevantCompanies[(i * nCompaniesBulkSize) + j].Location + "|";
+                }
+                strCompaniesAddresses = strCompaniesAddresses.Remove(strCompaniesAddresses.Length - 1, 1);
+
+                for (int k = 0; k < nConstraintsIterations; k++)
+                {
+                    string strConstraintsAddresses = "";
+                    for (int m = 0; (m < nConstraintsBulkSize) && (((k * nConstraintsBulkSize) + m) < lstConstraints.Count); m++)
+                    {
+                        strConstraintsAddresses += lstConstraints[(k * nConstraintsBulkSize) + m].Location + "|";
+                    }
+                    strConstraintsAddresses = strConstraintsAddresses.Remove(strConstraintsAddresses.Length - 1, 1);
+
+                    strRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + strCompaniesAddresses + "&destinations=" + strConstraintsAddresses + "&key=AIzaSyAkT3L_pAicJBPXlRfkOjo3yIB-RueCk9I";
+
+                    // Send request to google and get the response
+                    request = WebRequest.Create(strRequestUrl);
+                    response = request.GetResponse();
+
+                    // Convert the data to xml document
+                    xdoc = XDocument.Load(response.GetResponseStream());
+                    lstRows = xdoc.Element("DistanceMatrixResponse").Elements("row");
+
+                    // Run over all the results elements
+                    for (int n = 0; n < lstRows.Count(); n++)
+                    {
+                        IEnumerable<XElement> lstCols = xdoc.Element("DistanceMatrixResponse").Elements("row").ElementAt(n).Elements();
+                        for (int p = 0; p < lstCols.Count(); p++)
+                        {
+                            Tuple<string, string> tupleNew = new Tuple<string, string>(lstRelevantCompanies[(i * nCompaniesBulkSize) + n].Id, Convert.ToString((k * nConstraintsBulkSize) + p));
+                            dictMatrix.Add(tupleNew, int.Parse(lstCols.ElementAt(p).Element("duration").Element("value").Value));
+                        }
+                    }
+
+                    Thread.Sleep(12000);
+
+                    strRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + strConstraintsAddresses + "&destinations=" + strCompaniesAddresses + "&key=AIzaSyAkT3L_pAicJBPXlRfkOjo3yIB-RueCk9I";
+
+                    // Send request to google and get the response
+                    request = WebRequest.Create(strRequestUrl);
+                    response = request.GetResponse();
+
+                    // Convert the data to xml document
+                    xdoc = XDocument.Load(response.GetResponseStream());
+                    lstRows = xdoc.Element("DistanceMatrixResponse").Elements("row");
+
+                    // Run over all the results elements
+                    for (int n = 0; n < lstRows.Count(); n++)
+                    {
+                        IEnumerable<XElement> lstCols = xdoc.Element("DistanceMatrixResponse").Elements("row").ElementAt(n).Elements();
+                        for (int p = 0; p < lstCols.Count(); p++)
+                        {
+                            Tuple<string, string> tupleNew = new Tuple<string, string>(Convert.ToString((k * nConstraintsBulkSize) + n), lstRelevantCompanies[(i * nCompaniesBulkSize) + p].Id);
+                            dictMatrix.Add(tupleNew, int.Parse(lstCols.ElementAt(p).Element("duration").Element("value").Value));
+                        }
+                    }
+
+                    Thread.Sleep(12000);
+                }
+            }
+
+            // Only Constraints Section
+
+            int nOnlyConstraintsBulkSize = 6;
+            int nOnlyConstraintsIterations = Convert.ToInt32(Math.Ceiling(lstConstraints.Count / Convert.ToDouble(nOnlyConstraintsBulkSize)));
+
+            for (int i = 0; i < nOnlyConstraintsIterations; i++)
+            {
+                string strOutsideAddresses = "";
+                for (int j = 0; (j < nOnlyConstraintsBulkSize) && (((i * nOnlyConstraintsBulkSize) + j) < lstConstraints.Count); j++)
+                {
+                    strOutsideAddresses += lstConstraints[(i * nOnlyConstraintsBulkSize) + j].Location + "|";
+                }
+                strOutsideAddresses = strOutsideAddresses.Remove(strOutsideAddresses.Length - 1, 1);
+
+                for (int k = 0; k < nOnlyConstraintsIterations; k++)
+                {
+                    string strInsideAddresses = "";
+                    for (int m = 0; (m < nOnlyConstraintsBulkSize) && (((k * nOnlyConstraintsBulkSize) + m) < lstConstraints.Count); m++)
+                    {
+                        strInsideAddresses += lstConstraints[(k * nOnlyConstraintsBulkSize) + m].Location + "|";
+                    }
+                    strInsideAddresses = strInsideAddresses.Remove(strInsideAddresses.Length - 1, 1);
+
+                    strRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + strOutsideAddresses + "&destinations=" + strInsideAddresses + "&key=AIzaSyAkT3L_pAicJBPXlRfkOjo3yIB-RueCk9I";
+
+                    // Send request to google and get the response
+                    request = WebRequest.Create(strRequestUrl);
+                    response = request.GetResponse();
+
+                    // Convert the data to xml document
+                    xdoc = XDocument.Load(response.GetResponseStream());
+                    lstRows = xdoc.Element("DistanceMatrixResponse").Elements("row");
+
+                    // Run over all the results elements
+                    for (int n = 0; n < lstRows.Count(); n++)
+                    {
+                        IEnumerable<XElement> lstCols = xdoc.Element("DistanceMatrixResponse").Elements("row").ElementAt(n).Elements();
+                        for (int p = 0; p < lstCols.Count(); p++)
+                        {
+                            Tuple<string, string> tupleNew = new Tuple<string, string>(Convert.ToString((i * nOnlyConstraintsBulkSize) + n), Convert.ToString((k * nOnlyConstraintsBulkSize) + p));
+                            dictMatrix.Add(tupleNew, int.Parse(lstCols.ElementAt(p).Element("duration").Element("value").Value));
+                        }
+                    }
+
+                    Thread.Sleep(12000);
+                }
+            }
+
+            return (dictMatrix);
+        }
+
+        // OLD FUNCTION START //
+
+        /*private static Dictionary<Tuple<string, string>, int> AddConstraintsToDistancesMatrixOld(
             Dictionary<Tuple<string, string>, int> dictMatrix, List<Company> lstRelevantCompanies,
             List<Constraint> lstConstraints)
         {
@@ -130,7 +254,9 @@ namespace SaveMyDay.DistancesMatrix
             }
 
             return (dictMatrix);
-        }
+        }*/
+
+        // OLD FUNCTION END //
 
         private static Dictionary<Tuple<string, string>, int> FilterMatrixBySpecificCompanies(
             Dictionary<Tuple<string, string>, int> dictMatrix, List<Company> lstRelevantCompanies)
@@ -151,76 +277,5 @@ namespace SaveMyDay.DistancesMatrix
 
             return (dictFilteredMatrix);
         }
-
-        /*private static Dictionary<Tuple<string, string>, int> AddConstraintsToDistancesMatrix(
-            Dictionary<Tuple<string, string>, int> dictMatrix, List<Company> lstRelevantCompanies, 
-            List<Constraint> lstConstraints)
-        {
-            //Dictionary<Tuple<string, string>, int> dictMatrixWithConstraints = new Dictionary<Tuple<string, string>, int>(dictMatrix);
-
-            for (int i = 0; i < lstRelevantCompanies.Count; i++)
-            {
-                string strRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + lstRelevantCompanies[i].Location + "&destinations=";
-                for (int j = 0; j < lstConstraints.Count; j++)
-                {
-                    strRequestUrl += lstConstraints[j].Location + "|";
-                }
-                strRequestUrl = strRequestUrl.Remove(strRequestUrl.Length - 1, 1);
-                strRequestUrl += "&key=AIzaSyCOnipZ0p4Khy5BhgtWhmLdkO9j4Du1-iw";
-
-                // Send request to google and get the response
-                var request = WebRequest.Create(strRequestUrl);
-                var response = request.GetResponse();
-
-                // Convert the data to xml document
-                var xdoc = XDocument.Load(response.GetResponseStream());
-                IEnumerable<XElement> lstElements = xdoc.Element("DistanceMatrixResponse").Element("row").Elements();
-
-                // Run over all the results elements
-                for (int k = 0; k < lstElements.Count(); k++)
-                {
-                    Tuple<string, string> tupleNew = new Tuple<string, string>(lstRelevantCompanies[i].Id, Convert.ToString(k));
-                    dictMatrix.Add(tupleNew, int.Parse(lstElements.ElementAt(k).Element("duration").Element("value").Value));
-                }
-
-                Thread.Sleep(12000);
-            }
-
-            List<BasicMatrixItem> lstItems = lstRelevantCompanies.Select(p => new BasicMatrixItem(p.Id, p.Location)).ToList();
-            for (int i = 0; i < lstConstraints.Count; i++)
-            {
-                lstItems.Add(new BasicMatrixItem(Convert.ToString(i), lstConstraints[i].Location));
-            }
-
-            for (int i = 0; i < lstConstraints.Count; i++)
-            {
-                string strRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + lstConstraints[i].Location + "&destinations=";
-                for (int j = 0; j < lstItems.Count; j++)
-                {
-                    strRequestUrl += lstItems[j].Location + "|";
-                }
-                strRequestUrl = strRequestUrl.Remove(strRequestUrl.Length - 1, 1);
-                strRequestUrl += "&key=AIzaSyCOnipZ0p4Khy5BhgtWhmLdkO9j4Du1-iw";
-
-                // Send request to google and get the response
-                var request = WebRequest.Create(strRequestUrl);
-                var response = request.GetResponse();
-
-                // Convert the data to xml document
-                var xdoc = XDocument.Load(response.GetResponseStream());
-                IEnumerable<XElement> lstElements = xdoc.Element("DistanceMatrixResponse").Element("row").Elements();
-
-                // Run over all the results elements
-                for (int k = 0; k < lstElements.Count(); k++)
-                {
-                    Tuple<string, string> tupleNew = new Tuple<string, string>(Convert.ToString(i), lstItems[k].Id);
-                    dictMatrix.Add(tupleNew, int.Parse(lstElements.ElementAt(k).Element("duration").Element("value").Value));
-                }
-
-                Thread.Sleep(12000);
-            }
-
-            return (dictMatrix);
-        }*/
     }
 }
