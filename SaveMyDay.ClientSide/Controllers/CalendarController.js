@@ -340,6 +340,7 @@ app.controller('calendarCtrl', function ($scope) {
 
 app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $location) {
     $scope.calculateRequest = function () {
+        $('#waitModal').modal({ backdrop: 'static', keyboard: false });
         var allEvents = $('#calendar').fullCalendar('clientEvents');
         var events = [];
 
@@ -398,21 +399,29 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
         if (!valueInCityList) {
             document.getElementById('errorMsg').value = "בחר עיר מתוך רשימת הערים";
             document.getElementById('errorMsg').innerHTML = "בחר עיר מתוך רשימת הערים";
+            $('#waitModal').modal('hide');
             $('#errorModal').modal();
-        } else if (unselectedDropDown) {
-            document.getElementById('errorMsg').value = "בחר סידור משימת הסידורים האפשריים";
-            document.getElementById('errorMsg').innerHTML = "בחר סידור משימת הסידורים האפשריים";
+        } else if (unselectedDropDown || selectedAppointments.length == 0) {
+            document.getElementById('errorMsg').value = "הוסף\\בחר סידור מרשימת הסידורים האפשריים";
+            document.getElementById('errorMsg').innerHTML = "הוסף\\בחר סידור מרשימת הסידורים האפשריים";
+            $('#waitModal').modal('hide');
             $('#errorModal').modal();
         } else {
             var url = 'http://localhost:52747/api/PathCalculator';
             var data = dataObject;
             $http.post(url, data)
             .success(function (data) {
-                $rootScope.pathsList = data.paths;
-                $location.path("/map");
+                $('#waitModal').modal('hide');
+                setTimeout(function () {
+                    $rootScope.pathsList = data.paths;
+                    window.location.href = '#/map';
+                }, 500);
             })
             .error(function (data, status, header, config) {
-                var b = 3;
+                $('#waitModal').modal('hide');
+                document.getElementById('errorMsg').value = "שגיאה בקביעת התורים";
+                document.getElementById('errorMsg').innerHTML = "שגיאה בקביעת התורים";
+                $('#errorModal').modal();
             });
         }
     }

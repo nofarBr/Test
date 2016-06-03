@@ -140,7 +140,7 @@
       <Name>SaveMyDay.Algoritem</Name>
     </ProjectReference>
     <ProjectReference Include="..\SaveMyDay.DistancesMatrix\SaveMyDay.DistancesMatrix.csproj">
-      <Project>{4B37FFF5-6E6D-41FA-8B66-9DCEA81E8DBC}</Project>
+      <Project>{4b37fff5-6e6d-41fa-8b66-9dcea81e8dbc}</Project>
       <Name>SaveMyDay.DistancesMatrix</Name>
     </ProjectReference>
   </ItemGroup>

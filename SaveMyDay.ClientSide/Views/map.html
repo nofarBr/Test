@@ -86,10 +86,15 @@
 
 <script>
     var myVar = setInterval(function () { checkIfDocLoaded() }, 500);
+    var already_loaded = false;
 
     function checkIfDocLoaded() {
-        if (document.readyState == "complete") {
+        if (document.readyState == "complete" && !already_loaded) {
+            already_loaded = true;
             angular.element(document.getElementById('myMainDiv')).scope().ShowPath(1);
+        }
+        if (already_loaded)
+        {
             clearInterval(myVar);
         }
     }

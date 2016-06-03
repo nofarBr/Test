@@ -31,19 +31,116 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
             var labels = [];
             var path_details = [];
 
-            // Running over all the appointments for the current path
-            for (var j = 0; j < arrAlgorithmPaths[i].Appointments.length; j++) {
-                locations.push(arrAlgorithmPaths[i].Appointments[j].Company.Location);
-                labels.push(arrCompanyTypeLabels[arrAlgorithmPaths[i].Appointments[j].Company.Type]);
-                var date = new Date(arrAlgorithmPaths[i].Appointments[j].Time);
-                path_details.push({
-                    icon: arrAlgorithmPaths[i].Appointments[j].Company.Type,
-                    sub_type: arrCompanySubTypeLabels[arrAlgorithmPaths[i].Appointments[j].Company.SubType],
-                    time: date.toTimeString().replace(/^(\d{2}:\d{2}).*/, "$1"),
-                    desc: arrAlgorithmPaths[i].Appointments[j].Remark,
-                    address: arrAlgorithmPaths[i].Appointments[j].Company.Location
-                });
+            var indexAppointment = 0;
+            var indexConstraint = 0;
+            //var newLocationsArray = [];
+            //var newLabelsArray = [];
+            var arrCombinedList = [];
+
+            while (indexAppointment < arrAlgorithmPaths[i].Appointments.length &&
+                   indexConstraint < arrAlgorithmPaths[i].Constraints.length)
+            {
+                var timeAppointment = new Date(arrAlgorithmPaths[i].Appointments[indexAppointment].Time);
+                var timeConstraint = new Date(arrAlgorithmPaths[i].Constraints[indexConstraint].Start);
+
+                if (timeAppointment < timeConstraint)
+                {
+                    arrCombinedList.push({
+                        type: "appointment",
+                        index: indexAppointment
+                    });
+                    //newLocationsArray.push(arrAlgorithmPaths[i].Appointments[indexAppointment].Company.Location);
+                    //newLabelsArray.push(arrCompanyTypeLabels[arrAlgorithmPaths[i].Appointments[indexAppointment].Company.Type]);
+                    indexAppointment++;
+                }
+                else
+                {
+                    arrCombinedList.push({
+                        type: "constraint",
+                        index: indexConstraint
+                    });
+                    //newLocationsArray.push(arrAlgorithmPaths[i].Constraints[indexConstraint].Location);
+                    //newLabelsArray.push(arrAlgorithmPaths[i].Constraints[indexConstraint].Title);
+                    indexConstraint++;
+                }
             }
+
+            if (indexAppointment < arrAlgorithmPaths[i].Appointments.length)
+            {
+                while (indexAppointment < arrAlgorithmPaths[i].Appointments.length)
+                {
+                    arrCombinedList.push({
+                        type: "appointment",
+                        index: indexAppointment
+                    });
+                    //newLocationsArray.push(arrAlgorithmPaths[i].Appointments[indexAppointment].Company.Location);
+                    //newLabelsArray.push(arrCompanyTypeLabels[arrAlgorithmPaths[i].Appointments[indexAppointment].Company.Type]);
+                    indexAppointment++;
+                }
+            }
+            else
+            {
+                while (indexConstraint < arrAlgorithmPaths[i].Constraints.length)
+                {
+                    arrCombinedList.push({
+                        type: "constraint",
+                        index: indexConstraint
+                    });
+                    //newLocationsArray.push(arrAlgorithmPaths[i].Constraints[indexConstraint].Location);
+                    //newLabelsArray.push(arrAlgorithmPaths[i].Constraints[indexConstraint].Title);
+                    indexConstraint++;
+                }
+            }
+
+            //alert("newLocationsArray = " + newLocationsArray);
+            //alert("newLabelsArray = " + newLabelsArray);
+
+            for (var k = 0; k < arrCombinedList.length; k++)
+            {
+                var itemIndex = arrCombinedList[k].index;
+                if (arrCombinedList[k].type == 'appointment')
+                {
+                    // Appointment
+                    locations.push(arrAlgorithmPaths[i].Appointments[itemIndex].Company.Location);
+                    labels.push(arrCompanySubTypeLabels[arrAlgorithmPaths[i].Appointments[itemIndex].Company.SubType]);
+                    var date = new Date(arrAlgorithmPaths[i].Appointments[itemIndex].Time);
+                    path_details.push({
+                        icon: arrAlgorithmPaths[i].Appointments[itemIndex].Company.Type,
+                        sub_type: arrCompanySubTypeLabels[arrAlgorithmPaths[i].Appointments[itemIndex].Company.SubType],
+                        time: date.toISOString().split('T')[1].replace(/^(\d{2}:\d{2}).*/, "$1"),
+                        desc: arrAlgorithmPaths[i].Appointments[itemIndex].Remark,
+                        address: arrAlgorithmPaths[i].Appointments[itemIndex].Company.Location
+                    });
+                }
+                else
+                {
+                    // Constraint
+                    locations.push(arrAlgorithmPaths[i].Constraints[itemIndex].Location);
+                    labels.push(arrAlgorithmPaths[i].Constraints[itemIndex].Title);
+                    var date = new Date(arrAlgorithmPaths[i].Constraints[itemIndex].Start);
+                    path_details.push({
+                        icon: 3,
+                        sub_type: arrAlgorithmPaths[i].Constraints[itemIndex].Title,
+                        time: date.toISOString().split('T')[1].replace(/^(\d{2}:\d{2}).*/, "$1"),
+                        desc: "",
+                        address: arrAlgorithmPaths[i].Constraints[itemIndex].Location
+                    });
+                }
+            }
+            
+            // Running over all the appointments for the current path
+            //for (var j = 0; j < arrAlgorithmPaths[i].Appointments.length; j++) {
+            //    locations.push(arrAlgorithmPaths[i].Appointments[j].Company.Location);
+            //    labels.push(arrCompanyTypeLabels[arrAlgorithmPaths[i].Appointments[j].Company.Type]);
+            //    var date = new Date(arrAlgorithmPaths[i].Appointments[j].Time);
+            //    path_details.push({
+            //        icon: arrAlgorithmPaths[i].Appointments[j].Company.Type,
+            //        sub_type: arrCompanySubTypeLabels[arrAlgorithmPaths[i].Appointments[j].Company.SubType],
+            //        time: date.toTimeString().replace(/^(\d{2}:\d{2}).*/, "$1"),
+            //        desc: arrAlgorithmPaths[i].Appointments[j].Remark,
+            //        address: arrAlgorithmPaths[i].Appointments[j].Company.Location
+            //    });
+            //}
 
             // Add the current path as route in the map
             addNewRoute(i, locations, labels, arrAlgorithmPaths[i].type);
@@ -131,11 +228,19 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
         
         $http.post(url, data)
         .success(function (data) {
-            $('#resultModal').on('hidden.bs.modal', function (e) {
-                window.location.href = '#/home';
-            });
+            if (data.success) {
+                $('#resultModal').on('hidden.bs.modal', function (e) {
+                    window.location.href = '#/home';
+                });
 
-            $('#resultModal').modal({ backdrop: 'static', keyboard: false });            
+                $('#resultModal').modal({ backdrop: 'static', keyboard: false });
+            } else {
+                $('#failedResultModal').on('hidden.bs.modal', function (e) {
+                    window.location.href = '#/home';
+                });
+
+                $('#failedResultModal').modal({ backdrop: 'static', keyboard: false });
+            }
         })
         .error(function (data, status, header, config) {
             $('#failedResultModal').on('hidden.bs.modal', function (e) {

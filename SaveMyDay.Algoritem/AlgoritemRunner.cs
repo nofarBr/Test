@@ -25,6 +25,8 @@ namespace SaveMyDay.Algoritem
 
         public bool Activate(List<CompanySubType> errands, List<Constraint> constraints, Dictionary<CompanySubType, List<Appointment>> appointmentDataBase, Dictionary<Tuple<string,string>,int> deltaTimeMatrix)
         {
+            constraints = constraints.OrderBy(c => c.Start).ToList();
+
             // the number of options in every row
             var numberOfErrandCombinations = (int)Math.Pow(2, errands.Count);
             _routeMatrix = new PathHandler[HOUR_MAX - HOUR_MIN + 1, numberOfErrandCombinations];
