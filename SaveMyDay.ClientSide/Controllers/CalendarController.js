@@ -411,11 +411,18 @@ app.controller('calculateRequestCtrl', function ($scope, $rootScope, $http, $loc
             var data = dataObject;
             $http.post(url, data)
             .success(function (data) {
-                $('#waitModal').modal('hide');
-                setTimeout(function () {
-                    $rootScope.pathsList = data.paths;
-                    window.location.href = '#/map';
-                }, 500);
+                if (data.DoesSuccedded) {
+                    $('#waitModal').modal('hide');
+                    setTimeout(function () {
+                        $rootScope.pathsList = data.paths;
+                        window.location.href = '#/map';
+                    }, 500);
+                } else {
+                    $('#waitModal').modal('hide');
+                    document.getElementById('errorMsg').value = "שגיאה בקביעת התורים";
+                    document.getElementById('errorMsg').innerHTML = "שגיאה בקביעת התורים";
+                    $('#errorModal').modal();
+                }
             })
             .error(function (data, status, header, config) {
                 $('#waitModal').modal('hide');

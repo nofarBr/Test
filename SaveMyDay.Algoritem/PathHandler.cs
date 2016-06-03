@@ -63,7 +63,7 @@ namespace SaveMyDay.Algoritem
                     }
                     return false;
                 }
-                else if (item.EndTime > appointment.Time.AddHours(1))
+                else if (item.EndTime > appointment.Time)
                     return false;
                 lastItem = item;
             }
