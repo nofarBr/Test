@@ -205,9 +205,15 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
     }
 
     $scope.CreateNewDay = function () {
-        window.location.href = '#/calendar';
+        $('#confirmModal').modal('hide');
+        setTimeout(function () {
+            window.location.href = '#/calendar';
+        }, 500);
     }
 
+    $scope.ConfirmCreateNewDay = function () {
+        $('#confirmModal').modal({ backdrop: 'static', keyboard: false });
+    }
 });
 
 app.directive('myPostRepeatDirective', function () {
