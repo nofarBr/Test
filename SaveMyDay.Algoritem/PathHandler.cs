@@ -111,11 +111,14 @@ namespace SaveMyDay.Algoritem
 
             double diffInSeconds = 0;
 
-            DateTime before = items[0].StartTime;
-            foreach (PathItemHandler item in items)
+            if (items.Count != 0)
             {
-                diffInSeconds += (item.StartTime - before).TotalMinutes;
-                before = item.EndTime;
+                DateTime before = items[0].StartTime;
+                foreach (PathItemHandler item in items)
+                {
+                    diffInSeconds += (item.StartTime - before).TotalMinutes;
+                    before = item.EndTime;
+                }
             }
 
             return diffInSeconds;
