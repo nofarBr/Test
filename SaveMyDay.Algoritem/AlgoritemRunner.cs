@@ -56,10 +56,15 @@ namespace SaveMyDay.Algoritem
                     {
                         if (bits[bit])
                         {
-                            for(int j = currHour; j < HOUR_MAX; j++)
-                                if(_routeMatrix[j - HOUR_MIN + 1, i - (int)Math.Pow(2, bit)] != null)
-                                    optionList.AddRange(FindAppointmentsBetweenTimes(currHour, currHour + 1, _routeMatrix[j-HOUR_MIN+1,i-(int)Math.Pow(2,bit)],
+                            for (int j = currHour; j < HOUR_MAX; j++)
+                            {
+                                if (_routeMatrix[j - HOUR_MIN + 1, i - (int) Math.Pow(2, bit)] != null)
+                                    optionList.AddRange(FindAppointmentsBetweenTimes(currHour, currHour + 1,
+                                        _routeMatrix[j - HOUR_MIN + 1, i - (int) Math.Pow(2, bit)],
                                         appointmentDataBase[errands[bit]], deltaTimeMatrix));
+                                if (i - (int)Math.Pow(2, bit) == 0)
+                                    break;
+                            }
                             // 2 path combiner ?????? TODO:
                         }
                     }
@@ -84,7 +89,7 @@ namespace SaveMyDay.Algoritem
                         finalOptionList.AddRange(optionList);
                 }
             }
-            if(finalOptionList.Count < 3)
+            if(finalOptionList.Count < 3 && numberOfErrandCombinations != 2)
                 for (var i = 0; i < HOUR_MAX - HOUR_MIN; i++)
                 {
                     for (var j = 1; j < numberOfErrandCombinations; j*=2)
