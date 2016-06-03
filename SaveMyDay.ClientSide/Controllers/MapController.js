@@ -200,6 +200,10 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
         }
     }
 
+    $scope.CreateNewDay = function () {
+        window.location.href = '#/calendar';
+    }
+
 });
 
 app.directive('myPostRepeatDirective', function () {
