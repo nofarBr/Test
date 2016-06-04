@@ -202,6 +202,9 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
             modifyRoute(1, '#A8CFFF', 'false');
             modifyRoute(2, '#0000FF', 'true');
         }
+
+        $scope.curr_path_total_km = getTotalDistance(path_id - 1);
+        $scope.$apply();
     }
 
     $scope.CreateNewDay = function () {
