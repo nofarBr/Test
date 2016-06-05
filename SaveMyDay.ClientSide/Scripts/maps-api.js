@@ -3,11 +3,13 @@ var geocoder;
 var markers = [];
 var directionsDisplays = [];
 var markersPerPath = [];
+var totalDistances = [];
 
 function initializeMap() {
     markers = [];
     directionsDisplays = [];
     markersPerPath = [];
+    totalDistances = [];
     geocoder = new google.maps.Geocoder();
     var mapOptions = {
         center: new google.maps.LatLng(31.382911, 35.030984),
@@ -156,6 +158,7 @@ function addNewRoute(path_id, places, labels, travel_type) {
     }, function (response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+            totalDistances.push(calculateTotalDistance(directionsDisplay));
         } else {
             window.alert('Directions request failed due to ' + status);
         }
@@ -170,3 +173,20 @@ function addNewRoute(path_id, places, labels, travel_type) {
         addLabelMarker(path_id, places[i], labels[i]);
     }*/
 }
+
+function calculateTotalDistance(directionResult) {
+    var result = directionResult.getDirections();
+    var total = 0;
+    var myroute = result.routes[0];
+    for (var i = 0; i < myroute.legs.length; i++) {
+        total += myroute.legs[i].distance.value;
+    }
+    total = total / 1000;
+    return (total);
+}
+
+function getTotalDistance(path_id) {
+    return (totalDistances[path_id]);
+}
+
+

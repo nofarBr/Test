@@ -19,6 +19,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
         // Define the labels for each company type
         var arrCompanyTypeLabels = ['תור לרופא', 'תור לבנק', 'תור לדואר'];
         var arrCompanySubTypeLabels = ['רופא ילדים', 'רופא עור', 'רופא משפחה', 'בנק דיסקונט', 'בנק מזרחי', 'בנק לאומי', 'איסוף חבילות', 'משלוח חבילות', 'תשלומים ומשלוח מכתבים']
+        var arrPathLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
         
         var arrAlgorithmPaths = angular.fromJson(pathsList);
         $scope.AllPaths = arrAlgorithmPaths;
@@ -95,8 +96,25 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
             //alert("newLocationsArray = " + newLocationsArray);
             //alert("newLabelsArray = " + newLabelsArray);
 
+            
+
             for (var k = 0; k < arrCombinedList.length; k++)
             {
+                var color_of_letter;
+                var color_of_border;
+                if (k == arrCombinedList.length - 1)
+                {
+                    // last letter
+                    color_of_letter = "#f7685c";
+                    color_of_border = "#b73830";
+                }
+                else
+                {
+                    // not-last letter
+                    color_of_letter = "#73bf37";
+                    color_of_border = "#4f8323";
+                }
+
                 var itemIndex = arrCombinedList[k].index;
                 if (arrCombinedList[k].type == 'appointment')
                 {
@@ -109,7 +127,10 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                         sub_type: arrCompanySubTypeLabels[arrAlgorithmPaths[i].Appointments[itemIndex].Company.SubType],
                         time: date.toISOString().split('T')[1].replace(/^(\d{2}:\d{2}).*/, "$1"),
                         desc: arrAlgorithmPaths[i].Appointments[itemIndex].Remark,
-                        address: arrAlgorithmPaths[i].Appointments[itemIndex].Company.Location
+                        address: arrAlgorithmPaths[i].Appointments[itemIndex].Company.Location,
+                        letter: arrPathLetters[k],
+                        letter_color: color_of_letter,
+                        letter_border_color: color_of_border
                     });
                 }
                 else
@@ -123,7 +144,10 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                         sub_type: arrAlgorithmPaths[i].Constraints[itemIndex].Title,
                         time: date.toISOString().split('T')[1].replace(/^(\d{2}:\d{2}).*/, "$1"),
                         desc: "",
-                        address: arrAlgorithmPaths[i].Constraints[itemIndex].Location
+                        address: arrAlgorithmPaths[i].Constraints[itemIndex].Location,
+                        letter: arrPathLetters[k],
+                        letter_color: color_of_letter,
+                        letter_border_color: color_of_border
                     });
                 }
             }
@@ -202,6 +226,9 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
             modifyRoute(1, '#A8CFFF', 'false');
             modifyRoute(2, '#0000FF', 'true');
         }
+
+        $scope.curr_path_total_km = getTotalDistance(path_id - 1);
+        $scope.$apply();
     }
 
     $scope.CreateNewDay = function () {

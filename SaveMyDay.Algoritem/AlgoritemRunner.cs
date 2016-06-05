@@ -54,7 +54,7 @@ namespace SaveMyDay.Algoritem
                     var optionList = new List<PathHandler>();
                     for (var bit = 0; bit < bits.Length; bit++)
                     {
-                        if (bits[bit])
+                        if (bits[bit] && appointmentDataBase.ContainsKey(errands[bit]))
                         {
                             for (int j = currHour; j < HOUR_MAX; j++)
                             {
