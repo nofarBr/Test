@@ -30,7 +30,9 @@
                                         <div class="md-list-item-text">
                                             <h3>{{item.time}} - {{item.sub_type}}</h3>
                                             <h4>{{item.desc}}</h4>
-                                            <p>{{item.address}}</p>
+                                            <p>{{item.address}}
+                                                <span class="circle" style="float:left;background:{{item.letter_color}};color:black;">{{item.letter}}</span>
+                                            </p>
                                         </div>
                                         <md-divider md-inset ng-if="!$last"></md-divider>
                                     </md-list-item>

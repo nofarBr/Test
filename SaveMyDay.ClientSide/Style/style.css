@@ -28,6 +28,19 @@ html, body {
     border:1px solid #ABABAB;
 }
 
+.circle
+    {
+    display:block;
+    width:23px;
+    height:23px;
+    border-radius:30px;
+    font-size:14px;
+    color:black;
+    line-height:25px;
+    text-align:center;
+    font-weight:600;
+    }
+
 /* Map labels for places */
 .map-labels {
      color: black;
