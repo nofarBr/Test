@@ -72,7 +72,11 @@ namespace SaveMyDay.Algoritem
         
         private TimeSpan GetDeadTime(PathItemHandler first, PathItemHandler second, Dictionary<Tuple<string, string>, int> deltaTimeMatrix)
         {
-            return second.StartTime - first.EndTime - new TimeSpan(0,0,deltaTimeMatrix[new Tuple<string,string>(first.Id, second.Id)]);
+            if (deltaTimeMatrix.ContainsKey(new Tuple<string, string>(first.Id, second.Id)))
+                return second.StartTime - first.EndTime -
+                       new TimeSpan(0, 0, deltaTimeMatrix[new Tuple<string, string>(first.Id, second.Id)]);
+            else
+                return new TimeSpan(-1, 0, 0);
         }
 
         public double GetOverallDeadTime(Dictionary<Tuple<string, string>, int> deltaTimeMatrix)
