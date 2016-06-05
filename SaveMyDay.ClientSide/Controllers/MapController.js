@@ -231,6 +231,11 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
         $scope.$apply();
     }
 
+    
+    $scope.PrintPath = function () {
+        window.print();
+    
+
     $scope.CreateNewDay = function () {
         $('#confirmModal').modal('hide');
         setTimeout(function () {
