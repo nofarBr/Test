@@ -101,15 +101,18 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
             for (var k = 0; k < arrCombinedList.length; k++)
             {
                 var color_of_letter;
+                var color_of_border;
                 if (k == arrCombinedList.length - 1)
                 {
                     // last letter
                     color_of_letter = "#f7685c";
+                    color_of_border = "#b73830";
                 }
                 else
                 {
                     // not-last letter
                     color_of_letter = "#73bf37";
+                    color_of_border = "#4f8323";
                 }
 
                 var itemIndex = arrCombinedList[k].index;
@@ -126,7 +129,8 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                         desc: arrAlgorithmPaths[i].Appointments[itemIndex].Remark,
                         address: arrAlgorithmPaths[i].Appointments[itemIndex].Company.Location,
                         letter: arrPathLetters[k],
-                        letter_color: color_of_letter
+                        letter_color: color_of_letter,
+                        letter_border_color: color_of_border
                     });
                 }
                 else
@@ -142,7 +146,8 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                         desc: "",
                         address: arrAlgorithmPaths[i].Constraints[itemIndex].Location,
                         letter: arrPathLetters[k],
-                        letter_color: color_of_letter
+                        letter_color: color_of_letter,
+                        letter_border_color: color_of_border
                     });
                 }
             }
