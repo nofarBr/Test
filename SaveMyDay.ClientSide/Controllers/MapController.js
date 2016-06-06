@@ -255,17 +255,16 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
         //take it from somewhere...
         var appointments = $scope.choosenPath.Appointments;
         appointments.forEach(function (appointment) {
-            var endDate = new Date(Date.parse(appointment.Time));
-            endDate.setHours(endDate.getHours() + 1);
-            if (appointment.Company) {
+            if (appointment.Company && appointment.Time) {
+                var time = appointment.Time.slice(0, -1);
                 var event = {
                     'summary': 'תור ל' + appointment.Remark,
                     'location': appointment.Company.Location,
                     'start': {
-                        'dateTime': appointment.Time + "+03:00",
+                        'dateTime': time + "+03:00",
                     },
                     'end': {
-                        'dateTime': appointment.Time + "+02:00",
+                        'dateTime': time + "+02:00",
                     },
                     'reminders': {
                         'useDefault': true,
@@ -278,6 +277,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
                 });
 
                 request.execute(function (event) {
+                    var a = "2016-06-06T20:00:00Z";
                 });
             }
             
@@ -288,7 +288,7 @@ app.controller('mapCtrl', function ($scope, $rootScope, $http) {
 
     $scope.exportToGoogleCalendar = function () {
         $scope.choosenPath = $scope.AllPaths[$scope.chosen_path - 1];
-        //$scope.choosenPath = { "Id": "1", "User": { "Id": "1", "Name": "Nofar", "Password": "1234" }, "Appointments": [{ "Id": "1", "Company": { "Id": "1", "Location": "הנרייטה סולד 32 חולון", "Type": 0, "SubType": 0, "UrlForApi": null }, "Time": "2016-05-26T10:00:00", "Remark": "Doctor one" }, { "Id": "2", "Company": { "Id": "2", "Location": "רוטשילד 8 חולון", "Type": 2, "SubType": 7, "UrlForApi": null }, "Time": "2016-05-26T12:00:00", "Remark": "mail one" }, { "Id": "3", "Company": { "Id": "4", "Location": "קפלן 8 חולון", "Type": 0, "SubType": 2, "UrlForApi": null }, "Time": "2016-05-26T16:00:00", "Remark": "bank one" }, { "Id": "4", "Company": null, "Time": "2016-05-26T18:00:00", "Remark": "bank one" }], "Constraints": [], "type": 0 };
+        //$scope.choosenPath = { "Id": null, "User": null, "Appointments": [{ "Id": null, "Company": { "Id": "574f36bdfcbe794a5c6380d3", "Location": "‏הגפן 1, תל אביב יפו", "Type": 1, "SubType": 3, "UrlForApi": "http://some.uri.com/" }, "Time": "2016-06-06T20:00:00Z", "Remark": "" }], "Constraints": [], "type": 0 }
         authenticate(createNewAppoiment);
     }
 });
