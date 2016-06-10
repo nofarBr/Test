@@ -98,6 +98,7 @@
     <Content Include="Style\bootstrap.min.css" />
     <Content Include="Style\fullcalendar.css" />
     <Content Include="Style\fullcalendar.print.css" />
+    <Content Include="Style\Images\home.png" />
     <Content Include="Style\jquery.timepicker.css" />
     <Content Include="Style\tabs.css" />
     <Content Include="Style\tabstyles.css" />
