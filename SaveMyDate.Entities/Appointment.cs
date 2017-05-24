@@ -12,6 +12,9 @@ namespace SaveMyDate.Entities
         public DateTime Time { get; set; }
         public string Remark { get; set; }
 
+
+
+
         public Appointment()
         {
             
